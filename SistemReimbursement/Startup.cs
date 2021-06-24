@@ -29,7 +29,7 @@ namespace SistemReimbursement
         {
             services.AddControllers();
             services.AddDbContext<MyContext>(options =>
-           options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("ApiReimbursement")));
+            options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("ApiReimbursement")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
