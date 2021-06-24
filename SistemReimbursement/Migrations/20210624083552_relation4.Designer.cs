@@ -10,8 +10,8 @@ using SistemReimbursement.Context;
 namespace SistemReimbursement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210624080700_relation2")]
-    partial class relation2
+    [Migration("20210624083552_relation4")]
+    partial class relation4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

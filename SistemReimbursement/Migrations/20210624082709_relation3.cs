@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemReimbursement.Migrations
 {
-    public partial class relation2 : Migration
+    public partial class relation3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -104,24 +104,12 @@ namespace SistemReimbursement.Migrations
                 {
                     table.PrimaryKey("PK_TB_M_Account", x => x.Nik);
                     table.ForeignKey(
-                        name: "FK_TB_M_Account_TB_M_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "TB_M_Role",
-                        principalColumn: "RoleId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_TB_M_Account_TB_M_User_Nik",
                         column: x => x.Nik,
                         principalTable: "TB_M_User",
                         principalColumn: "Nik",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TB_M_Account_RoleId",
-                table: "TB_M_Account",
-                column: "RoleId",
-                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -136,10 +124,10 @@ namespace SistemReimbursement.Migrations
                 name: "TB_M_Reimbursement");
 
             migrationBuilder.DropTable(
-                name: "TB_TR_Attachment");
+                name: "TB_M_Role");
 
             migrationBuilder.DropTable(
-                name: "TB_M_Role");
+                name: "TB_TR_Attachment");
 
             migrationBuilder.DropTable(
                 name: "TB_M_User");
