@@ -13,5 +13,6 @@ namespace SistemReimbursement.Models
         [Key]
         public int RoleId { get; set; }
         public string RoleName { get; set; }
+        public virtual Account Account { get; set; }
     }
 }

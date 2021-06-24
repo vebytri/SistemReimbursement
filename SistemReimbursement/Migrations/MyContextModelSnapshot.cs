@@ -21,10 +21,8 @@ namespace SistemReimbursement.Migrations
 
             modelBuilder.Entity("SistemReimbursement.Models.Account", b =>
                 {
-                    b.Property<int>("NIK")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("Nik")
+                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
@@ -32,7 +30,10 @@ namespace SistemReimbursement.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.HasKey("NIK");
+                    b.HasKey("Nik");
+
+                    b.HasIndex("RoleId")
+                        .IsUnique();
 
                     b.ToTable("TB_M_Account");
                 });
@@ -170,6 +171,35 @@ namespace SistemReimbursement.Migrations
                     b.HasKey("Nik");
 
                     b.ToTable("TB_M_User");
+                });
+
+            modelBuilder.Entity("SistemReimbursement.Models.Account", b =>
+                {
+                    b.HasOne("SistemReimbursement.Models.User", "User")
+                        .WithOne("Account")
+                        .HasForeignKey("SistemReimbursement.Models.Account", "Nik")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemReimbursement.Models.Role", "Role")
+                        .WithOne("Account")
+                        .HasForeignKey("SistemReimbursement.Models.Account", "RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SistemReimbursement.Models.Role", b =>
+                {
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("SistemReimbursement.Models.User", b =>
+                {
+                    b.Navigation("Account");
                 });
 #pragma warning restore 612, 618
         }

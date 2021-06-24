@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using SistemReimbursement.Context;
+using SistemReimbursement.Repository.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,12 @@ namespace SistemReimbursement
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<UserRepository>();
+            services.AddScoped<AccountRepository>();
+            services.AddScoped<RoleRepository>();
+            services.AddScoped<ReimbursementRepository>();
+            services.AddScoped<AttachmentRepository>();
+            services.AddScoped<CategoryRepository>();
             services.AddDbContext<MyContext>(options =>
             options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("ApiReimbursement")));
         }
