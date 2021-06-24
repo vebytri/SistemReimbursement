@@ -10,8 +10,8 @@ using SistemReimbursement.Context;
 namespace SistemReimbursement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210624083552_relation4")]
-    partial class relation4
+    [Migration("20210624095657_FullRelation2")]
+    partial class FullRelation2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,6 +58,10 @@ namespace SistemReimbursement.Migrations
 
                     b.HasKey("AttachmentId");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ReimbursementId");
+
                     b.ToTable("TB_TR_Attachment");
                 });
 
@@ -85,6 +89,9 @@ namespace SistemReimbursement.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AccountNik")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("FinanceApprovalDate")
                         .HasColumnType("datetime2");
@@ -120,6 +127,8 @@ namespace SistemReimbursement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ReimbursementId");
+
+                    b.HasIndex("AccountNik");
 
                     b.ToTable("TB_M_Reimbursement");
                 });
@@ -192,6 +201,49 @@ namespace SistemReimbursement.Migrations
                     b.Navigation("Role");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SistemReimbursement.Models.Attachment", b =>
+                {
+                    b.HasOne("SistemReimbursement.Models.Category", "Category")
+                        .WithMany("Attachment")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemReimbursement.Models.Reimbursement", "Reimbursement")
+                        .WithMany("Attachment")
+                        .HasForeignKey("ReimbursementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Reimbursement");
+                });
+
+            modelBuilder.Entity("SistemReimbursement.Models.Reimbursement", b =>
+                {
+                    b.HasOne("SistemReimbursement.Models.Account", "Account")
+                        .WithMany("Reimbursement")
+                        .HasForeignKey("AccountNik");
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("SistemReimbursement.Models.Account", b =>
+                {
+                    b.Navigation("Reimbursement");
+                });
+
+            modelBuilder.Entity("SistemReimbursement.Models.Category", b =>
+                {
+                    b.Navigation("Attachment");
+                });
+
+            modelBuilder.Entity("SistemReimbursement.Models.Reimbursement", b =>
+                {
+                    b.Navigation("Attachment");
                 });
 
             modelBuilder.Entity("SistemReimbursement.Models.Role", b =>

@@ -16,5 +16,6 @@ namespace SistemReimbursement.Models
         public string RoleName { get; set; }
         [JsonIgnore]
         public virtual Account Account { get; set; }
+
     }
 }
