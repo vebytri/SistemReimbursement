@@ -23,10 +23,37 @@ namespace SistemReimbursement.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //user to account
            modelBuilder.Entity<User>()
-               .HasOne(a => a.Account).WithOne(p => p.User).HasForeignKey<Account>(ac => ac.Nik);
+           .HasOne(a => a.Account)
+           .WithOne(p => p.User)
+           .HasForeignKey<Account>(ac => ac.Nik);
+
+            //role to account
             modelBuilder.Entity<Role>()
-              .HasOne(a => a.Account).WithOne(p => p.Role).HasForeignKey<Account>(ac => ac.RoleId);
+            .HasOne(a => a.Account)
+            .WithOne(p => p.Role)
+            .HasForeignKey<Account>(ac => ac.RoleId);
+
+            //account to reimburstment (request)
+            modelBuilder.Entity<Account>()
+           .HasMany(a => a.Reimbursement)
+           .WithOne(b => b.Account);
+
+
+            // reimburstment to attachment
+            modelBuilder.Entity<Reimbursement>()
+           .HasMany(a => a.Attachment)
+           .WithOne(b => b.Reimbursement);
+
+            //attachment to category
+           modelBuilder.Entity<Attachment>()
+          .HasOne(a => a.Category)
+          .WithMany(b => b.Attachment);
+
+
+
+
         }
     }
 

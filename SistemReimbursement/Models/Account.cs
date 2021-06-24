@@ -14,10 +14,15 @@ namespace SistemReimbursement.Models
         public int Nik { get; set; }
         public string Password { get; set; }
         public int RoleId { get; set; }
+
         [JsonIgnore]
         public virtual User User { get; set; }
+
         [JsonIgnore]
         public virtual Role Role { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Reimbursement> Reimbursement { get; set; }
+
 
     }
 }
