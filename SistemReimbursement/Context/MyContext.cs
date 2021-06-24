@@ -23,43 +23,46 @@ namespace SistemReimbursement.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           // modelBuilder.Entity<AccountRole>()
-           // .HasKey(ar => new { ar.NIK, ar.RoleId });
-
-           // modelBuilder.Entity<AccountRole>()
-           //.HasOne(a => a.Account)
-           //.WithMany(b => b.AccountRole)
-           //.HasForeignKey(a => a.NIK);
-
-           // modelBuilder.Entity<AccountRole>()
-           //.HasOne(a => a.Role)
-           //.WithMany(b => b.AccountRole)
-           //.HasForeignKey(a => a.RoleId);
-
-           // //person to account
-           // modelBuilder.Entity<Person>()
-           //.HasOne(a => a.Account)
-           //.WithOne(b => b.Person)
-           //.HasForeignKey<Account>(b => b.NIK);
-
-           // //account to profiling
-           // modelBuilder.Entity<Account>()
-           //.HasOne(a => a.Profiling)
-           //.WithOne(b => b.Account)
-           //.HasForeignKey<Profiling>(b => b.NIK);
-
-           // //Education to Profiling
-           // modelBuilder.Entity<Education>()
-           //.HasMany(a => a.Profiling)
-           //.WithOne(b => b.Education);
-
-           // //uiniversity to education
-           // modelBuilder.Entity<University>()
-           //.HasMany(a => a.Education)
-           //.WithOne(b => b.University);
 
 
-           // modelBuilder.Entity<RegisterVM>().HasNoKey();
+             //   modelBuilder.Entity<Account>()
+             //.HasOne(a => a.User)
+             //.WithOne(b => b.Account)
+             //.HasForeignKey<User>(b => b.Nik);
+            modelBuilder.Entity<User>()
+               .HasOne<Account>(a => a.Account).WithOne(p => p.User).HasForeignKey<Account>(ac => ac.Nik);
+            //modelBuilder.Entity<Role>()
+            //.HasOne<Account>(a => a.Account).WithOne(p => p.Role).HasForeignKey<Account>(ac => ac.RoleId);
+
+            // modelBuilder.Entity<AccountRole>()
+            //.HasOne(a => a.Role)
+            //.WithMany(b => b.AccountRole)
+            //.HasForeignKey(a => a.RoleId);
+
+            // //person to account
+            // modelBuilder.Entity<Person>()
+            //.HasOne(a => a.Account)
+            //.WithOne(b => b.Person)
+            //.HasForeignKey<Account>(b => b.NIK);
+
+            // //account to profiling
+            // modelBuilder.Entity<Account>()
+            //.HasOne(a => a.Profiling)
+            //.WithOne(b => b.Account)
+            //.HasForeignKey<Profiling>(b => b.NIK);
+
+            // //Education to Profiling
+            // modelBuilder.Entity<Education>()
+            //.HasMany(a => a.Profiling)
+            //.WithOne(b => b.Education);
+
+            // //uiniversity to education
+            // modelBuilder.Entity<University>()
+            //.HasMany(a => a.Education)
+            //.WithOne(b => b.University);
+
+
+            // modelBuilder.Entity<RegisterVM>().HasNoKey();
         }
     }
 

@@ -10,9 +10,11 @@ namespace SistemReimbursement.Models
     [Table("TB_M_Account")]
     public class Account
     {   [Key]
-        public int NIK { get; set; }
+        public int Nik { get; set; }
         public string Password { get; set; }
         public int RoleId { get; set; }
-        
+        public virtual User User { get; set; }
+        public virtual Role Role { get; set; }
+
     }
 }
