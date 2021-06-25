@@ -20,6 +20,7 @@ namespace SistemReimbursement.Models
         public int CategoryId { get; set; }
 
         public int ReimbursementId { get; set; }
+
         [JsonIgnore]
         public virtual Reimbursement Reimbursement { get; set; }
         [JsonIgnore]
