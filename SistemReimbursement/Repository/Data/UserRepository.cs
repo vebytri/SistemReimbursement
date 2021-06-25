@@ -50,7 +50,7 @@ namespace SistemReimbursement.Repository.Data
                 //    //result = conn.SaveChanges();
 
              }
-                return 0;
+                return 1;
         }
 
         public int Login(LoginVM login) {
