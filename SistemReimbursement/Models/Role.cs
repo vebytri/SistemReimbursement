@@ -15,7 +15,8 @@ namespace SistemReimbursement.Models
         public int RoleId { get; set; }
         public string RoleName { get; set; }
         [JsonIgnore]
-        public virtual Account Account { get; set; }
+        public virtual ICollection<Account> Account { get; set; }
+
 
     }
 }

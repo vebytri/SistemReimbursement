@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemReimbursement.Migrations
 {
-    public partial class FullRelation2 : Migration
+    public partial class fixrelation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -139,8 +139,7 @@ namespace SistemReimbursement.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_TB_M_Account_RoleId",
                 table: "TB_M_Account",
-                column: "RoleId",
-                unique: true);
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_M_Reimbursement_AccountNik",

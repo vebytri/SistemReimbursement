@@ -32,8 +32,7 @@ namespace SistemReimbursement.Migrations
 
                     b.HasKey("Nik");
 
-                    b.HasIndex("RoleId")
-                        .IsUnique();
+                    b.HasIndex("RoleId");
 
                     b.ToTable("TB_M_Account");
                 });
@@ -191,8 +190,8 @@ namespace SistemReimbursement.Migrations
                         .IsRequired();
 
                     b.HasOne("SistemReimbursement.Models.Role", "Role")
-                        .WithOne("Account")
-                        .HasForeignKey("SistemReimbursement.Models.Account", "RoleId")
+                        .WithMany("Account")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -10,8 +10,8 @@ using SistemReimbursement.Context;
 namespace SistemReimbursement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210624095657_FullRelation2")]
-    partial class FullRelation2
+    [Migration("20210625035811_fixrelation")]
+    partial class fixrelation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,8 +34,7 @@ namespace SistemReimbursement.Migrations
 
                     b.HasKey("Nik");
 
-                    b.HasIndex("RoleId")
-                        .IsUnique();
+                    b.HasIndex("RoleId");
 
                     b.ToTable("TB_M_Account");
                 });
@@ -193,8 +192,8 @@ namespace SistemReimbursement.Migrations
                         .IsRequired();
 
                     b.HasOne("SistemReimbursement.Models.Role", "Role")
-                        .WithOne("Account")
-                        .HasForeignKey("SistemReimbursement.Models.Account", "RoleId")
+                        .WithMany("Account")
+                        .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

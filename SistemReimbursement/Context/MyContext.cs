@@ -31,9 +31,8 @@ namespace SistemReimbursement.Context
 
             //role to account
             modelBuilder.Entity<Role>()
-            .HasOne(a => a.Account)
-            .WithOne(p => p.Role)
-            .HasForeignKey<Account>(ac => ac.RoleId);
+            .HasMany(a => a.Account)
+            .WithOne(p => p.Role);
 
             //account to reimburstment (request)
             modelBuilder.Entity<Account>()
