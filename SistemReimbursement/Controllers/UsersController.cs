@@ -21,6 +21,22 @@ namespace SistemReimbursement.Controllers
 
         }
 
+        [HttpPost]
+        [Route("register")]
+        public ActionResult Register(RegisterVM register)
+        {
+
+            var get = repo.Register(register);
+
+            if (get > 0)
+            {
+                return Ok("Berhasil Mendaftar");
+            }
+            else
+            {
+                return BadRequest("Email telah di daftarkan");
+            }
+        }
 
         [Route("Login")]
         [HttpPost]
