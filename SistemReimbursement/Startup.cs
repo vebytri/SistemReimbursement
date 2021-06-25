@@ -33,12 +33,23 @@ namespace SistemReimbursement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddCors(c =>
+            //{
+            //    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            //});
+
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:44382").AllowAnyMethod().AllowCredentials().AllowAnyHeader());
+
+            });
             services.AddSwaggerGen(swagger =>
             {
-                services.AddCors(c =>
-                {
-                    c.AddPolicy("AllowOrigin", options => options.WithOrigins("https://localhost:44382").AllowAnyMethod().AllowCredentials().AllowAnyHeader());
-                });
+             
+              
+
+              
+             
                 //This is to generate the Default UI of Swagger Documentation    
                 swagger.SwaggerDoc("v1", new OpenApiInfo
                 {
@@ -119,8 +130,8 @@ namespace SistemReimbursement
 
             app.UseRouting();
             app.UseAuthentication();
-            app.UseCors(options => options.WithOrigins("https://localhost:44382"));
             app.UseAuthorization();
+            app.UseCors("AllowOrigin");
 
             app.UseEndpoints(endpoints =>
             {
