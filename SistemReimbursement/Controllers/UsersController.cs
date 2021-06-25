@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemReimbursement.Base;
@@ -14,8 +15,8 @@ namespace SistemReimbursement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
-
+  //  [Authorize]
+    [EnableCors("AllowOrigin")]
     public class UsersController : BaseController<User, UserRepository, int>
     {
         UserRepository repo;
@@ -23,7 +24,7 @@ namespace SistemReimbursement.Controllers
             this.repo = user;
 
         }
-        [AllowAnonymous]
+      //  [AllowAnonymous]
         [HttpPost]
         [Route("register")]
         public ActionResult Register(RegisterVM register)
@@ -41,7 +42,7 @@ namespace SistemReimbursement.Controllers
             }
         }
 
-        [AllowAnonymous]
+       // [AllowAnonymous]
         [Route("Login")]
         [HttpPost]
         public ActionResult Login(LoginVM login)
