@@ -54,7 +54,19 @@ namespace SistemReimbursement.Repository.Data
         }
 
         public int Login(LoginVM login) {
-            return 0;
+            //var cek = conn.Persons.FirstOrDefault(p => p.Email == loginVM.Email);
+            //if (cek == null)
+            //{
+            //    return 404;
+            //}
+
+            //bool isValidPassword = BCrypt.Net.BCrypt.Verify(loginVM.Password, cek.Account.Password);
+            //if (isValidPassword)
+            //{
+                return 1;
+            //}
+
+            //return 401;
         }
     }
 }
