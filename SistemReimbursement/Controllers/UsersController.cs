@@ -22,7 +22,6 @@ namespace SistemReimbursement.Controllers
         UserRepository repo;
         public UsersController(UserRepository user) : base(user) { 
             this.repo = user;
-
         }
       //  [AllowAnonymous]
         [HttpPost]
@@ -61,9 +60,6 @@ namespace SistemReimbursement.Controllers
                 //return Ok($"Login Berhasil \n Token : {repo.GenerateToken(login)}");
                 return Ok(new JWTokenVM { Token = repo.GenerateToken(login), Message = "Login Sukses" });
                 //return Ok( "Login Sukses");
-
-
-
             }
             else
             {
