@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using BC = BCrypt.Net.BCrypt;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
+using System.Text;
 
 namespace SistemReimbursement.Repository.Data
 {
@@ -57,7 +59,8 @@ namespace SistemReimbursement.Repository.Data
                 return result;
         }
 
-        public int Login(LoginVM login) {
+        public int Login(LoginVM login) 
+        {
             var cek = conn.Users.FirstOrDefault(p => p.Email == login.Email);
             if (cek == null)
             {
@@ -73,6 +76,28 @@ namespace SistemReimbursement.Repository.Data
             }
 
             return 401;
+        }
+        public string GenerateToken(LoginVM Login)
+        {
+            var check = conn.Users.FirstOrDefault(e => e.Email == Login.Email);
+            var check2nd = conn.Accounts.Single(e => e.Nik == check.Nik);
+            var claims = new[] {
+                    new Claim(JwtRegisteredClaimNames.Sub,configuration["Jwt:Subject"]),
+                    new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+                    new Claim(JwtRegisteredClaimNames.Iat,DateTime.UtcNow.ToString()),
+                    new Claim("Email",Login.Email.ToString()),
+                    new Claim("role",check2nd.Role.RoleName.ToString())
+                   // new Claim(ClaimTypes.Role, check2nd.Roles.Name.ToString())
+        };
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));
+            var signin = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+            configuration["Jwt:Issuer"],
+            configuration["Jwt:Audience"],
+            claims,
+            expires: DateTime.UtcNow.AddMinutes(2),
+            signingCredentials: signin);
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
 
