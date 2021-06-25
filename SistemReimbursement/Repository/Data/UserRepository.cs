@@ -54,7 +54,7 @@ namespace SistemReimbursement.Repository.Data
                 conn.Add(account);
                 result = conn.SaveChanges();
             }
-                return 1;
+                return result;
         }
 
         public int Login(LoginVM login) {
