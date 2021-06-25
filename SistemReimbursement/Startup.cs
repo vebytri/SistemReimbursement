@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using SistemReimbursement.Context;
 using SistemReimbursement.Repository.Data;
 using System;
@@ -31,7 +32,10 @@ namespace SistemReimbursement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+          .AddNewtonsoftJson(options =>
+          options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
             services.AddScoped<UserRepository>();
             services.AddScoped<AccountRepository>();
             services.AddScoped<RoleRepository>();
