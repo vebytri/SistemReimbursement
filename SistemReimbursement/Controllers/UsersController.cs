@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemReimbursement.Base;
 using SistemReimbursement.Models;
@@ -13,6 +14,8 @@ namespace SistemReimbursement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
+
     public class UsersController : BaseController<User, UserRepository, int>
     {
         UserRepository repo;
@@ -20,7 +23,7 @@ namespace SistemReimbursement.Controllers
             this.repo = user;
 
         }
-
+        [AllowAnonymous]
         [HttpPost]
         [Route("register")]
         public ActionResult Register(RegisterVM register)
@@ -38,6 +41,7 @@ namespace SistemReimbursement.Controllers
             }
         }
 
+        [AllowAnonymous]
         [Route("Login")]
         [HttpPost]
         public ActionResult Login(LoginVM login)
@@ -53,9 +57,9 @@ namespace SistemReimbursement.Controllers
             }
             else if (ceklogin == 1)
             {
-                //return Ok($"Login Berhasil \n Token : {repo.GenerateToken(loginVM)}");
-                //return Ok(new JWTokenVM { Token = repo.GenerateToken(loginVM), Messages = "Login Sukses" });
-                return Ok( "Login Sukses");
+                //return Ok($"Login Berhasil \n Token : {repo.GenerateToken(login)}");
+                return Ok(new JWTokenVM { Token = repo.GenerateToken(login), Message = "Login Sukses" });
+                //return Ok( "Login Sukses");
 
 
 
