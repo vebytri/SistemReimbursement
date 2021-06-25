@@ -38,18 +38,22 @@ namespace SistemReimbursement.Repository.Data
                     LastName = register.LastName,
                     BirthDate = register.BirthDate,
                     Email = register.Email,
-                };
+                    JobPosition=register.JobPosition,
+                    ManagerNik = register.ManagerNik,
+                    Gender = register.Gender,
+                    Address=register.Address
+    };
                 conn.Add(User);
                 result = conn.SaveChanges();
-                //    //Acount account = new Acount
-                //    //{
-                //    //    NIK = person.NIK,
-                //    //    Password = BC.HashPassword(register.Password)
-                //    //};
-                //    //conn.Add(account);
-                //    //result = conn.SaveChanges();
-
-             }
+                Account account = new Account
+                {
+                    Nik = User.Nik,
+                    Password = BC.HashPassword(register.Password),
+                    RoleId  = 1 // sebagai employee(default)
+                };
+                conn.Add(account);
+                result = conn.SaveChanges();
+            }
                 return 1;
         }
 
