@@ -44,7 +44,7 @@ namespace SistemReimbursement.Repository.Data
                     ManagerNik = register.ManagerNik,
                     Gender = register.Gender,
                     Address=register.Address
-    };
+                };
                 conn.Add(User);
                 result = conn.SaveChanges();
                 Account account = new Account
