@@ -1,10 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using ReimbursementFrontEnd.Base;
 using ReimbursementFrontEnd.Models;
-using ReimbursementFrontEnd.Repository.Data;
-using SistemReimbursement.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -13,27 +10,19 @@ using System.Threading.Tasks;
 
 namespace ReimbursementFrontEnd.Controllers
 {
-    [Authorize]
 
-    public class HomeController : BaseController<User, UserRepository, int>
+    public class UsersController : Controller
     {
-      UserRepository repository;
+        private readonly ILogger<UsersController> _logger;
 
-        public HomeController(UserRepository repository) : base(repository)
+        public UsersController(ILogger<UsersController> logger)
         {
-            this.repository = repository;
+            _logger = logger;
         }
-        [AllowAnonymous]
+
         public IActionResult Index()
         {
             return View();
-        }
-        [AllowAnonymous]
-
-        public async Task<JsonResult>getsemuadata()
-        {
-            var result = await repository.GetAllProfile();
-            return Json(result);
         }
 
         public IActionResult Privacy()
