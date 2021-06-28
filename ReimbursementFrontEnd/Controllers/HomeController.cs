@@ -10,6 +10,7 @@ using SistemReimbursement.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,6 +31,28 @@ namespace ReimbursementFrontEnd.Controllers
         //[AllowAnonymous]
         public IActionResult Index()
         {
+            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+            var token= HttpContext.Session.GetString("JWToken");
+            //string apiResponse = token.ToString();
+            //var token1 = JsonConvert.DeserializeObject(token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
+            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "Role").Value;
+            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+
+
+
+            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+
+            //HttpContext.Session.SetString("SessionName", "Farras");
+            //HttpContext.Session.SetString("JWToken", jwToken.Token);
+
+
+
             return View();
         }
         //[AllowAnonymous]
@@ -47,7 +70,7 @@ namespace ReimbursementFrontEnd.Controllers
 
         public IActionResult Employee()
         {
-            ViewBag.session = HttpContext.Session.GetString("name");
+            ViewBag.session = HttpContext.Session.GetString("FirstName");
             return View();
         }
 
