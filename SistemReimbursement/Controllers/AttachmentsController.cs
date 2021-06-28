@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemReimbursement.Base;
 using SistemReimbursement.Models;
@@ -12,8 +13,27 @@ namespace SistemReimbursement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class AttachmentsController : BaseController<Attachment, AttachmentRepository, int>
     {
-        public AttachmentsController(AttachmentRepository attachment) : base(attachment) { }
+        AttachmentRepository repo;
+        public AttachmentsController(AttachmentRepository attachment) : base(attachment)
+        {
+            this.repo = attachment;
+        }
+        [HttpGet("getDetail/{reimbursementId}")]
+        public ActionResult getDetailReimbursement(int reimbursementId)
+        {
+
+            var get = repo.GetDetailReimbursement(reimbursementId);
+            if (get != null)
+            {
+                return Ok(get);
+            }
+            else
+            {
+                return NotFound("Data Tidak ditemukan");
+            }
+        }
     }
 }

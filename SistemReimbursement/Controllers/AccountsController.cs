@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemReimbursement.Base;
 using SistemReimbursement.Models;
@@ -13,6 +14,7 @@ namespace SistemReimbursement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class AccountsController : BaseController<Account, AccountRepository, int>
     {
 
