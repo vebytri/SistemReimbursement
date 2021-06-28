@@ -14,6 +14,39 @@ namespace SistemReimbursement.Controllers
     [ApiController]
     public class ReimbursementsController : BaseController<Reimbursement, ReimbursementRepository, int>
     {
-        public ReimbursementsController(ReimbursementRepository reimbursement) : base(reimbursement) { }
+        ReimbursementRepository repo;
+        public ReimbursementsController(ReimbursementRepository reimbursement) : base(reimbursement)
+        {
+            this.repo = reimbursement;
+        }
+        [HttpGet]
+        [Route("getallbynik/{nik}")]
+        public ActionResult getReimburesemtByNik( int nik)
+        {
+
+            var get = repo.GetAllbyNik(nik);
+            if (get != null)
+            {
+                return Ok(get);
+            }
+            else
+            {
+                return NotFound("Data Tidak ditemukan");
+            }
+        }
+        [Route("getallbystatus/{status}")]
+        public ActionResult getReimburesemtByStatus(string status)
+        {
+
+            var get = repo.GetAllbystatus(status);
+            if (get != null)
+            {
+                return Ok(get);
+            }
+            else
+            {
+                return NotFound("Data Tidak ditemukan");
+            }
+        }
     }
 }
