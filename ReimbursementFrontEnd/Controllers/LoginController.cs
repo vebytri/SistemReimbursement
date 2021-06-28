@@ -41,6 +41,7 @@ namespace ReimbursementFrontEnd.Controllers
         [HttpPost]
         public async Task<IActionResult> Auth(LoginVM loginVM)
         {
+
             var jwToken = await loginRep.Auth(loginVM);
             if (jwToken == null)
             {
@@ -49,7 +50,12 @@ namespace ReimbursementFrontEnd.Controllers
             }
 
             HttpContext.Session.SetString("JWToken", jwToken.Token);
+            //HttpContext.Request.Cookies["JWToken"];
+
+
             return RedirectToAction("index", "home");
+
+
         }
 
         public IActionResult Logout()
