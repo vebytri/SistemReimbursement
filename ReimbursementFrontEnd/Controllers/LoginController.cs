@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ReimbursementFrontEnd.Base;
 using ReimbursementFrontEnd.Models;
+using ReimbursementFrontEnd.Repository.Data;
+using SistemReimbursement.Models;
+using SistemReimbursement.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,18 +14,48 @@ using System.Threading.Tasks;
 
 namespace ReimbursementFrontEnd.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : BaseController<User, UserRepository, int>
     {
-        private readonly ILogger<LoginController> _logger;
+       UserRepository repository;
+        LoginRepository loginRep;
 
-        public LoginController(ILogger<LoginController> logger)
+
+        public LoginController(UserRepository repository, LoginRepository loginRep) : base(repository)
         {
-            _logger = logger;
-        }
+            this.repository = repository;
+            this.loginRep = loginRep;
 
+        }
         public IActionResult Index()
         {
             return View();
+        }
+
+        //public IActionResult Register()
+        //{
+        //    return View();
+        //}
+
+
+        [HttpPost]
+        public async Task<IActionResult> Auth(LoginVM loginVM)
+        {
+            var jwToken = await loginRep.Auth(loginVM);
+            if (jwToken == null)
+            {
+
+                return RedirectToAction("index");
+            }
+
+            HttpContext.Session.SetString("JWToken", jwToken.Token);
+            return RedirectToAction("index", "home");
+        }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Login");
+
         }
 
         public IActionResult Privacy()

@@ -48,7 +48,8 @@ namespace ReimbursementFrontEnd
             });
 
             services.AddScoped<UserRepository>();
-            //services.AddScoped<LoginRepository>();
+            services.AddScoped<RegisterRepository>();
+            services.AddScoped<LoginRepository>();
             services.AddScoped<Address>();
         }
 

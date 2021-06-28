@@ -24,7 +24,7 @@ namespace SistemReimbursement.Repository.Data
         {
             var result = 0;
             var cekAccount = conn.Accounts.FirstOrDefault(p => p.Nik == reqReimbursement.Nik);
-            if (cekAccount == null)
+            if (cekAccount != null)
             {
                 Reimbursement reimbursement = new Reimbursement()
                 {
@@ -40,11 +40,11 @@ namespace SistemReimbursement.Repository.Data
                 {
                     Attachment attachment = new Attachment()
                     {
-                        ReimbursementId= reimbursement.ReimbursementId,
-                        FileAttachment= reqReimbursement.FileAttachment[i],
-                        CategoryId= reqReimbursement.CategoryId[i]
+                        ReimbursementId = reimbursement.ReimbursementId,
+                        FileAttachment = reqReimbursement.FileAttachment[i],
+                        CategoryId = reqReimbursement.CategoryId[i]
                     };
-                    conn.Add(reimbursement);
+                    conn.Add(attachment);
                     result = conn.SaveChanges();
                 }
             }
