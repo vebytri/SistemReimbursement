@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ReimbursementFrontEnd.Controllers
 {
-    [Authorize]
+    //[Authorize]
 
     public class HomeController : BaseController<User, UserRepository, int>
     {
@@ -39,6 +39,16 @@ namespace ReimbursementFrontEnd.Controllers
         {
             var result = await repository.GetAllProfile();
             return Json(result);
+        }
+
+        public IActionResult Employee()
+        {
+            return View();
+        }
+
+        public IActionResult Manager()
+        {
+            return View();
         }
 
         public IActionResult Privacy()
