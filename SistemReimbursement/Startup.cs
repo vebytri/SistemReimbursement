@@ -44,12 +44,7 @@ namespace SistemReimbursement
 
             });
             services.AddSwaggerGen(swagger =>
-            {
-             
-              
-
-              
-             
+            {  
                 //This is to generate the Default UI of Swagger Documentation    
                 swagger.SwaggerDoc("v1", new OpenApiInfo
                 {
@@ -132,6 +127,7 @@ namespace SistemReimbursement
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseCors("AllowOrigin");
+
 
             app.UseEndpoints(endpoints =>
             {

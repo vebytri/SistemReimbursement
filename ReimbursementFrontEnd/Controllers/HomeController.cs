@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using ReimbursementFrontEnd.Base;
 using ReimbursementFrontEnd.Models;
 using ReimbursementFrontEnd.Repository.Data;
@@ -23,6 +25,8 @@ namespace ReimbursementFrontEnd.Controllers
         {
             this.repository = repository;
         }
+
+
         //[AllowAnonymous]
         public IActionResult Index()
         {
@@ -43,6 +47,7 @@ namespace ReimbursementFrontEnd.Controllers
 
         public IActionResult Employee()
         {
+            ViewBag.session = HttpContext.Session.GetString("name");
             return View();
         }
 
