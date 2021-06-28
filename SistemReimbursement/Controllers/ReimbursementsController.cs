@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemReimbursement.Base;
 using SistemReimbursement.Models;
@@ -12,6 +13,7 @@ namespace SistemReimbursement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowOrigin")]
     public class ReimbursementsController : BaseController<Reimbursement, ReimbursementRepository, int>
     {
         ReimbursementRepository repo;
@@ -19,8 +21,7 @@ namespace SistemReimbursement.Controllers
         {
             this.repo = reimbursement;
         }
-        [HttpGet]
-        [Route("getallbynik/{nik}")]
+        [HttpGet("getallbynik/{nik}")]
         public ActionResult getReimburesemtByNik( int nik)
         {
 
@@ -34,7 +35,7 @@ namespace SistemReimbursement.Controllers
                 return NotFound("Data Tidak ditemukan");
             }
         }
-        [Route("getallbystatus/{status}")]
+        [HttpGet("getallbystatus/{status}")]
         public ActionResult getReimburesemtByStatus(string status)
         {
 

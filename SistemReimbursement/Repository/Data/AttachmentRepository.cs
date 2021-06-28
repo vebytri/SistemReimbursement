@@ -1,4 +1,5 @@
 ﻿using API.Repository;
+using Microsoft.Extensions.Configuration;
 using SistemReimbursement.Context;
 using SistemReimbursement.Models;
 using System;
@@ -11,6 +12,16 @@ namespace SistemReimbursement.Repository.Data
    
     public class AttachmentRepository : GeneralRepository<MyContext, Attachment, int>
     {
-        public AttachmentRepository (MyContext myContext) : base(myContext) { }
+        private readonly MyContext conn;
+        private readonly IConfiguration configuration;
+        public AttachmentRepository(MyContext myContext, IConfiguration config) : base(myContext)
+        {
+            this.conn = myContext;
+            this.configuration = config;
+        }
+        public IEnumerable<Attachment> GetDetailReimbursement(int reimbursementId)
+        {
+            return conn.Attachment.Where(x => x.ReimbursementId == reimbursementId);
+        }
     }
 }
