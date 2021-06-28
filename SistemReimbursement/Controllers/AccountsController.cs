@@ -23,7 +23,7 @@ namespace SistemReimbursement.Controllers
         }
         //  [AllowAnonymous]
         [HttpPost]
-        [Route("request")]
+        [Route("request/{length}")]
         public ActionResult reqReimbursement(ReqReimbursementVM request,int length)
         {
 
@@ -31,11 +31,11 @@ namespace SistemReimbursement.Controllers
 
             if (get > 0)
             {
-                return Ok("Berhasil Mendaftar");
+                return Ok("Berhasil Request");
             }
             else
             {
-                return BadRequest("Email telah di daftarkan");
+                return BadRequest("Gagal Request");
             }
         }
     }

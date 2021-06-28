@@ -23,13 +23,18 @@ namespace ReimbursementFrontEnd.Controllers
         {
             this.repository = repository;
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public IActionResult Index()
         {
             return View();
         }
-        [AllowAnonymous]
+        //[AllowAnonymous]
+        //public IActionResult Home()
+        //{
+        //    return View();
+        //}
 
+        [AllowAnonymous]
         public async Task<JsonResult>getsemuadata()
         {
             var result = await repository.GetAllProfile();
