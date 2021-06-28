@@ -86,6 +86,9 @@ namespace SistemReimbursement.Repository.Data
                     new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat,DateTime.UtcNow.ToString()),
                     new Claim("Email",Login.Email.ToString()),
+                    new Claim("NIK",check.Nik.ToString()),
+                    new Claim("FirstName",check.FirstName.ToString()),
+                    new Claim("LastName",check.LastName.ToString()),
                     new Claim("role",check2nd.Role.RoleName.ToString())
                    // new Claim(ClaimTypes.Role, check2nd.Roles.Name.ToString())
         };
