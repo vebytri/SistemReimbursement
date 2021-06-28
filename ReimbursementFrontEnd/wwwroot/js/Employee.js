@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
     $('#tableEmployee').DataTable({
         ajax: {
-            url: '/user/getsemuadata',
+            url: 'https://localhost:44383/api/reimbursements/getallbynik/2',
             dataSrc: ''
         },
         columns: [
@@ -14,30 +14,63 @@
 
             },
             {
-                "data": '"reimbursementId": '
+                "data": 'reimbursementId'
 
             },
-            {
-                "data": 'firstName'
-
-            },
+          
             {
                 "data": 'requestAmount'
             },
             {
                 "data": 'paidAmount'
             },
-            {
-                "data": 'categoryId'
-            },
+         
             {
                 "data": 'status'
             },
             {
-                "data": 'managerApprovalStatus'
+                
+                 "data": null,
+                "render": function (data, type, row)
+                {
+                    if (row.managerApprovalStatus == 1) {
+                        return ("Aprroved");
+                    }
+                    else if (row.managerApprovalStatus == 0) {
+                        return ("Process");
+
+                    }
+                    else if (row.managerApprovalStatus == 2) {
+                        return ("Declined");
+
+                    }
+                    else
+                    {
+                        return ("Something Error");
+                    }
+                   
+                }
+
             },
             {
-                "data": 'financeApprovalStatus'
+                "data": null,
+                "render": function (data, type, row) {
+                    if (row.financeApprovalStatus == 1) {
+                        return ("Aprroved");
+                    }
+                    else if (row.financeApprovalStatus == 0) {
+                        return ("Process");
+
+                    }
+                    else if (row.financeApprovalStatus == 2) {
+                        return ("Declined");
+
+                    }
+                    else {
+                        return ("Something Error");
+                    }
+                }
+
             },
             {
                 "data": null,

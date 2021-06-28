@@ -29,7 +29,9 @@ namespace ReimbursementFrontEnd
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession();
+            services.AddSession(options => {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
@@ -70,7 +72,6 @@ namespace ReimbursementFrontEnd
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseSession();
             //Add JWToken to all incoming HTTP Request Header
             app.Use(async (context, next) =>
@@ -82,6 +83,7 @@ namespace ReimbursementFrontEnd
                 }
                 await next();
             });
+
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>

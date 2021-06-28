@@ -31,6 +31,7 @@ namespace ReimbursementFrontEnd.Repository.Data
             };
             //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", _contextAccessor.HttpContext.Session.GetString("JWToken"));
         }
+      
 
         public async Task<List<RegisterVM>> GetAllProfile()
         {
@@ -52,8 +53,6 @@ namespace ReimbursementFrontEnd.Repository.Data
                 entities = JsonConvert.DeserializeObject<RegisterVM>(apiResponse);
             }
             return entities;
-
-
         }
 
     }
