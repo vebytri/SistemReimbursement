@@ -41,7 +41,7 @@ namespace ReimbursementFrontEnd.Controllers
             var tokenS = jsonToken as JwtSecurityToken;
 
             ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
-            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "Role").Value;
+            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
 
 
