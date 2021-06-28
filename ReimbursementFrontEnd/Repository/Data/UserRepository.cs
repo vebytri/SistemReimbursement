@@ -20,7 +20,7 @@ namespace ReimbursementFrontEnd.Repository.Data
         private readonly string request;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public UserRepository(Address address, string request = "users") : base(address, request)
+        public UserRepository(Address address, string request = "reimbursements") : base(address, request)
         {
             this.address = address;
             this.request = request;
