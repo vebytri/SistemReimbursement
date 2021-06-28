@@ -42,10 +42,10 @@ namespace ReimbursementFrontEnd.Repository.Data
                 string apiResponse = await result.Content.ReadAsStringAsync();
                 token = JsonConvert.DeserializeObject<JWTokenVM>(apiResponse);
             }
+          
             return token;
 
-
         }
-   
+
     }
 }
