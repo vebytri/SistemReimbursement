@@ -49,5 +49,19 @@ namespace SistemReimbursement.Controllers
                 return NotFound("Data Tidak ditemukan");
             }
         }
+        [HttpGet("getallbystatusandnik/{status}/{nik}")]
+        public ActionResult GetbyStatusandNik(string status, int nik)
+        {
+
+            var get = repo.GetAllbystatusandNik(status,nik);
+            if (get != null)
+            {
+                return Ok(get);
+            }
+            else
+            {
+                return NotFound("Data Tidak ditemukan");
+            }
+        }
     }
 }
