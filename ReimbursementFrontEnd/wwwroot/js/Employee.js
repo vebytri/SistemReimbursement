@@ -69,7 +69,7 @@
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                            <button type="button" class="btn btn-info rounded-pill"  onclick="detail('${row['nik']}')" ><i class="fas fa-edit"></i></button>
+                            <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-eye"></i></button>
 
                             <button type="button" class="btn btn-danger rounded-pill" onclick="del('${row['nik']}')"><i class="fas fa-trash"></i></button>
                             `;
@@ -103,7 +103,7 @@ $(document).ready(function () {
 
     $('#submit').click(function () {
         var nik = $("#nik2").val();
-        var requestDate = Date.now;
+        var requestDate = new Date().toLocaleString();
         var status = "Process";
         console.log(i);
 
@@ -166,122 +166,37 @@ $(document).ready(function () {
         });
     });
 });
-//function insertRequest() {
-//    var nik = $("#nik2").val();
-
-//    var req = $("#requestAmount");
-
-//    var requestDate = Date.now;
-//    var status = "Process";
-//    console.log(req);
-
-//    var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-//    for (var i = 0; i < req.length; i++) {
-
-//        obj.requestDate = requestDate;
-//        obj.status = status;
-//        obj.notes = $("#notes").val();
-//        obj.nik = nik;
-//        obj[i].requestAmount= $("#requestAmount").val();
-//        obj[i].fileAttachment = $("#upload").val();
-//        obj[i].categoryId = $("#category").val();
-//    }
-    
-//    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-//    $.ajax({
-//        url: 'https://localhost:44383/api/accounts/request/1' ,
-//        type: "POST",
-//        headers: {
-//            'Accept': 'application/json',
-//            'Content-Type': 'application/json'      
-//        },
-//        data: JSON.stringify(obj)
-
-//    }).done((result) => {
-
-//        $('#tableEmployee').DataTable().ajax.reload();
-//        //buat alert pemberitahuan jika success
-//        //alert("Data Sukses");
-//        Swal.fire(
-//            'Success !',
-//            'Data Berhasil Di Tambahkan',
-//            'success'
-//        )
-//        console.log(result);
-//    }).fail((error) => {
-//        //alert pemberitahuan jika gagal
-
-//        Swal.fire(
-//            'Failed !',
-//            'Data Gagal di Tambahkan',
-//            'error'
-//        )  
-//        //alert("Data Gagal");
-//        console.log(error);
-//    })
-
-//}
 
 
-function updateProfile() {
-
-    bootstrapValidate('#firstname', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#lastname', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#phone', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#birthdate', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#salary', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#password', 'min:8:password minimal 8 karakter');
-    //bootstrapValidate('#email', 'email: masukan email yang valid dan belum pernah di pakai');
-    bootstrapValidate('#degree', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#gpa', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#universityid', 'required:Kolom tidak boleh kosong');
-
-    var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-    obj.NIK = $("#nik").val();
-    obj.FirstName = $("#firstname").val();
-    obj.LastName = $("#lastname").val();
-    obj.Phone = $("#phone").val();
-    obj.BirthDate = $("#birthdate").val();
-    obj.Salary = $("#salary").val();
-    obj.Email = $("#email").val();
-    obj.Password = $("#password").val();
-    obj.Degree = $("#degree").val();
-    obj.GPA = $("#gpa").val();
-    obj.UniversityId = $("#universityid").val();
-
-
+function Detail(id) {
+   
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
-        url: 'https://localhost:44345/API/person/UpdateProfile',
-        type: "PUT",
+        url: 'https://localhost:44383/api/reimbursements/' + id,
+        type: "GET",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-        data: JSON.stringify(obj)
+       
     }).done((result) => {
-        $('#tableProf').DataTable().ajax.reload();
-        //buat alert pemberitahuan jika success
-        //alert("Data Sukses");
-        Swal.fire(
-            'Success !',
-            'Data Berhasil Di Ubah',
-            'success'
-        )
-        //console.log(result);
-    }).fail((error) => {
-        //alert pemberitahuan jika gagal
-        Swal.fire(
-            'Failed !',
-            'Data Gagal di Ubah',
-            'error'
-        )
-        bootstrapValidate('#email', 'email: email sudah digunakan');
+        $("#reqId").val(result.reimbursementId);
 
-        //alert("Data Gagal");
-        console.log(error);
+        $("#reqDate").val(result.requestDate.split("T")[0]);
+        $("#status").val(result.status);
+        $("#managerStatus").val(result.managerApprovalStatus);
+        $("#managerDate").val(result.managerApprovalDate.split("T")[0]);
+        $("#financeStatus").val(result.financeApprovalStatus);
+        $("#financeDate").val(result.financeApprovalDate.split("T")[0]);
+        $("#notes").val(result.notes);
+
+
+      
+    }).fail((error) => {
+     
+       
     })
-    //console.log(obj);
+
 }
 
 function del(stringUrl) {
