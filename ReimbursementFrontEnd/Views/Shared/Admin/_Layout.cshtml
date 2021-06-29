@@ -69,7 +69,7 @@
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <!-- Logo icon -->
-                        <a href="index.html">
+                        <a href="/home">
                             <b class="logo-icon">
                                 <!-- Dark Logo icon -->
                                 <img src="~/Adminmart/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
@@ -145,16 +145,7 @@
                                        class="svg-icon mr-2 ml-1"></i>
                                     My Profile
                                 </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i data-feather="credit-card"
-                                       class="svg-icon mr-2 ml-1"></i>
-                                    My Balance
-                                </a>
-                                <a class="dropdown-item" href="javascript:void(0)">
-                                    <i data-feather="mail"
-                                       class="svg-icon mr-2 ml-1"></i>
-                                    Inbox
-                                </a>
+
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="javascript:void(0)">
                                     <i data-feather="settings"
@@ -167,13 +158,8 @@
                                        class="svg-icon mr-2 ml-1"></i>
                                     Logout
                                 </a>
-                                <div class="dropdown-divider"></div>
-                                <div class="pl-4 p-3">
-                                    <a href="javascript:void(0)" class="btn btn-sm btn-info">
-                                        View
-                                        Profile
-                                    </a>
-                                </div>
+                                @*<div class="dropdown-divider"></div>*@
+
                             </div>
                         </li>
                         <!-- ============================================================== -->
@@ -245,67 +231,23 @@
         <!-- Page wrapper  -->
         <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-7 align-self-center">
-                        <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Good Morning Jason!</h3>
-                        <div class="d-flex align-items-center">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb m-0 p-0">
-                                    <li class="breadcrumb-item">
-                                        <a href="index.html">Dashboard</a>
-                                    </li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="col-5 align-self-center">
-                        <div class="customize-input float-right">
-                            <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                                <option selected>Aug 19</option>
-                                <option value="1">July 19</option>
-                                <option value="2">Jun 19</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
 
-                @RenderBody()
+            @RenderBody()
 
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer text-center text-muted">
-                All Rights Reserved by Adminmart. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
         </div>
         <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
+        <!-- End Container fluid  -->
         <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <!-- ============================================================== -->
+        <footer class="footer text-center text-muted">
+            All Rights Reserved by Adminmart. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <script src="~/Adminmart/assets/libs/jquery/dist/jquery.min.js"></script>
@@ -313,6 +255,9 @@
     <script src="~/Adminmart/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     @*<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
 
+    @*---pdf---*@
+
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 
     <!-- apps -->
     <!-- apps -->
@@ -324,11 +269,11 @@
     <script src="~/Adminmart/dist/js/custom.min.js"></script>
     <!--This page JavaScript -->
     <script src="~/Adminmart/assets/extra-libs/c3/d3.min.js"></script>
-        <script src="~/Adminmart/assets/extra-libs/c3/c3.min.js"></script>
-        @*<script src="~/Adminmart/assets/libs/chartist/dist/chartist.min.js"></script>*@
-        @*<script src="~/Adminmart/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>*@
-        <script src="~/Adminmart/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
-        <script src="~/Adminmart/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="~/Adminmart/assets/extra-libs/c3/c3.min.js"></script>
+    @*<script src="~/Adminmart/assets/libs/chartist/dist/chartist.min.js"></script>*@
+    @*<script src="~/Adminmart/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>*@
+    <script src="~/Adminmart/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="~/Adminmart/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
     <script src="~/Adminmart/dist/js/pages/dashboards/dashboard1.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>

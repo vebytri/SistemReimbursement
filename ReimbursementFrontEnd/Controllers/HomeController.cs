@@ -70,7 +70,19 @@ namespace ReimbursementFrontEnd.Controllers
 
         public IActionResult Employee()
         {
-            ViewBag.session = HttpContext.Session.GetString("FirstName");
+            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+            var token = HttpContext.Session.GetString("JWToken");
+            //string apiResponse = token.ToString();
+            //var token1 = JsonConvert.DeserializeObject(token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
+            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
+            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+
             return View();
         }
 
