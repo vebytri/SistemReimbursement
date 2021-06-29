@@ -48,13 +48,19 @@ namespace SistemReimbursement.Repository.Data
                 };
                 conn.Add(User);
                 result = conn.SaveChanges();
-                Account account = new Account
+                Account account = new Account()
                 {
                     Nik = User.Nik,
-                    Password = BC.HashPassword(register.Password),
-                    RoleId  = 1 // sebagai employee(default)
+                    Password = BC.HashPassword(register.Password)
                 };
                 conn.Add(account);
+                result = conn.SaveChanges();
+                AccountRole accountrole = new AccountRole
+                {
+                    Nik = account.Nik,
+                    RoleId = register.RoleId
+                };
+                conn.Add(accountrole);
                 result = conn.SaveChanges();
             }
                 return result;
@@ -82,7 +88,7 @@ namespace SistemReimbursement.Repository.Data
         public string GenerateToken(LoginVM Login)
         {
             var check = conn.Users.FirstOrDefault(e => e.Email == Login.Email);
-            var check2nd = conn.Accounts.Single(e => e.Nik == check.Nik);
+            var check2nd = conn.AccountRoles.Single(e => e.Nik == check.Nik);
             var claims = new[] {
                     new Claim(JwtRegisteredClaimNames.Sub,configuration["Jwt:Subject"]),
                     new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
@@ -91,7 +97,7 @@ namespace SistemReimbursement.Repository.Data
                     new Claim("NIK",check.Nik.ToString()),
                     new Claim("FirstName",check.FirstName.ToString()),
                     new Claim("LastName",check.LastName.ToString()),
-                    new Claim("role",check2nd.Role.RoleName.ToString())
+                    new Claim("role",check2nd.Roles.RoleName.ToString())
                    // new Claim(ClaimTypes.Role, check2nd.Roles.Name.ToString())
         };
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"]));

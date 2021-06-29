@@ -13,13 +13,12 @@ namespace SistemReimbursement.Models
     {   [Key]
         public int Nik { get; set; }
         public string Password { get; set; }
-        public int RoleId { get; set; }
 
         [JsonIgnore]
         public virtual User User { get; set; }
 
         [JsonIgnore]
-        public virtual Role Role { get; set; }
+        public virtual ICollection<AccountRole> AccountRole { get; set; }
         [JsonIgnore]
         public virtual ICollection<Reimbursement> Reimbursement { get; set; }
 

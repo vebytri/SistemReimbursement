@@ -10,8 +10,8 @@ using SistemReimbursement.Context;
 namespace SistemReimbursement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210629023519_updateTable")]
-    partial class updateTable
+    [Migration("20210629072702_rev2")]
+    partial class rev2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,14 +29,31 @@ namespace SistemReimbursement.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
+                    b.HasKey("Nik");
+
+                    b.ToTable("TB_M_Account");
+                });
+
+            modelBuilder.Entity("SistemReimbursement.Models.AccountRole", b =>
+                {
+                    b.Property<int>("AccountRoleId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Nik")
+                        .HasColumnType("int");
+
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
-                    b.HasKey("Nik");
+                    b.HasKey("AccountRoleId");
+
+                    b.HasIndex("Nik");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("TB_M_Account");
+                    b.ToTable("TB_TR_AccountRole");
                 });
 
             modelBuilder.Entity("SistemReimbursement.Models.Attachment", b =>
@@ -188,15 +205,26 @@ namespace SistemReimbursement.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemReimbursement.Models.Role", "Role")
-                        .WithMany("Account")
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SistemReimbursement.Models.AccountRole", b =>
+                {
+                    b.HasOne("SistemReimbursement.Models.Account", "Account")
+                        .WithMany("AccountRole")
+                        .HasForeignKey("Nik")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SistemReimbursement.Models.Role", "Roles")
+                        .WithMany("AccountRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    b.Navigation("Account");
 
-                    b.Navigation("User");
+                    b.Navigation("Roles");
                 });
 
             modelBuilder.Entity("SistemReimbursement.Models.Attachment", b =>
@@ -229,6 +257,8 @@ namespace SistemReimbursement.Migrations
 
             modelBuilder.Entity("SistemReimbursement.Models.Account", b =>
                 {
+                    b.Navigation("AccountRole");
+
                     b.Navigation("Reimbursement");
                 });
 
@@ -244,7 +274,7 @@ namespace SistemReimbursement.Migrations
 
             modelBuilder.Entity("SistemReimbursement.Models.Role", b =>
                 {
-                    b.Navigation("Account");
+                    b.Navigation("AccountRoles");
                 });
 
             modelBuilder.Entity("SistemReimbursement.Models.User", b =>

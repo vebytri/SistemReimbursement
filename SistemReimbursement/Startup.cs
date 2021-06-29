@@ -89,6 +89,7 @@ namespace SistemReimbursement
             services.AddScoped<ReimbursementRepository>();
             services.AddScoped<AttachmentRepository>();
             services.AddScoped<CategoryRepository>();
+            services.AddScoped<AccountRoleRepository>();
             services.AddDbContext<MyContext>(options =>
             options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("ApiReimbursement")));
             services.AddAuthentication(auth =>
