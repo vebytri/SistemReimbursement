@@ -90,9 +90,7 @@ $(document).ready(function () {
 
     $("#add").click(function () {
         i++;
-        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
-
-        console.log(show_value);
+        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" name="requestAmount[' + i + ']" placeholder="Request Amount" class="form-control rounded-pill" /></td><td> <select class="form-control rounded-pill" id="category[' + i + ']">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" name="upload[' + i + ']" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr>');
     });
 
     $(document).on('click', '.btn_remove', function () {
@@ -101,20 +99,16 @@ $(document).ready(function () {
     });
 
 
-    $('#submit').click(function () {
+    $('formID').submit(function (e) {
+        e.preventDefault();
+
+        data = new FormData();
+        console.log(data);
         var nik = $("#nik2").val();
         var requestDate = Date.now;
         var status = "Process";
         console.log(i);
-        var inputsreq = document.querySelectorAll("#requestAmount");
-        var inputsup = document.querySelectorAll("#upload");
-        var inputscat = document.querySelectorAll("#category");
-        for (i = 0; i < inputsreq.length; i++) {
-            console.log(inputsreq[i].value);
-            console.log(inputsup[i].value);
-            console.log(inputscat[i].value);
-        }
-       
+
         //$('input[name="requestAmount[]"]').each(function (index) {
         //    //alert(index);
         //    console.log(index);

@@ -91,52 +91,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <!--<form action="javascript:insertRequest()">
-    <div class="modal-body m-3">
 
-        <div class="form-row">
-            <div class="form-group col-md-4">
-                <label>Request Amount</label>
-                <input type="number" class="form-control" id="requestAmount[]" required placeholder="">
-            </div>
-
-            <div class="form-group col-md-3">
-                <label>Categories</label>
-                <select class="form-control" id="category[]">
-                    <option>Transportasi</option>
-                    <option>Medical</option>
-                </select>
-            </div>
-
-            <div class="form-group col-md-3">
-                <label>Upload File</label>
-                <input type="file" class="form-control-file" id="uploadFile[]">
-            </div>
-            <div class="form-group col-md-2">
-                <button id="add" name="add" class="btn btn-success rounded-pill m-3">
-                    Add More-->
-            @*<i class="fas fa-plus-circle"></i>*@
-            <!--</button>
-
-                </div>
-
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label>Notes</label>
-                    <textarea class="form-control" id="notes" rows="3" placeholder="Text Here.."></textarea>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Submit</button>
-            </div>
-        </div>
-    </form>-->
             <div class="modal-body">
-                <form id="formID" enctype="multipart/form-data"  method="post">
+                <form id="formID">
                     <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
 
                     <table class="table no-wrap v-middle mb-0" id="dynamic_field">
@@ -149,15 +106,15 @@
                         <tr>
                             
                             @*<td>1</td>*@
-                            <td><input type="text"  id="requestAmount" name="loop[]req" value="123" placeholder="Request Amount" class="form-control rounded-pill " /></td>
+                            <td><input type="text"  name="requestAmount[]" id="part[]requestAmount" value="123" placeholder="Request Amount" class="form-control rounded-pill " /></td>
                             <td>
-                                <select class="form-control rounded-pill" id="category" name="loop[]type">
+                                <select class="form-control rounded-pill" id="category[]">
                                     <option value="1">Medical</option>
                                     <option value="2">Transportation</option>
                                 </select>
                                 @* <input type="text" name="category[]" placeholder="Choose Category" class="form-control rounded-pill category_email" />*@
                             </td>
-                            <td><input type="file" name="loop[]file" id="upload" placeholder="Upload File" class="form-control-file" /></td>
+                            <td><input type="file" id="upload[]" placeholder="Upload File" class="form-control-file" /></td>
                             <td><button type="button"  id="add" class="btn btn-success rounded-pill">Add More</button></td>
                         </tr>
                     </table>
@@ -167,7 +124,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
-                        <button type="submit" id="submit" name="submit" class="btn btn-primary rounded-pill">Submit</button>
+                        <button type="button" id="submit" name="submit" class="btn btn-primary rounded-pill">Submit</button>
 
                     </div>
                 </form>
@@ -182,6 +139,6 @@
 
 
 @section scripts{
-    <script src="~/js/Employee.js" asp-append-version="true"></script>
+    <script src="~/js/Employee1.js" asp-append-version="true"></script>
 
 }
