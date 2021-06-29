@@ -1,7 +1,10 @@
-﻿$(document).ready(function () {
+﻿
+
+$(document).ready(function () {
+    let nik2 = $("#nik2").val();
     $('#tableEmployee').DataTable({
         ajax: {
-            url: 'https://localhost:44383/api/reimbursements/getallbynik/2' ,
+            url: 'https://localhost:44383/api/reimbursements/getallbynik/' + nik2,
             dataSrc: ''
         },
         columns: [
@@ -15,13 +18,6 @@
             {
                 "data": 'reimbursementId'
 
-            },
-          
-            {
-                "data": 'requestAmount'
-            },
-            {
-                "data": 'paidAmount'
             },
          
             {

@@ -50,7 +50,13 @@ namespace SistemReimbursement.Migrations
                     b.Property<string>("FileAttachment")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PaidAmount")
+                        .HasColumnType("int");
+
                     b.Property<int>("ReimbursementId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RequestAmount")
                         .HasColumnType("int");
 
                     b.HasKey("AttachmentId");
@@ -71,9 +77,6 @@ namespace SistemReimbursement.Migrations
 
                     b.Property<string>("CategoryName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("MaxAmount")
-                        .HasColumnType("int");
 
                     b.HasKey("CategoryId");
 
@@ -110,12 +113,6 @@ namespace SistemReimbursement.Migrations
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PaidAmount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RequestAmount")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("RequestDate")
                         .HasColumnType("datetime2");
