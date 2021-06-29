@@ -38,11 +38,17 @@ namespace ReimbursementFrontEnd.Repository.Data
 
             StringContent content = new StringContent(JsonConvert.SerializeObject(registerVM), Encoding.UTF8, "application/json");
             var result = await httpClient.PostAsync(request + "register", content);
-            if (result.IsSuccessStatusCode)
+
+            if (result.IsSuccessStatusCode == false)
+            {
+                return null;
+            }
+            else 
             {
                 string apiResponse = await result.Content.ReadAsStringAsync();
                 entities = JsonConvert.DeserializeObject<RegisterVM>(apiResponse);
             }
+            
             return entities;
         }
     }
