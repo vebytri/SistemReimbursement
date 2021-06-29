@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemReimbursement.Migrations
 {
-    public partial class updateTable : Migration
+    public partial class rev2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -58,18 +58,11 @@ namespace SistemReimbursement.Migrations
                 columns: table => new
                 {
                     Nik = table.Column<int>(type: "int", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleId = table.Column<int>(type: "int", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TB_M_Account", x => x.Nik);
-                    table.ForeignKey(
-                        name: "FK_TB_M_Account_TB_M_Role_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "TB_M_Role",
-                        principalColumn: "RoleId",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_TB_M_Account_TB_M_User_Nik",
                         column: x => x.Nik,
@@ -107,6 +100,32 @@ namespace SistemReimbursement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TB_TR_AccountRole",
+                columns: table => new
+                {
+                    AccountRoleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nik = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TB_TR_AccountRole", x => x.AccountRoleId);
+                    table.ForeignKey(
+                        name: "FK_TB_TR_AccountRole_TB_M_Account_Nik",
+                        column: x => x.Nik,
+                        principalTable: "TB_M_Account",
+                        principalColumn: "Nik",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TB_TR_AccountRole_TB_M_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "TB_M_Role",
+                        principalColumn: "RoleId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TB_TR_Attachment",
                 columns: table => new
                 {
@@ -136,14 +155,19 @@ namespace SistemReimbursement.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TB_M_Account_RoleId",
-                table: "TB_M_Account",
-                column: "RoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TB_M_Reimbursement_AccountNik",
                 table: "TB_M_Reimbursement",
                 column: "AccountNik");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TB_TR_AccountRole_Nik",
+                table: "TB_TR_AccountRole",
+                column: "Nik");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TB_TR_AccountRole_RoleId",
+                table: "TB_TR_AccountRole",
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_TR_Attachment_CategoryId",
@@ -159,7 +183,13 @@ namespace SistemReimbursement.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "TB_TR_AccountRole");
+
+            migrationBuilder.DropTable(
                 name: "TB_TR_Attachment");
+
+            migrationBuilder.DropTable(
+                name: "TB_M_Role");
 
             migrationBuilder.DropTable(
                 name: "TB_M_Category");
@@ -169,9 +199,6 @@ namespace SistemReimbursement.Migrations
 
             migrationBuilder.DropTable(
                 name: "TB_M_Account");
-
-            migrationBuilder.DropTable(
-                name: "TB_M_Role");
 
             migrationBuilder.DropTable(
                 name: "TB_M_User");
