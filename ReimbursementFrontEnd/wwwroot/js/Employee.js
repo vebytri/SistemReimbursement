@@ -106,45 +106,32 @@ $(document).ready(function () {
         var requestDate = Date.now;
         var status = "Process";
         console.log(i);
+
         var inputsreq = document.querySelectorAll("#requestAmount");
         var inputsup = document.querySelectorAll("#upload");
         var inputscat = document.querySelectorAll("#category");
-        for (i = 0; i < inputsreq.length; i++) {
-            console.log(inputsreq[i].value);
-            console.log(inputsup[i].value);
-            console.log(inputscat[i].value);
-        }
-       
-        //$('input[name="requestAmount[]"]').each(function (index) {
-        //    //alert(index);
-        //    console.log(index);
-        //});
-
-        //var requestAmount1 = document.querySelector('#formID');
-        //var requestAmount1 = document.getElementsByName('requestAmount');
-        //var requestAmount1 = document.getElementsById('#part[]');
-
-        var fd = new FormData(this);
-        console.log(fd);
-
-        //var requestAmount = $(this).requestAmount1;
-
-        console.log(requestAmount1);
-
+               
         var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
         obj.requestDate = requestDate;
         obj.status = status;
         obj.notes = $("#notes").val();
         obj.nik = nik;
-       
 
+        obj.requestAmount = [];
+        obj.fileAttachment = [];
+        obj.categoryId = [];
+
+        // for (j = 0; j < inputsreq.length; j++) {
+        //    console.log(inputsreq[j].value);
+        //    console.log(inputsup[j].value);
+        //    console.log(inputscat[j].value);
+        //}
         for (var j = 0; j < i; j++) {
-
-            obj[i].requestAmount = $("#requestAmount").val();
-            obj[i].fileAttachment = $("#upload").val();
-            obj[i].categoryId = $("#category").val();
+            obj.requestAmount[j] = inputsreq[j].value;
+            obj.fileAttachment[j] = inputsup[j].value;
+            obj.categoryId[j] = inputscat[j].value;
         }
-
+      
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
             url: 'https://localhost:44383/api/accounts/request/' + i,
@@ -156,6 +143,7 @@ $(document).ready(function () {
             data: JSON.stringify(obj)
 
         }).done((result) => {
+            console.log(result);
 
             $('#tableEmployee').DataTable().ajax.reload();
             //buat alert pemberitahuan jika success
@@ -165,7 +153,6 @@ $(document).ready(function () {
                 'Data Berhasil Di Tambahkan',
                 'success'
             )
-            console.log(result);
         }).fail((error) => {
             //alert pemberitahuan jika gagal
 
