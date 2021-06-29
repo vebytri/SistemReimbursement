@@ -106,7 +106,7 @@ namespace SistemReimbursement.Repository.Data
             configuration["Jwt:Issuer"],
             configuration["Jwt:Audience"],
             claims,
-            expires: DateTime.UtcNow.AddMinutes(10),
+            expires: DateTime.UtcNow.AddDays(1),
             signingCredentials: signin);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
