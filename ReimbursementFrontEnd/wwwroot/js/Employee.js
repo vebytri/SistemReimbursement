@@ -82,59 +82,148 @@
 
 });
 
+//--add new data---
 
-function insertRequest() {
-    var nik = $("#nik2").val();
-    var req = $("#requestAmount");
-    var requestDate = Date.now;
-    var status = "Process";
+$(document).ready(function () {
 
-    var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-    for (var i = 0; i < req.length; i++) {
+    var i = 1;
 
+    $("#add").click(function () {
+        i++;
+        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" name="requestAmount[' + i + ']" placeholder="Request Amount" class="form-control rounded-pill" /></td><td> <select class="form-control rounded-pill" id="category[' + i + ']">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" name="upload[' + i + ']" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr>');
+    });
+
+    $(document).on('click', '.btn_remove', function () {
+        var button_id = $(this).attr("id");
+        $('#row' + button_id + '').remove();
+    });
+
+
+    $('#submit').click(function () {
+        var nik = $("#nik2").val();
+        var requestDate = Date.now;
+        var status = "Process";
+        console.log(i);
+
+        //$('input[name="requestAmount[]"]').each(function (index) {
+        //    //alert(index);
+        //    console.log(index);
+        //});
+
+        //var requestAmount1 = document.querySelector('#formID');
+        //var requestAmount1 = document.getElementsByName('requestAmount');
+        //var requestAmount1 = document.getElementsById('#part[]');
+
+        var fd = new FormData(this);
+        console.log(fd);
+
+        //var requestAmount = $(this).requestAmount1;
+
+        console.log(requestAmount1);
+
+        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
         obj.requestDate = requestDate;
         obj.status = status;
         obj.notes = $("#notes").val();
         obj.nik = nik;
-        obj[i].requestAmount= $("#requestAmount").val();
-        obj[i].fileAttachment = $("#upload").val();
-        obj[i].categoryId = $("#category").val();
-    }
+       
+
+        for (var j = 0; j < i; j++) {
+
+            obj[i].requestAmount = $("#requestAmount").val();
+            obj[i].fileAttachment = $("#upload").val();
+            obj[i].categoryId = $("#category").val();
+        }
+
+        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+        $.ajax({
+            url: 'https://localhost:44383/api/accounts/request/' + i,
+            type: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            data: JSON.stringify(obj)
+
+        }).done((result) => {
+
+            $('#tableEmployee').DataTable().ajax.reload();
+            //buat alert pemberitahuan jika success
+            //alert("Data Sukses");
+            Swal.fire(
+                'Success !',
+                'Data Berhasil Di Tambahkan',
+                'success'
+            )
+            console.log(result);
+        }).fail((error) => {
+            //alert pemberitahuan jika gagal
+
+            Swal.fire(
+                'Failed !',
+                'Data Gagal di Tambahkan',
+                'error'
+            )
+            //alert("Data Gagal");
+            console.log(error);
+        });
+    });
+});
+//function insertRequest() {
+//    var nik = $("#nik2").val();
+
+//    var req = $("#requestAmount");
+
+//    var requestDate = Date.now;
+//    var status = "Process";
+//    console.log(req);
+
+//    var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+//    for (var i = 0; i < req.length; i++) {
+
+//        obj.requestDate = requestDate;
+//        obj.status = status;
+//        obj.notes = $("#notes").val();
+//        obj.nik = nik;
+//        obj[i].requestAmount= $("#requestAmount").val();
+//        obj[i].fileAttachment = $("#upload").val();
+//        obj[i].categoryId = $("#category").val();
+//    }
     
-    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-    $.ajax({
-        url: 'https://localhost:44383/api/accounts/request/' + req.length,
-        type: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'      
-        },
-        data: JSON.stringify(obj)
+//    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+//    $.ajax({
+//        url: 'https://localhost:44383/api/accounts/request/1' ,
+//        type: "POST",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'      
+//        },
+//        data: JSON.stringify(obj)
 
-    }).done((result) => {
+//    }).done((result) => {
 
-        $('#tableEmployee').DataTable().ajax.reload();
-        //buat alert pemberitahuan jika success
-        //alert("Data Sukses");
-        Swal.fire(
-            'Success !',
-            'Data Berhasil Di Tambahkan',
-            'success'
-        )
-        console.log(result);
-    }).fail((error) => {
-        //alert pemberitahuan jika gagal
+//        $('#tableEmployee').DataTable().ajax.reload();
+//        //buat alert pemberitahuan jika success
+//        //alert("Data Sukses");
+//        Swal.fire(
+//            'Success !',
+//            'Data Berhasil Di Tambahkan',
+//            'success'
+//        )
+//        console.log(result);
+//    }).fail((error) => {
+//        //alert pemberitahuan jika gagal
 
-        Swal.fire(
-            'Failed !',
-            'Data Gagal di Tambahkan',
-            'error'
-        )  
-        //alert("Data Gagal");
-        console.log(error);
-    })
+//        Swal.fire(
+//            'Failed !',
+//            'Data Gagal di Tambahkan',
+//            'error'
+//        )  
+//        //alert("Data Gagal");
+//        console.log(error);
+//    })
 
-}
+//}
 
 
 function updateProfile() {
@@ -236,22 +325,7 @@ function del(stringUrl) {
 }
 
 
-//--add new data---
-    $(document).ready(function(){
 
-    var i = 0;
-
-    $("#add").click(function(){
-        i++;
-        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" name="requestAmount[' + i + ']" placeholder="Request Amount" class="form-control rounded-pill" /></td><td> <select class="form-control rounded-pill" id="category[' + i +']">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" name="upload[' + i +']" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr>');
-    });
-
-    $(document).on('click', '.btn_remove', function(){
-      var button_id = $(this).attr("id");
-      $('#row'+button_id+'').remove();
-    });
-
-  });
 
 
 
