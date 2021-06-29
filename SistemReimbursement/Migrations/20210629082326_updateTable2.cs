@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemReimbursement.Migrations
 {
-    public partial class rev2 : Migration
+    public partial class updateTable2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
