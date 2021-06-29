@@ -1,6 +1,4 @@
-﻿
-
-$(document).ready(function () {
+﻿$(document).ready(function () {
     let nik2 = $("#nik2").val();
     $('#tableEmployee').DataTable({
         ajax: {
@@ -255,8 +253,39 @@ function del(stringUrl) {
 }
 
 
+//--add new data---
+    $(document).ready(function(){
+
+    var i = 1;
+
+    $("#add").click(function(){
+        i++;
+        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" name="requestAmount[]" placeholder="Request Amount" class="form-control rounded-pill" /></td><td> <input type="text" name="category[]" placeholder="Choose Category" class="form-control rounded-pill" /></td > <td><input type="file" name="upload[]" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr>');
+    });
+
+    $(document).on('click', '.btn_remove', function(){
+      var button_id = $(this).attr("id");
+      $('#row'+button_id+'').remove();
+    });
+
+    $("#submit").on('click',function(){
+      var formdata = $("#add_name").serialize();
+      $.ajax({
+        url   :"action.php",
+        type  :"POST",
+        data  :formdata,
+        cache :false,
+        success:function(result){
+        alert(result);
+          $("#add_name")[0].reset();
+        }
+      });
+    });
+  });
 
 
+
+//--view pdf--
 // Loaded via <script> tag, create shortcut to access PDF.js exports.
 var pdfjsLib = window['pdfjs-dist/build/pdf'];
 // The workerSrc property shall be specified.
