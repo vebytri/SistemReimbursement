@@ -14,13 +14,11 @@ namespace SistemReimbursement.Models
     {
         [Key]
         public int AttachmentId { get; set; }
-        
         public string FileAttachment { get; set; }
-
         public int CategoryId { get; set; }
-
+        public int RequestAmount { get; set; }
+        public int PaidAmount { get; set; }
         public int ReimbursementId { get; set; }
-
         [JsonIgnore]
         public virtual Reimbursement Reimbursement { get; set; }
         [JsonIgnore]

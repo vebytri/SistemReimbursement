@@ -14,7 +14,6 @@ namespace SistemReimbursement.Models
         [Key]
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        public int MaxAmount { get; set; }
         [JsonIgnore]
 
         public virtual ICollection<Attachment> Attachment { get; set; }
