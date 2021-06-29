@@ -30,7 +30,6 @@ namespace SistemReimbursement.Repository.Data
                 {
                     Nik = reqReimbursement.Nik,
                     RequestDate = reqReimbursement.RequestDate,
-                    RequestAmount = reqReimbursement.RequestAmount,
                     Status = reqReimbursement.Status,
                     Notes = reqReimbursement.Notes
                 };
@@ -42,7 +41,8 @@ namespace SistemReimbursement.Repository.Data
                     {
                         ReimbursementId = reimbursement.ReimbursementId,
                         FileAttachment = reqReimbursement.FileAttachment[i],
-                        CategoryId = reqReimbursement.CategoryId[i]
+                        CategoryId = reqReimbursement.CategoryId[i],
+                        RequestAmount = reqReimbursement.RequestAmount[i]
                     };
                     conn.Add(attachment);
                     result = conn.SaveChanges();

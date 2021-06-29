@@ -9,8 +9,7 @@ namespace SistemReimbursement.ViewModels
     {
         public int ReimbursementId { get; set; }
         public DateTime RequestDate { get; set; }
-        public int RequestAmount { get; set; }
-        public int PaidAmount { get; set; }
+       
         public string Status { get; set; }
         public string Notes { get; set; }
 
@@ -31,7 +30,9 @@ namespace SistemReimbursement.ViewModels
         public string[] FileAttachment { get; set; }
 
         public int[] CategoryId { get; set; }
+        public int[] RequestAmount { get; set; }
+        public int[] PaidAmount { get; set; }
 
-        
+
     }
 }

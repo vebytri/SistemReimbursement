@@ -15,8 +15,7 @@ namespace SistemReimbursement.Models
         [Key]
         public  int ReimbursementId { get; set; }
         public DateTime RequestDate { get; set; }
-        public int RequestAmount { get; set; }
-        public int PaidAmount { get; set; }
+       
         public string Status { get; set; }
         public string Notes { get; set; }
 
