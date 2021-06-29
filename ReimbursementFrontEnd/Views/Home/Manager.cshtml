@@ -1,207 +1,188 @@
-﻿
-@{
-    ViewData["Title"] = "Employee";
+﻿@{
+    ViewData["Role"] = @ViewBag.sessionRole;
+    ViewData["NIK"] = @ViewBag.sessionNik;
+    ViewData["Name"] = @ViewBag.sessionName;
+
     Layout = "~/Views/Shared/Admin/_Layout.cshtml";
 }
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-7 align-self-center">
+            @*<h3 class="page-title text-truncate text-dark font-weight-medium mb-1"></h3>*@
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb m-0 p-0">
+                        <li class="breadcrumb-item">
+                            <a href="javascript:void(0)">Dashboard</a>
+                        </li>
+                        <li class="breadcrumb-item active">
+                            <a href="javascript:void(0)"> @ViewData["Role"] </a>
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="col-5 align-self-center">
+        </div>
+    </div>
+</div>
 
+<div class="container-fluid">
+    <!-- Start Top Leader Table -->
+    <!-- *************************************************************** -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <h4 class="card-title font-weight-mediu">Table Request</h4>
+                        <div class="ml-auto">
+                            <div class="dropdown sub-dropdown">
+                                <button class="btn btn-link text-muted dropdown-toggle" type="button"
+                                        id="dd1" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                    <i data-feather="more-vertical"></i>
+                                </button>
 
-<!-- Start Top Leader Table -->
-<!-- *************************************************************** -->
-<div class="row">
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="d-flex align-items-center mb-4">
-                    <h4 class="card-title">Top Leaders</h4>
-                    <div class="ml-auto">
-                        <div class="dropdown sub-dropdown">
-                            <button class="btn btn-link text-muted dropdown-toggle" type="button"
-                                    id="dd1" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                <i data-feather="more-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd1">
-                                <a class="dropdown-item" href="#">Insert</a>
-                                <a class="dropdown-item" href="#">Update</a>
-                                <a class="dropdown-item" href="#">Delete</a>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table no-wrap v-middle mb-0">
-                        <thead>
-                            <tr class="border-0">
-                                <th class="border-0 font-14 font-weight-medium text-muted">
-                                    Team Lead
-                                </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted px-2">
-                                    Project
-                                </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted">Team</th>
-                                <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                    Status
-                                </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                    Weeks
-                                </th>
-                                <th class="border-0 font-14 font-weight-medium text-muted">Budget</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="border-top-0 px-2 py-4">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div class="mr-3">
-                                            <img src="~/Adminmart/assets/images/users/widget-table-pic1.jpg"
-                                                 alt="user" class="rounded-circle" width="45"
-                                                 height="45" />
-                                        </div>
-                                        <div class="">
-                                            <h5 class="text-dark mb-0 font-16 font-weight-medium">
-                                                Hanna
-                                                Gover
-                                            </h5>
-                                            <span class="text-muted font-14">hgover@gmail.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="border-top-0 text-muted px-2 py-4 font-14">Elite Admin</td>
-                                <td class="border-top-0 px-2 py-4">
-                                    <div class="popover-icon">
-                                        <a class="btn btn-primary rounded-circle btn-circle font-12"
-                                           href="javascript:void(0)">DS</a>
-                                        <a class="btn btn-danger rounded-circle btn-circle font-12 popover-item"
-                                           href="javascript:void(0)">SS</a>
-                                        <a class="btn btn-cyan rounded-circle btn-circle font-12 popover-item"
-                                           href="javascript:void(0)">RP</a>
-                                        <a class="btn btn-success text-white rounded-circle btn-circle font-20"
-                                           href="javascript:void(0)">+</a>
-                                    </div>
-                                </td>
-                                <td class="border-top-0 text-center px-2 py-4">
-                                    <i class="fa fa-circle text-primary font-12" data-toggle="tooltip"
-                                       data-placement="top" title="In Testing"></i>
-                                </td>
-                                <td class="border-top-0 text-center font-weight-medium text-muted px-2 py-4">
-                                    35
-                                </td>
-                                <td class="font-weight-medium text-dark border-top-0 px-2 py-4">
-                                    $96K
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-2 py-4">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div class="mr-3">
-                                            <img src="~/Adminmart/assets/images/users/widget-table-pic2.jpg"
-                                                 alt="user" class="rounded-circle" width="45"
-                                                 height="45" />
-                                        </div>
-                                        <div class="">
-                                            <h5 class="text-dark mb-0 font-16 font-weight-medium">
-                                                Daniel
-                                                Kristeen
-                                            </h5>
-                                            <span class="text-muted font-14">Kristeen@gmail.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-muted px-2 py-4 font-14">Real Homes WP Theme</td>
-                                <td class="px-2 py-4">
-                                    <div class="popover-icon">
-                                        <a class="btn btn-primary rounded-circle btn-circle font-12"
-                                           href="javascript:void(0)">DS</a>
-                                        <a class="btn btn-danger rounded-circle btn-circle font-12 popover-item"
-                                           href="javascript:void(0)">SS</a>
-                                        <a class="btn btn-success text-white rounded-circle btn-circle font-20"
-                                           href="javascript:void(0)">+</a>
-                                    </div>
-                                </td>
-                                <td class="text-center px-2 py-4">
-                                    <i class="fa fa-circle text-success font-12" data-toggle="tooltip"
-                                       data-placement="top" title="Done"></i>
-                                </td>
-                                <td class="text-center text-muted font-weight-medium px-2 py-4">32</td>
-                                <td class="font-weight-medium text-dark px-2 py-4">$85K</td>
-                            </tr>
-                            <tr>
-                                <td class="px-2 py-4">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div class="mr-3">
-                                            <img src="~/Adminmart/assets/images/users/widget-table-pic3.jpg"
-                                                 alt="user" class="rounded-circle" width="45"
-                                                 height="45" />
-                                        </div>
-                                        <div class="">
-                                            <h5 class="text-dark mb-0 font-16 font-weight-medium">
-                                                Julian
-                                                Josephs
-                                            </h5>
-                                            <span class="text-muted font-14">Josephs@gmail.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-muted px-2 py-4 font-14">MedicalPro WP Theme</td>
-                                <td class="px-2 py-4">
-                                    <div class="popover-icon">
-                                        <a class="btn btn-primary rounded-circle btn-circle font-12"
-                                           href="javascript:void(0)">DS</a>
-                                        <a class="btn btn-danger rounded-circle btn-circle font-12 popover-item"
-                                           href="javascript:void(0)">SS</a>
-                                        <a class="btn btn-cyan rounded-circle btn-circle font-12 popover-item"
-                                           href="javascript:void(0)">RP</a>
-                                        <a class="btn btn-success text-white rounded-circle btn-circle font-20"
-                                           href="javascript:void(0)">+</a>
-                                    </div>
-                                </td>
-                                <td class="text-center px-2 py-4">
-                                    <i class="fa fa-circle text-primary font-12" data-toggle="tooltip"
-                                       data-placement="top" title="Done"></i>
-                                </td>
-                                <td class="text-center text-muted font-weight-medium px-2 py-4">29</td>
-                                <td class="font-weight-medium text-dark px-2 py-4">$81K</td>
-                            </tr>
-                            <tr>
-                                <td class="px-2 py-4">
-                                    <div class="d-flex no-block align-items-center">
-                                        <div class="mr-3">
-                                            <img src="~/Adminmart/assets/images/users/widget-table-pic4.jpg"
-                                                 alt="user" class="rounded-circle" width="45"
-                                                 height="45" />
-                                        </div>
-                                        <div class="">
-                                            <h5 class="text-dark mb-0 font-16 font-weight-medium">
-                                                Jan
-                                                Petrovic
-                                            </h5>
-                                            <span class="text-muted font-14">hgover@gmail.com</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-muted px-2 py-4 font-14">Hosting Press HTML</td>
-                                <td class="px-2 py-4">
-                                    <div class="popover-icon">
-                                        <a class="btn btn-primary rounded-circle btn-circle font-12"
-                                           href="javascript:void(0)">DS</a>
-                                        <a class="btn btn-success text-white font-20 rounded-circle btn-circle"
-                                           href="javascript:void(0)">+</a>
-                                    </div>
-                                </td>
-                                <td class="text-center px-2 py-4">
-                                    <i class="fa fa-circle text-danger font-12" data-toggle="tooltip"
-                                       data-placement="top" title="In Progress"></i>
-                                </td>
-                                <td class="text-center text-muted font-weight-medium px-2 py-4">23</td>
-                                <td class="font-weight-medium text-dark px-2 py-4">$80K</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="d-flex align-items-center mb-2 pb-3">
+
+
+                        <button type="button" data-toggle="modal" data-target="#insertModal" class="btn btn-success rounded-pill">
+                            <i class="fas fa-plus-circle"></i>
+                        </button>
+                    </div>
+
+                    <div class="table-responsive mt-2">
+                        <table id="tableEmployee" class="table no-wrap v-middle mb-0">
+                            <thead>
+                                <tr class="border-0">
+                                    <th class="border-0 font-14 font-weight-medium">
+                                        No
+                                    </th>
+                                    <th class="border-0 font-14 font-weight-medium  ">
+                                        Reimbursements ID
+                                    </th>
+                                    <th class="border-0 font-14 font-weight-medium ">Status</th>
+                                    <th class="border-0 font-14 font-weight-medium ">Manager Status</th>
+                                    <th class="border-0 font-14 font-weight-medium ">Finance Status</th>
+                                    <th class="border-0 font-14 font-weight-medium text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bodyEmployee">
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- *************************************************************** -->
-<!-- End Top Leader Table -->
-<!-- *************************************************************** -->
+
+
+
+<div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg rounded-pill" role="document">
+        <div class="modal-content rounded">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModal">Request Reimbursements</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!--<form action="javascript:insertRequest()">
+            <div class="modal-body m-3">
+
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label>Request Amount</label>
+                        <input type="number" class="form-control" id="requestAmount[]" required placeholder="">
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Categories</label>
+                        <select class="form-control" id="category[]">
+                            <option>Transportasi</option>
+                            <option>Medical</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Upload File</label>
+                        <input type="file" class="form-control-file" id="uploadFile[]">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button id="add" name="add" class="btn btn-success rounded-pill m-3">
+                            Add More-->
+            @*<i class="fas fa-plus-circle"></i>*@
+            <!--</button>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label>Notes</label>
+                            <textarea class="form-control" id="notes" rows="3" placeholder="Text Here.."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </form>-->
+            <div class="modal-body">
+                <form enctype="multipart/form-data" method="post">
+                    <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
+
+                    <table class="table no-wrap v-middle mb-0" id="dynamic_field">
+                        <tr class="border-0">
+                            @*<th class="border-0 font-14 font-weight-medium text-center ">No</th>*@
+                            <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
+                            <th class="border-0 font-14 font-weight-medium text-center">Category</th>
+                            <th class="border-0 font-14 font-weight-medium text-center ">Upload File</th>
+                        </tr>
+                        <tr>
+
+                            @*<td>1</td>*@
+                            <td><input type="text" id="requestAmount" name="loop[]req" value="123" placeholder="Request Amount" class="form-control rounded-pill " /></td>
+                            <td>
+                                <select class="form-control rounded-pill" id="category" name="loop[]type">
+                                    <option value="1">Medical</option>
+                                    <option value="2">Transportation</option>
+                                </select>
+                                @* <input type="text" name="category[]" placeholder="Choose Category" class="form-control rounded-pill category_email" />*@
+                            </td>
+                            <td><input type="file" name="loop[]file" id="upload" placeholder="Upload File" class="form-control-file" /></td>
+                            <td><button type="button" id="add" class="btn btn-success rounded-pill">Add More</button></td>
+                        </tr>
+                    </table>
+                    <div class="form-group col-md-12">
+                        <label>Notes</label>
+                        <textarea class="form-control border-2 rounded" id="notes" rows="3" placeholder="Text Here.."></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
+                        <button type="submit" id="submit" name="submit" class="btn btn-primary rounded-pill">Submit</button>
+
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+    <script src="~/js/Manager.js" asp-append-version="true"></script>
+
+}
