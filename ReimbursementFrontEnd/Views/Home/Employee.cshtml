@@ -136,7 +136,7 @@
         </div>
     </form>-->
             <div class="modal-body">
-                <form name="add_name" id="add_name" action="javascript:insertRequest()">
+                <form  action="javascript:insertRequest()">
                     <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
 
                     <table class="table no-wrap v-middle mb-0" id="dynamic_field">
@@ -150,17 +150,16 @@
                         <tr>
                             
                             @*<td>1</td>*@
-                            <td><input type="text" name="requestAmount[]" placeholder="Request Amount" class="form-control rounded-pill request_list" /></td>
+                            <td><input type="text"  id="requestAmount[0]" placeholder="Request Amount" class="form-control rounded-pill" /></td>
                             <td>
-                                <select class="form-control rounded-pill" id="category[]">
-                                    <option>Transportasi</option>
-                                    <option>Medical</option>
+                                <select class="form-control rounded-pill" id="category[0]">
+                                    <option value="1">Medical</option>
+                                    <option value="2">Transportation</option>
                                 </select>
                                 @* <input type="text" name="category[]" placeholder="Choose Category" class="form-control rounded-pill category_email" />*@
                             </td>
-                            <td><input type="file" name="upload[]" placeholder="Upload File" class="form-control-file  upload_list" /></td>
-
-                            <td><button type="button" name="add" id="add" class="btn btn-success rounded-pill">Add More</button></td>
+                            <td><input type="file" id="upload[0]" placeholder="Upload File" class="form-control-file" /></td>
+                            <td><button type="button"  id="add" class="btn btn-success rounded-pill">Add More</button></td>
                         </tr>
                     </table>
                     <div class="form-group col-md-12">
@@ -169,7 +168,8 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
-                        <button type="button" id="submit" name="submit" class="btn btn-primary rounded-pill">Submit</button>
+                        <button type="submit" class="btn btn-primary rounded-pill">Submit</button>
+
                     </div>
                 </form>
             </div>
