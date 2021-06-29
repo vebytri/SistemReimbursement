@@ -83,50 +83,37 @@
 });
 
 
-
-
 function insertRequest() {
-    bootstrapValidate('#firstname', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#lastname', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#phone', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#birthdate', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#salary', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#email', 'email: email sudah digunakan');
-    bootstrapValidate('#password', 'min:8:password minimal 8 karakter');
-    bootstrapValidate('#degree', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#gpa', 'required:Kolom tidak boleh kosong');
-    bootstrapValidate('#universityid', 'required:Kolom tidak boleh kosong');
+    var nik = $("#nik2").val();
+    var req = $("#requestAmount");
+    var requestDate = Date.now;
+    var status = "Process";
 
     var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-    obj.FirstName = $("#firstname").val();
-    obj.LastName = $("#lastname").val();
-    obj.Phone = $("#phone").val();
-    obj.BirthDate = $("#birthdate").val();
-    obj.Salary = $("#salary").val();
-    obj.Email = $("#email").val();
-    obj.Password = $("#password").val();
-    obj.Degree = $("#degree").val();
-    obj.GPA = $("#gpa").val();
-    obj.UniversityId = $("#universityid").val();
+    for (var i = 0; i < req.length; i++) {
 
-
+        obj.requestDate = requestDate;
+        obj.status = status;
+        obj.notes = $("#notes").val();
+        obj.nik = nik;
+        obj[i].requestAmount= $("#requestAmount").val();
+        obj[i].fileAttachment = $("#upload").val();
+        obj[i].categoryId = $("#category").val();
+    }
+    
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
-        url: ' https://localhost:44345/API/person/Register',
+        url: 'https://localhost:44383/api/accounts/request/' + req.length,
         type: "POST",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
-            //'success': function (e) {
-            //    if (e.some(e.email == null)) {
-            //    }
-            //}
+            'Content-Type': 'application/json'      
         },
         data: JSON.stringify(obj)
 
     }).done((result) => {
 
-        $('#tableProf').DataTable().ajax.reload();
+        $('#tableEmployee').DataTable().ajax.reload();
         //buat alert pemberitahuan jika success
         //alert("Data Sukses");
         Swal.fire(
@@ -134,7 +121,7 @@ function insertRequest() {
             'Data Berhasil Di Tambahkan',
             'success'
         )
-        //console.log(result);
+        console.log(result);
     }).fail((error) => {
         //alert pemberitahuan jika gagal
 
@@ -142,11 +129,7 @@ function insertRequest() {
             'Failed !',
             'Data Gagal di Tambahkan',
             'error'
-        )
-        console.log(error);
-
-
-
+        )  
         //alert("Data Gagal");
         console.log(error);
     })
@@ -256,11 +239,11 @@ function del(stringUrl) {
 //--add new data---
     $(document).ready(function(){
 
-    var i = 1;
+    var i = 0;
 
     $("#add").click(function(){
         i++;
-        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" name="requestAmount[]" placeholder="Request Amount" class="form-control rounded-pill" /></td><td> <input type="text" name="category[]" placeholder="Choose Category" class="form-control rounded-pill" /></td > <td><input type="file" name="upload[]" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr>');
+        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" name="requestAmount[' + i + ']" placeholder="Request Amount" class="form-control rounded-pill" /></td><td> <select class="form-control rounded-pill" id="category[' + i +']">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" name="upload[' + i +']" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="'+i+'" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr>');
     });
 
     $(document).on('click', '.btn_remove', function(){
@@ -268,19 +251,6 @@ function del(stringUrl) {
       $('#row'+button_id+'').remove();
     });
 
-    $("#submit").on('click',function(){
-      var formdata = $("#add_name").serialize();
-      $.ajax({
-        url   :"action.php",
-        type  :"POST",
-        data  :formdata,
-        cache :false,
-        success:function(result){
-        alert(result);
-          $("#add_name")[0].reset();
-        }
-      });
-    });
   });
 
 
