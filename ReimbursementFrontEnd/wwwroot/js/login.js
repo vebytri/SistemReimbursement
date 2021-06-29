@@ -1,10 +1,10 @@
-﻿////function cek() {
-////    var email = $("#email").val();
-////    var password = $("#password").val();
+﻿function cek() {
+    var email = $("#email").val();
+    var password = $("#password").val();
 
-////    console.log(email);
-////    console.log(password);
-//////}
+    console.log(email);
+    console.log(password);
+}
 //function cek() {
 //    var firstname = $("#firstname").val();
 //    var lastname = $("#lastname").val();
@@ -42,6 +42,7 @@ function login() {
     var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
     obj.email = $("#email").val();
     obj.password = $("#password").val();
+
    
 
 
