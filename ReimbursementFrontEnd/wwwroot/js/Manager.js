@@ -163,6 +163,7 @@ $(document).ready(function () {
         });
     });
 });
+
 function acc(id) {
     $.ajax({
         url: 'https://localhost:44383/api/reimbursements/' + id,
@@ -173,39 +174,30 @@ function acc(id) {
         },
 
     }).done((result) => {
-        //$("#reqId").val(result.reimbursementId);
-
-        //$("#reqDate").val(result.requestDate.split("T")[0]);
-        //$("#status").val(result.status);
-        //$("#managerStatus").val(result.managerApprovalStatus);
-        //$("#managerDate").val(result.managerApprovalDate.split("T")[0]);
-        //$("#financeStatus").val(result.financeApprovalStatus);
-        //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
-        //$("#notes").val(result.notes);
 
         var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
         obj.reimbursementId = id;
-        obj.requestDate = $("#reqDate").val();
-        obj.status = "approvedbymanager";
-        obj.notes = $("#notes").val();
-        obj.managerApprovalStatus = 1;
+        obj.requestDate = result.requestDate;
+        obj.status = "aprovedmymanager";
+        obj.notes = result.notes;
+
+        obj.managerApprovalStatus = result.managerApprovalStatus;
         obj.managerApprovalDate = new Date().toLocaleString();
-        obj.financeApprovalStatus = 0;
-        obj.financeApprovalDate = $("#financeDate").val();
-        var nik = $("#nik2").val();
-        obj.nik = nik;
-        obj.financeApprovalNik = nik;
+        obj.financeApprovalStatus = result.financeApprovalStatus;
+        obj.financeApprovalDate = result.financeApprovalDate;
+        obj.nik = result.nik;
+        obj.financeApprovalNik = result.financeApprovalNik;
         console.log(obj);
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
-            url: 'https://localhost:44383/api/reimbursements' ,
+            url: 'https://localhost:44383/api/reimbursements',
             type: "PUT",
             data: JSON.stringify(obj),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-           
+
 
         }).done((result) => {
             console.log(result);
@@ -228,13 +220,70 @@ function acc(id) {
     //$("#financeStatus").val(result.financeApprovalStatus);
     //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
     //$("#notes").val(result.notes);
-   
+
+
+}
+function rej(id) {
+    $.ajax({
+        url: 'https://localhost:44383/api/reimbursements/' + id,
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+    }).done((result) => {
+
+        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+        obj.reimbursementId = id;
+        obj.requestDate = result.requestDate;
+        obj.status = "rejectedmymanager";
+        obj.notes = result.notes;
+
+        obj.managerApprovalStatus = result.managerApprovalStatus;
+        obj.managerApprovalDate = new Date().toLocaleString();
+        obj.financeApprovalStatus = result.financeApprovalStatus;
+        obj.financeApprovalDate = result.financeApprovalDate;
+        obj.nik = result.nik;
+        obj.financeApprovalNik = result.financeApprovalNik;
+        console.log(obj);
+        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+        $.ajax({
+            url: 'https://localhost:44383/api/reimbursements',
+            type: "PUT",
+            data: JSON.stringify(obj),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+
+
+        }).done((result) => {
+            console.log(result);
+            $('#tableEmployee').DataTable().ajax.reload();
+
+        }).fail((error) => {
+
+
+        })
+
+    }).fail((error) => {
+
+
+    })
+
+    //$("#reqDate").val(result.requestDate.split("T")[0]);
+    //$("#status").val(result.status);
+    //$("#managerStatus").val(result.managerApprovalStatus);
+    //$("#managerDate").val(result.managerApprovalDate.split("T")[0]);
+    //$("#financeStatus").val(result.financeApprovalStatus);
+    //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
+    //$("#notes").val(result.notes);
+
 
 }
 
-
 function Detail(id) {
-
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
         url: 'https://localhost:44383/api/reimbursements/' + id,
@@ -250,10 +299,75 @@ function Detail(id) {
         $("#reqDate").val(result.requestDate.split("T")[0]);
         $("#status").val(result.status);
         $("#managerStatus").val(result.managerApprovalStatus);
+
+        //if (result.managerApprovalStatus == 1) {
+        //    return $("#managerStatus").val("Aprroved");
+
+        //}
+        //else if (result.managerApprovalStatus == 0) {
+        //    return $("#managerStatus").val("Process");
+
+
+
+        //}
+        //else if (result.managerApprovalStatus == 2) {
+        //    return $("#managerStatus").val("Declined");
+        //}
+
+
         $("#managerDate").val(result.managerApprovalDate.split("T")[0]);
         $("#financeStatus").val(result.financeApprovalStatus);
+
+        //if (result.financeApprovalStatus == 1) {
+        //    return $("#financeStatus").val("Aprroved");
+
+        //}
+        //else if (result.financeApprovalStatus == 0) {
+        //    return $("#financeStatus").val("Process");
+        //}
+        //else if (result.financeApprovalStatus == 2) {
+        //    return $("#financeStatus").val("Declined");
+        //}
+
         $("#financeDate").val(result.financeApprovalDate.split("T")[0]);
-        $("#notes").val(result.notes);
+
+        $("#viewnotes").val(result.notes);
+
+
+        //---tablemodal--
+
+        console.log(id);
+        $('#viewEmployee').DataTable({
+            ajax: {
+                url: 'https://localhost:44383/api/attachments/getdetail/' + id,
+                dataSrc: ''
+            },
+            columns: [
+
+                {
+                    "data": 'requestAmount'
+
+                },
+
+                {
+                    "data": 'categoryId'
+
+                },
+
+                {
+                    "data": 'fileAttachment'
+
+                },
+                {
+                    "data": 'paidAmount'
+
+                }
+
+            ]
+        });
+        $('#viewEmployee').DataTable().destroy();
+
+
 
 
 
@@ -264,42 +378,6 @@ function Detail(id) {
 
 }
 
-function del(stringUrl) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: 'https://localhost:44345/API/person/DeleteProfilbyId/' + stringUrl,
-                type: "POST"
-            }).done((result) => {
-                //console.log(result);
-                $('#tableProf').DataTable().ajax.reload();
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
-            }).fail((error) => {
-                Swal.fire(
-                    'Failed !',
-                    'Data Gagal di Hapus',
-                    'error'
-                )
-                console.log(error);
-            });
-
-        }
-    })
-
-
-}
 
 
 
