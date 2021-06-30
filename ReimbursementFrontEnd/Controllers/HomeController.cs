@@ -82,6 +82,8 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            ViewBag.sessionManagerNik= tokenS.Claims.First(claim => claim.Type == "ManagerNik").Value;
+
 
             return View();
         }
