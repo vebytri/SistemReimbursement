@@ -2,6 +2,8 @@
     ViewData["Role"] = @ViewBag.sessionRole;
     ViewData["NIK"] = @ViewBag.sessionNik;
     ViewData["Name"] = @ViewBag.sessionName;
+    ViewData["ManagerNik"] = @ViewBag.sessionManagerNik;
+
 
     Layout = "~/Views/Shared/Admin/_Layout.cshtml";
 }
@@ -93,14 +95,14 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-          
+
             <div class="modal-body m-1">
                 <div class="form-row">
 
                     <div class="form-group col-md-3">
                         <label>Request Date</label>
                         <input class="form-control rounded-pill" id="reqDate">
-                        <input class="form-control rounded-pill" hidden  id="reqId">
+                        <input class="form-control rounded-pill" hidden id="reqId">
 
                     </div>
 
@@ -112,88 +114,90 @@
                 <div class="form-row">
                     <div class="form-group col-md-6 text-center">
                         <label>Manager</label>
-                      
+
                     </div>
 
                     <div class="form-group col-md-6 text-center">
                         <label>Finance</label>
-                       
+
 
                     </div>
                 </div>
-                    <div class="form-row">
+                <div class="form-row">
 
-                        <div class="form-group col-md-3 text-center">
-                            <label> Approval Status</label>
-                            <input class="form-control rounded-pill" id="managerStatus">
+                    <div class="form-group col-md-3 text-center">
+                        <label> Approval Status</label>
+                        <input class="form-control rounded-pill" id="managerStatus">
 
-                        </div>
-
-                        <div class="form-group col-md-3 text-center">
-                            <label> Approval Date</label>
-                            <input class="form-control rounded-pill" id="managerDate">
-
-                        </div>
-
-
-                        <div class="form-group col-md-3 text-center">
-                            <label> Approval Status</label>
-                            <input class="form-control rounded-pill" id="financeStatus">
-
-                        </div>
-                        <div class="form-group col-md-3 text-center">
-                            <label> Approval Date</label>
-                            <input class="form-control rounded-pill"  id="financeDate">
-                        </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label>Notes</label>
-                            <textarea class="form-control" id="notes" rows="3"></textarea>
-                        </div>
+                    <div class="form-group col-md-3 text-center">
+                        <label> Approval Date</label>
+                        <input class="form-control rounded-pill" id="managerDate">
+
                     </div>
 
 
+                    <div class="form-group col-md-3 text-center">
+                        <label> Approval Status</label>
+                        <input class="form-control rounded-pill" id="financeStatus">
+
+                    </div>
+                    <div class="form-group col-md-3 text-center">
+                        <label> Approval Date</label>
+                        <input class="form-control rounded-pill" id="financeDate">
+                    </div>
                 </div>
 
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="notes" rows="3"></textarea>
+                    </div>
+                </div>
 
-                @*--table view---*@
-                <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
+            </div>
 
-                <table class="table no-wrap v-middle mb-0" id="dynamic_field">
+
+            @*--table view---*@
+            <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
+            <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
+
+            <table id="viewEmployee" class="table no-wrap v-middle mb-0">
+                <thead>
                     <tr class="border-0">
-                        @*<th class="border-0 font-14 font-weight-medium text-center ">No</th>*@
                         <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
                         <th class="border-0 font-14 font-weight-medium text-center">Category</th>
                         <th class="border-0 font-14 font-weight-medium text-center ">File</th>
                         <th class="border-0 font-14 font-weight-medium text-center ">Paid Amount</th>
-
                     </tr>
-                    <tr>
+                </thead>
+                <tbody id="bodyEmployee">
+                </tbody>
 
-                        @*<td>1</td>*@
-                        <td><input type="text" id="requestAmount" name="loop[]req" value="123" placeholder="Request Amount" class="form-control rounded-pill " /></td>
-                        <td>
-                            <select class="form-control rounded-pill" id="category" name="loop[]type">
-                                <option value="1">Medical</option>
-                                <option value="2">Transportation</option>
-                            </select>
-                            @* <input type="text" name="category[]" placeholder="Choose Category" class="form-control rounded-pill category_email" />*@
-                        </td>
-                        <td><input type="file" name="loop[]file" id="upload" placeholder="Upload File" class="form-control-file" /></td>
+            </table>
+            <!--<table class="table no-wrap v-middle mb-0" id="viewEmployee">
+        <tr class="border-0">-->
+            @*<th class="border-0 font-14 font-weight-medium text-center ">No</th>*@
 
-                        <td><input type="text" id="requestAmount" name="loop[]req" value="123" class="form-control rounded-pill " /></td>
-                        @*<td><button type="button" id="add" class="btn btn-primary rounded-pill">Show</button></td>*@
-                    </tr>
-                </table>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
+            <!--</tr>
+        <tr>
+            <td><input type="text" id="requestAmount" class="form-control rounded-pill " /></td>
+            <td><input type="text" id="category" class="form-control rounded-pill " /></td>
+            <td><input type="text" id="file" class="form-control rounded-pill " /></td>
+            <td><input type="text" id="paidAmount" class="form-control rounded-pill " /></td>
+        </tr>
+        <tbody>
+        </tbody>
+    </table>-->
 
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
 
             </div>
+
+        </div>
     </div>
 </div>
 
