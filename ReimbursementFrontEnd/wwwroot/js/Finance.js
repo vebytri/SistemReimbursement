@@ -81,11 +81,122 @@
 
 });
 
-
-function updatePaid(id) {
+function Detail(id) {
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
-        url: 'https://localhost:44383/api/attachments/' + id,
+        url: 'https://localhost:44383/api/reimbursements/' + id,
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+    }).done((result) => {
+        $("#reqId").val(result.reimbursementId);
+        $("#reqDate").val(result.requestDate.split("T")[0]);
+        $("#status").val(result.status);
+        if (result.managerApprovalStatus == 0) {
+            $("#managerStatus").val("Process");
+        }
+        else if (result.managerApprovalStatus == 1) {
+            $("#managerStatus").val("Approved");
+        }
+        else if (result.managerApprovalStatus == 2) {
+            $("#managerStatus").val("Rejected");
+        }
+        else {
+            $("#managerStatus").val("Unknown!");
+        }
+
+
+        if (result.managerApprovalDate == "0001-01-01T00:00:00") {
+            $("#managerDate").val("Not Available");
+        }
+
+        else {
+            $("#managerDate").val(result.managerApprovalDate.split("T")[0]);
+        }
+
+
+        if (result.financeApprovalStatus == 0) {
+            $("#financeStatus").val("Process");
+        }
+        else if (result.financeApprovalStatus == 1) {
+            $("#financeStatus").val("Approved");
+        }
+        else if (result.financeApprovalStatus == 2) {
+            $("#financeStatus").val("Rejected");
+        }
+        else {
+            $("#financeStatus").val("Unknown!");
+        }
+
+
+        if (result.financeApprovalDate == "0001-01-01T00:00:00") {
+            $("#financeDate").val("Not Available");
+        }
+
+        else {
+            $("#financeDate").val(result.financeApprovalDate.split("T")[0]);
+        }
+
+        $("#viewnotes").val(result.notes);
+
+
+        //---tablemodal--
+        console.log(id);
+        $('#viewEmployee').DataTable({
+
+            ajax: {
+                url: 'https://localhost:44383/api/attachments/getdetail/' + id,
+                dataSrc: ''
+            },
+            columns: [
+                {
+                    "data": 'requestAmount'
+                },
+                {
+                    "data": 'categoryId'
+                },
+
+                {
+                    "data": 'fileAttachment'
+                },
+                {
+                    "render": function (data, type, row) {
+                        return `
+                      <input class="form-control rounded-pill" id="paidAmount" name="part[${row['attachmentId']}]paidAmount" placeholder="${row['paidAmount']}" >
+                     
+                        `;
+                    }
+                },
+                {
+
+                    "render": function (data, type, row) {
+                        return `
+                    <button type="button" class="btn btn-success rounded-pill" onclick="updatePaid('${row['attachmentId']}'+,+'part[${row['attachmentId']}]paidAmount.value')" ><i class="fas fa-check"></i></button>
+
+                    `;
+                    }
+                }
+            ]
+        });
+
+
+        $('#viewEmployee').DataTable().destroy();
+
+    }).fail((error) => {
+    })
+
+}
+
+
+
+function updatePaid(id,paid1) {
+    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+    var id2 = id;
+    $.ajax({
+        url: 'https://localhost:44383/api/attachments/' + id2,
         type: "GET",
         headers: {
             'Accept': 'application/json',
@@ -96,7 +207,7 @@ function updatePaid(id) {
         //$("#paidAmount").val(result.paidAmount);
         //var paid = document.querySelectorAll("#paidAmount");
         var paid = $("#paidAmount").val();
-        console.log(paid);
+        console.log(paid1);
 
 
         var attachmentId = result.attachmentId;
@@ -128,12 +239,8 @@ function updatePaid(id) {
         }).done((result) => {
             console.log(result);
 
-            //Swal.fire(
-            //    'Success !',
-            //    'Data Berhasil Di Tambahkan',
-            //    'success'
-            //)
-            //$('#viewEmployee').dataTable().fnClearTable();
+            
+            $('#viewEmployee').dataTable().fnClearTable();
 
         }).fail((error) => {
 
@@ -347,114 +454,6 @@ function rej(id) {
 
 
 }
-
-function Detail(id) {
-    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-    $.ajax({
-        url: 'https://localhost:44383/api/reimbursements/' + id,
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-
-    }).done((result) => {
-        $("#reqId").val(result.reimbursementId);
-        $("#reqDate").val(result.requestDate.split("T")[0]);
-        $("#status").val(result.status);
-        if (result.managerApprovalStatus == 0) {
-            $("#managerStatus").val("Process");
-        }
-        else if (result.managerApprovalStatus == 1) {
-            $("#managerStatus").val("Approved");
-        }
-        else if (result.managerApprovalStatus == 2) {
-            $("#managerStatus").val("Rejected");
-        }
-        else {
-            $("#managerStatus").val("Unknown!");
-        }
-
-
-        if (result.managerApprovalDate == "0001-01-01T00:00:00") {
-            $("#managerDate").val("Not Available");
-        }
-
-        else {
-            $("#managerDate").val(result.managerApprovalDate.split("T")[0]);
-        }
-
-
-        if (result.financeApprovalStatus == 0) {
-            $("#financeStatus").val("Process");
-        }
-        else if (result.financeApprovalStatus == 1) {
-            $("#financeStatus").val("Approved");
-        }
-        else if (result.financeApprovalStatus == 2) {
-            $("#financeStatus").val("Rejected");
-        }
-        else {
-            $("#financeStatus").val("Unknown!");
-        }
-
-
-        if (result.financeApprovalDate == "0001-01-01T00:00:00") {
-            $("#financeDate").val("Not Available");
-        }
-
-        else {
-            $("#financeDate").val(result.financeApprovalDate.split("T")[0]);
-        }
-
-        $("#viewnotes").val(result.notes);
-
-
-        //---tablemodal--
-        console.log(id);
-        $('#viewEmployee').DataTable({
-
-            ajax: {
-                url: 'https://localhost:44383/api/attachments/getdetail/' + id,
-                dataSrc: ''
-            },
-            columns: [
-                {
-                    "data": 'requestAmount'
-                },
-                {
-                    "data": 'categoryId'
-                },
-
-                {
-                    "data": 'fileAttachment'
-                },
-                {
-                    "render": function (data, type, row) {
-                        return `
-                      <input class="form-control rounded-pill" id="paidAmount" name="part[${row['attachmentId']}]paidAmount" placeholder="${row['paidAmount']}" >
-                     
-                        `;
-                    }
-                },
-                {
-
-                    "render": function (data, type, row) {
-                        return `
-                    <button type="button" class="btn btn-success rounded-pill" onclick="updatePaid('${row['attachmentId']}')" ><i class="fas fa-check"></i></button>
-                    `;
-                    }
-                }
-            ]
-        });
-
-        $('#viewEmployee').DataTable().destroy();
-
-    }).fail((error) => {
-    })
-
-}
-
 
 
 

@@ -139,7 +139,7 @@
                                      width="40">
                                 <span class="ml-2 d-none d-lg-inline-block">
                                     <span>Hello,</span> <span class="text-dark">@ViewBag.sessionName</span> <i data-feather="chevron-down"
-                                                                                                    class="svg-icon"></i>
+                                                                                                               class="svg-icon"></i>
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -205,36 +205,36 @@
                                 </a>
                             </li>
                         }
-                            @if (ViewBag.sessionRole == "Manager")
+                        @if (ViewBag.sessionRole == "Manager")
 
-                            {
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link sidebar-link" href="/home/manager"
-                                       aria-expanded="false">
-                                        <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Manager</span>
-                                    </a>
-                                </li>
-                            }
-
-                            @if (ViewBag.sessionRole == "Finance")
-
-                            {
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link sidebar-link" href="/home/finance"
-                                       aria-expanded="false">
-                                        <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Finanace</span>
-                                    </a>
-                                </li>
-                            }
-
-
+                        {
                             <li class="sidebar-item">
-                                <a class="sidebar-link sidebar-link" href="/login/logout"
+                                <a class="sidebar-link sidebar-link" href="/home/manager"
                                    aria-expanded="false">
-                                    <i data-feather="log-out" class="feather-icon"></i><span class="hide-menu">Logout</span>
+                                    <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Manager</span>
                                 </a>
                             </li>
-                        </ul>
+                        }
+
+                        @if (ViewBag.sessionRole == "Finance")
+
+                        {
+                            <li class="sidebar-item">
+                                <a class="sidebar-link sidebar-link" href="/home/finance"
+                                   aria-expanded="false">
+                                    <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Finance</span>
+                                </a>
+                            </li>
+                        }
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link sidebar-link" href="/login/logout"
+                               aria-expanded="false">
+                                <i data-feather="log-out" class="feather-icon"></i><span class="hide-menu">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -269,6 +269,7 @@
     <script src="~/Adminmart/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="~/Adminmart/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="~/Adminmart/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @*<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
 
     @*---pdf---*@

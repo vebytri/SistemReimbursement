@@ -43,6 +43,8 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            ViewBag.sessionName2 = tokenS.Claims.First(claim => claim.Type == "LastName").Value;
+
             return View();
         }
  
@@ -68,7 +70,8 @@ namespace ReimbursementFrontEnd.Controllers
 
             ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
-            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            ViewBag.sessionNameFirst = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            ViewBag.sessionNameLast = tokenS.Claims.First(claim => claim.Type == "LastName").Value;
             ViewBag.sessionManagerNik= tokenS.Claims.First(claim => claim.Type == "ManagerNik").Value;
 
 

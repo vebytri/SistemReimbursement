@@ -203,9 +203,19 @@ function acc(id) {
             console.log(result);
             $('#tableEmployee').DataTable().ajax.reload();
 
+            Swal.fire(
+                'Success !',
+                'Success Updated',
+                'success'
+            )
+
         }).fail((error) => {
 
-
+            Swal.fire(
+                'Failed !',
+                'Failed Updated!',
+                'error'
+            )
         })
 
     }).fail((error) => {

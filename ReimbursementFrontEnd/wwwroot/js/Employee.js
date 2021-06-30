@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
     let nik2 = $("#nik2").val();
+    let first = $("#first").val();
+    let last = $("#last").val();
+    console.log(first);
     $('#tableEmployee').DataTable({
         ajax: {
             url: 'https://localhost:44383/api/reimbursements/getallbynik/' + nik2,
@@ -14,8 +17,14 @@
 
             },
             {
-                "data": 'reimbursementId'
+                "data": 'nik'
 
+            },
+            {
+                "render": function (data)
+                {
+                return(first + last)
+                }
             },
 
             {
@@ -69,7 +78,6 @@
                     return `
                             <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-eye"></i></button>
 
-                            <button type="button" class="btn btn-danger rounded-pill" onclick="del('${row['reimbursementId']}')"><i class="fas fa-trash"></i></button>
                             `;
                 }
 
@@ -80,6 +88,7 @@
 
 });
 
+//<button type="button" class="btn btn-danger rounded-pill" onclick="del('${row['reimbursementId']}')"><i class="fas fa-trash"></i></button>
 
 
 
@@ -158,7 +167,7 @@ $(document).ready(function () {
             //alert("Data Sukses");
             Swal.fire(
                 'Success !',
-                'Data Berhasil Di Tambahkan',
+                'Success Inserted!',
                 'success'
             )
         }).fail((error) => {
@@ -166,7 +175,7 @@ $(document).ready(function () {
 
             Swal.fire(
                 'Failed !',
-                'Data Gagal di Tambahkan',
+                'Failed Inserted!',
                 'error'
             )
             //alert("Data Gagal");
