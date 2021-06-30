@@ -2,7 +2,7 @@
     let nik2 = $("#nik2").val();
     $('#tableEmployee').DataTable({
         ajax: {
-            url: 'https://localhost:44383/api/Reimbursements/getallbystatusandnik/ApprovedbyManager/' + nik2,
+            url: 'https://localhost:44383/api/Reimbursements/getallbystatusandnik/Process/' + nik2,
             dataSrc: ''
         },
         columns: [
@@ -69,7 +69,8 @@
                     return `
                             <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-eye"></i></button>
 
-                            <button type="button" class="btn btn-danger rounded-pill" onclick="del('${row['nik']}')"><i class="fas fa-trash"></i></button>
+                            <button type="button" class="btn btn-success rounded-pill" onclick="acc('${row['reimbursementId']}')"><i class="fas fa-check"></i></button>
+                            <button type="button" class="btn btn-danger rounded-pill" onclick="rej('${row['reimbursementId']}')"><i class="fas fa-times"></i></button>
                             `;
                 }
 
@@ -89,7 +90,6 @@ $(document).ready(function () {
     $("#add").click(function () {
         i++;
         $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
-
         console.log(show_value);
     });
 
@@ -114,7 +114,6 @@ $(document).ready(function () {
         obj.status = status;
         obj.notes = $("#notes").val();
         obj.nik = nik;
-
         obj.requestAmount = [];
         obj.fileAttachment = [];
         obj.categoryId = [];
@@ -164,6 +163,74 @@ $(document).ready(function () {
         });
     });
 });
+function acc(id) {
+    $.ajax({
+        url: 'https://localhost:44383/api/reimbursements/' + id,
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+    }).done((result) => {
+        //$("#reqId").val(result.reimbursementId);
+
+        //$("#reqDate").val(result.requestDate.split("T")[0]);
+        //$("#status").val(result.status);
+        //$("#managerStatus").val(result.managerApprovalStatus);
+        //$("#managerDate").val(result.managerApprovalDate.split("T")[0]);
+        //$("#financeStatus").val(result.financeApprovalStatus);
+        //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
+        //$("#notes").val(result.notes);
+
+        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+        obj.reimbursementId = id;
+        obj.requestDate = $("#reqDate").val();
+        obj.status = "approvedbymanager";
+        obj.notes = $("#notes").val();
+        obj.managerApprovalStatus = 1;
+        obj.managerApprovalDate = new Date().toLocaleString();
+        obj.financeApprovalStatus = 0;
+        obj.financeApprovalDate = $("#financeDate").val();
+        var nik = $("#nik2").val();
+        obj.nik = nik;
+        obj.financeApprovalNik = nik;
+        console.log(obj);
+        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+        $.ajax({
+            url: 'https://localhost:44383/api/reimbursements' ,
+            type: "PUT",
+            data: JSON.stringify(obj),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+           
+
+        }).done((result) => {
+            console.log(result);
+            $('#tableEmployee').DataTable().ajax.reload();
+
+        }).fail((error) => {
+
+
+        })
+
+    }).fail((error) => {
+
+
+    })
+
+    //$("#reqDate").val(result.requestDate.split("T")[0]);
+    //$("#status").val(result.status);
+    //$("#managerStatus").val(result.managerApprovalStatus);
+    //$("#managerDate").val(result.managerApprovalDate.split("T")[0]);
+    //$("#financeStatus").val(result.financeApprovalStatus);
+    //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
+    //$("#notes").val(result.notes);
+   
+
+}
 
 
 function Detail(id) {
