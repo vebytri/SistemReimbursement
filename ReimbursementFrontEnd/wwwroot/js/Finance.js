@@ -2,7 +2,7 @@
     let nik2 = $("#nik2").val();
     $('#tableEmployee').DataTable({
         ajax: {
-            url: 'https://localhost:44383/api/Reimbursements/getallbystatusandnik/Process/' + nik2,
+            url: 'https://localhost:44383/api/Reimbursements/getallbystatus/aprovedbymanager' ,
             dataSrc: ''
         },
         columns: [
@@ -178,13 +178,13 @@ function acc(id) {
         var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
         obj.reimbursementId = id;
         obj.requestDate = result.requestDate;
-        obj.status = "aprovedbymanager";
+        obj.status = "aprovedbyfinance";
         obj.notes = result.notes;
 
-        obj.managerApprovalStatus = 1;
-        obj.managerApprovalDate = new Date().toLocaleString();
-        obj.financeApprovalStatus = result.financeApprovalStatus;
-        obj.financeApprovalDate = result.financeApprovalDate;
+        obj.managerApprovalStatus = result.managerApprovalStatus;
+        obj.managerApprovalDate = result.managerApprovalDate;
+        obj.financeApprovalStatus = 1;
+        obj.financeApprovalDate = new Date().toLocaleString();
         obj.nik = result.nik;
         obj.financeApprovalNik = result.financeApprovalNik;
         console.log(obj);
@@ -237,13 +237,13 @@ function rej(id) {
         var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
         obj.reimbursementId = id;
         obj.requestDate = result.requestDate;
-        obj.status = "rejectedbymanager";
+        obj.status = "rejectedbyfinance";
         obj.notes = result.notes;
 
-        obj.managerApprovalStatus = 2;
-        obj.managerApprovalDate = new Date().toLocaleString();
+        obj.managerApprovalStatus = result.managerApprovalStatus;
+        obj.managerApprovalDate = result.managerApprovalDate;
         obj.financeApprovalStatus = 2;
-        obj.financeApprovalDate = result.financeApprovalDate;
+        obj.financeApprovalDate = new Date().toLocaleString();
         obj.nik = result.nik;
         obj.financeApprovalNik = result.financeApprovalNik;
         console.log(obj);
