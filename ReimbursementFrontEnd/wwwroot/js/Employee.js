@@ -54,7 +54,7 @@
 
                     }
                     else if (row.financeApprovalStatus == 2) {
-                        return ("Declined");
+                        return ("Rejected");
 
                     }
                     else {
@@ -191,39 +191,55 @@ function Detail(id) {
 
         $("#reqDate").val(result.requestDate.split("T")[0]);
         $("#status").val(result.status);
-        $("#managerStatus").val(result.managerApprovalStatus);
 
-        //if (result.managerApprovalStatus == 1) {
-        //    return $("#managerStatus").val("Aprroved");
+        if (result.managerApprovalStatus == 0) {
+            $("#managerStatus").val("Process");
+        }
+        else if (result.managerApprovalStatus == 1) {
+            $("#managerStatus").val("Approved");
+        }
+        else if (result.managerApprovalStatus == 2) {
+            $("#managerStatus").val("Rejected");
+        }
+        else {
+            $("#managerStatus").val("Unknown!");
+        }
+   
 
-        //}
-        //else if (result.managerApprovalStatus == 0) {
-        //    return $("#managerStatus").val("Process");
+        
+       
+     
+        if (result.managerApprovalDate == "0001-01-01T00:00:00") {
+            $("#managerDate").val("Not Available");
+        }
+
+        else {
+            $("#managerDate").val(result.managerApprovalDate.split("T")[0]);
+        }
 
 
+        if (result.financeApprovalStatus == 0) {
+            $("#financeStatus").val("Process");
+        }
+        else if (result.financeApprovalStatus == 1) {
+            $("#financeStatus").val("Approved");
+        }
+        else if (result.financeApprovalStatus == 2) {
+            $("#financeStatus").val("Rejected");
+        }
+        else {
+            $("#financeStatus").val("Unknown!");
 
-        //}
-        //else if (result.managerApprovalStatus == 2) {
-        //    return $("#managerStatus").val("Declined");
-        //}
-      
+        }
 
-        $("#managerDate").val(result.managerApprovalDate.split("T")[0]);
-        $("#financeStatus").val(result.financeApprovalStatus);
+        if (result.financeApprovalDate == "0001-01-01T00:00:00") {
+            $("#financeDate").val("Not Available");
+        }
 
-        //if (result.financeApprovalStatus == 1) {
-        //    return $("#financeStatus").val("Aprroved");
+        else {
+            $("#financeDate").val(result.financeApprovalDate.split("T")[0]);
 
-        //}
-        //else if (result.financeApprovalStatus == 0) {
-        //    return $("#financeStatus").val("Process");
-        //}
-        //else if (result.financeApprovalStatus == 2) {
-        //    return $("#financeStatus").val("Declined");
-        //}
-
-        $("#financeDate").val(result.financeApprovalDate.split("T")[0]);
-
+        }
         $("#viewnotes").val(result.notes);
 
 

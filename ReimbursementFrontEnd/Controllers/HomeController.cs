@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace ReimbursementFrontEnd.Controllers
 {
-    //[Authorize]
+    [Authorize]
 
     public class HomeController : BaseController<User, UserRepository, int>
     {
@@ -28,7 +28,7 @@ namespace ReimbursementFrontEnd.Controllers
         }
 
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         public IActionResult Index()
         {
             //ViewBag.session = HttpContext.Session.GetString("JWToken");
@@ -43,23 +43,9 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
-
-
-
-            //ViewBag.session = HttpContext.Session.GetString("JWToken");
-
-            //HttpContext.Session.SetString("SessionName", "Farras");
-            //HttpContext.Session.SetString("JWToken", jwToken.Token);
-
-
-
             return View();
         }
-        //[AllowAnonymous]
-        //public IActionResult Home()
-        //{
-        //    return View();
-        //}
+ 
 
         [AllowAnonymous]
         public async Task<JsonResult>getsemuadata()
@@ -67,7 +53,8 @@ namespace ReimbursementFrontEnd.Controllers
             var result = await repository.GetAllProfile();
             return Json(result);
         }
-
+    
+        [Authorize(Roles = "Employee")]
         public IActionResult Employee()
         {
             //ViewBag.session = HttpContext.Session.GetString("JWToken");
@@ -87,6 +74,7 @@ namespace ReimbursementFrontEnd.Controllers
 
             return View();
         }
+        [Authorize(Roles = "Finance")]
         public IActionResult Finance()
         {
             //ViewBag.session = HttpContext.Session.GetString("JWToken");
@@ -104,7 +92,7 @@ namespace ReimbursementFrontEnd.Controllers
 
             return View();
         }
-
+        [Authorize(Roles = "Manager")]
         public IActionResult Manager()
         {
             //ViewBag.session = HttpContext.Session.GetString("JWToken");
