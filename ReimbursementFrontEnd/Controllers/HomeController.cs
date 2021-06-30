@@ -87,7 +87,7 @@ namespace ReimbursementFrontEnd.Controllers
 
             return View();
         }
-        public IActionResult Employee1()
+        public IActionResult Finance()
         {
             //ViewBag.session = HttpContext.Session.GetString("JWToken");
             var token = HttpContext.Session.GetString("JWToken");
