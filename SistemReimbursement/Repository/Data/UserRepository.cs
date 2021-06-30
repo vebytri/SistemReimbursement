@@ -97,6 +97,7 @@ namespace SistemReimbursement.Repository.Data
                     new Claim("NIK",check.Nik.ToString()),
                     new Claim("FirstName",check.FirstName.ToString()),
                     new Claim("LastName",check.LastName.ToString()),
+                    new Claim("ManagerNik",check.ManagerNik.ToString()),
                     new Claim("role",check2nd.Roles.RoleName.ToString())
                    // new Claim(ClaimTypes.Role, check2nd.Roles.Name.ToString())
         };

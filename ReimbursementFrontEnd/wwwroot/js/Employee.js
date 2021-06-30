@@ -17,15 +17,14 @@
                 "data": 'reimbursementId'
 
             },
-         
+
             {
                 "data": 'status'
             },
             {
-                
-                 "data": null,
-                "render": function (data, type, row)
-                {
+
+                "data": null,
+                "render": function (data, type, row) {
                     if (row.managerApprovalStatus == 1) {
                         return ("Aprroved");
                     }
@@ -37,11 +36,10 @@
                         return ("Declined");
 
                     }
-                    else
-                    {
+                    else {
                         return ("Something Error");
                     }
-                   
+
                 }
 
             },
@@ -73,7 +71,7 @@
 
                             <button type="button" class="btn btn-danger rounded-pill" onclick="del('${row['nik']}')"><i class="fas fa-trash"></i></button>
                             `;
-                     }
+                }
 
             }
 
@@ -82,8 +80,45 @@
 
 });
 
-//--add new data---
 
+//---tablemodal--
+$(document).ready(function () {
+    let id = $("#reqId").val();
+    console.log(id);
+    $('#viewEmployee').DataTable({
+        ajax: {
+            url: 'https://localhost:44383/api/attachments/getdetail/' + 7,
+            dataSrc: ''
+        },
+        columns: [
+
+            {
+                "data": 'requestAmount'
+
+            },
+
+            {
+                "data": 'categoryId'
+
+            },
+
+            {
+                "data": 'fileAttachment'
+
+            },
+            {
+                "data": 'paidAmount'
+
+            }
+
+        ]
+    });
+
+});
+
+
+
+//--add new data---
 $(document).ready(function () {
 
     var i = 1;
@@ -103,6 +138,8 @@ $(document).ready(function () {
 
     $('#submit').click(function () {
         var nik = $("#nik2").val();
+        var mnik = $("#mnik").val();
+        console.log(mnik);
         var requestDate = new Date().toLocaleString();
         var status = "Process";
         console.log(i);
@@ -110,12 +147,14 @@ $(document).ready(function () {
         var inputsreq = document.querySelectorAll("#requestAmount");
         var inputsup = document.querySelectorAll("#upload");
         var inputscat = document.querySelectorAll("#category");
-               
+
         var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
         obj.requestDate = requestDate;
         obj.status = status;
         obj.notes = $("#notes").val();
         obj.nik = nik;
+        obj.FinanceApprovalNik = mnik;
+
 
         obj.requestAmount = [];
         obj.fileAttachment = [];
@@ -131,7 +170,7 @@ $(document).ready(function () {
             obj.fileAttachment[j] = inputsup[j].value;
             obj.categoryId[j] = inputscat[j].value;
         }
-      
+
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
             url: 'https://localhost:44383/api/accounts/request/' + i,
@@ -169,7 +208,7 @@ $(document).ready(function () {
 
 
 function Detail(id) {
-   
+
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
         url: 'https://localhost:44383/api/reimbursements/' + id,
@@ -178,23 +217,50 @@ function Detail(id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-       
+
     }).done((result) => {
         $("#reqId").val(result.reimbursementId);
 
         $("#reqDate").val(result.requestDate.split("T")[0]);
         $("#status").val(result.status);
         $("#managerStatus").val(result.managerApprovalStatus);
+
+        //if (result.managerApprovalStatus == 1) {
+        //    return $("#managerStatus").val("Aprroved");
+
+        //}
+        //else if (result.managerApprovalStatus == 0) {
+        //    return $("#managerStatus").val("Process");
+
+
+
+        //}
+        //else if (result.managerApprovalStatus == 2) {
+        //    return $("#managerStatus").val("Declined");
+        //}
+      
+
         $("#managerDate").val(result.managerApprovalDate.split("T")[0]);
         $("#financeStatus").val(result.financeApprovalStatus);
+
+        //if (result.financeApprovalStatus == 1) {
+        //    return $("#financeStatus").val("Aprroved");
+
+        //}
+        //else if (result.financeApprovalStatus == 0) {
+        //    return $("#financeStatus").val("Process");
+        //}
+        //else if (result.financeApprovalStatus == 2) {
+        //    return $("#financeStatus").val("Declined");
+        //}
+
         $("#financeDate").val(result.financeApprovalDate.split("T")[0]);
+
         $("#notes").val(result.notes);
 
-
-      
     }).fail((error) => {
-     
-       
+
+
     })
 
 }
