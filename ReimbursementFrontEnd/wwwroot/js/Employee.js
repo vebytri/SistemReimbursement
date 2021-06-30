@@ -69,7 +69,7 @@
                     return `
                             <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-eye"></i></button>
 
-                            <button type="button" class="btn btn-danger rounded-pill" onclick="del('${row['nik']}')"><i class="fas fa-trash"></i></button>
+                            <button type="button" class="btn btn-danger rounded-pill" onclick="del('${row['reimbursementId']}')"><i class="fas fa-trash"></i></button>
                             `;
                 }
 
@@ -81,40 +81,6 @@
 });
 
 
-//---tablemodal--
-$(document).ready(function () {
-    let id = $("#reqId").val();
-    console.log(id);
-    $('#viewEmployee').DataTable({
-        ajax: {
-            url: 'https://localhost:44383/api/attachments/getdetail/' + 7,
-            dataSrc: ''
-        },
-        columns: [
-
-            {
-                "data": 'requestAmount'
-
-            },
-
-            {
-                "data": 'categoryId'
-
-            },
-
-            {
-                "data": 'fileAttachment'
-
-            },
-            {
-                "data": 'paidAmount'
-
-            }
-
-        ]
-    });
-
-});
 
 
 
@@ -142,7 +108,8 @@ $(document).ready(function () {
         console.log(mnik);
         var requestDate = new Date().toLocaleString();
         var status = "Process";
-        console.log(i);
+        var notes = $("#notes").val();
+        console.log(notes);
 
         var inputsreq = document.querySelectorAll("#requestAmount");
         var inputsup = document.querySelectorAll("#upload");
@@ -151,7 +118,9 @@ $(document).ready(function () {
         var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
         obj.requestDate = requestDate;
         obj.status = status;
-        obj.notes = $("#notes").val();
+        obj.notes = notes;
+  
+
         obj.nik = nik;
         obj.FinanceApprovalNik = mnik;
 
@@ -208,7 +177,6 @@ $(document).ready(function () {
 
 
 function Detail(id) {
-
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
         url: 'https://localhost:44383/api/reimbursements/' + id,
@@ -256,7 +224,45 @@ function Detail(id) {
 
         $("#financeDate").val(result.financeApprovalDate.split("T")[0]);
 
-        $("#notes").val(result.notes);
+        $("#viewnotes").val(result.notes);
+
+
+        //---tablemodal--
+      
+            console.log(id);
+            $('#viewEmployee').DataTable({
+                ajax: {
+                    url: 'https://localhost:44383/api/attachments/getdetail/' + id,
+                    dataSrc: ''
+                },
+                columns: [
+
+                    {
+                        "data": 'requestAmount'
+
+                    },
+
+                    {
+                        "data": 'categoryId'
+
+                    },
+
+                    {
+                        "data": 'fileAttachment'
+
+                    },
+                    {
+                        "data": 'paidAmount'
+
+                    }
+
+                ]
+            });
+        $('#viewEmployee').DataTable().destroy();
+
+       
+
+
 
     }).fail((error) => {
 
@@ -265,42 +271,103 @@ function Detail(id) {
 
 }
 
-function del(stringUrl) {
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: 'https://localhost:44345/API/person/DeleteProfilbyId/' + stringUrl,
-                type: "POST"
-            }).done((result) => {
-                //console.log(result);
-                $('#tableProf').DataTable().ajax.reload();
-                Swal.fire(
-                    'Deleted!',
-                    'Your file has been deleted.',
-                    'success'
-                )
-            }).fail((error) => {
-                Swal.fire(
-                    'Failed !',
-                    'Data Gagal di Hapus',
-                    'error'
-                )
-                console.log(error);
-            });
+function del(id) {
+    $.ajax({
+        url: 'https://localhost:44383/api/reimbursements/' + id,
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
 
-        }
+    }).done((result) => {
+      
+        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+        obj.reimbursementId = id;
+        obj.requestDate = result.requestDate;
+        obj.status = "Deleted";
+        obj.notes = result.notes;
+
+        obj.managerApprovalStatus = result.managerApprovalStatus;
+        obj.managerApprovalDate = result.managerApprovalDate;
+        obj.financeApprovalStatus = result.financeApprovalStatus;
+        obj.financeApprovalDate = result.financeApprovalDate;
+        obj.nik = result.nik;
+        obj.financeApprovalNik = result.financeApprovalNik;
+        console.log(obj);
+        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+        $.ajax({
+            url: 'https://localhost:44383/api/reimbursements',
+            type: "PUT",
+            data: JSON.stringify(obj),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+
+
+        }).done((result) => {
+            console.log(result);
+            $('#tableEmployee').DataTable().ajax.reload();
+
+        }).fail((error) => {
+
+
+        })
+
+    }).fail((error) => {
+
+
     })
+
+    //$("#reqDate").val(result.requestDate.split("T")[0]);
+    //$("#status").val(result.status);
+    //$("#managerStatus").val(result.managerApprovalStatus);
+    //$("#managerDate").val(result.managerApprovalDate.split("T")[0]);
+    //$("#financeStatus").val(result.financeApprovalStatus);
+    //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
+    //$("#notes").val(result.notes);
 
 
 }
+
+
+//function del(stringUrl) {
+//    Swal.fire({
+//        title: 'Are you sure?',
+//        text: "You won't be able to revert this!",
+//        icon: 'warning',
+//        showCancelButton: true,
+//        confirmButtonColor: '#3085d6',
+//        cancelButtonColor: '#d33',
+//        confirmButtonText: 'Yes, delete it!'
+//    }).then((result) => {
+//        if (result.isConfirmed) {
+//            $.ajax({
+//                url: 'https://localhost:44345/API/person/DeleteProfilbyId/' + stringUrl,
+//                type: "POST"
+//            }).done((result) => {
+//                //console.log(result);
+//                $('#tableProf').DataTable().ajax.reload();
+//                Swal.fire(
+//                    'Deleted!',
+//                    'Your file has been deleted.',
+//                    'success'
+//                )
+//            }).fail((error) => {
+//                Swal.fire(
+//                    'Failed !',
+//                    'Data Gagal di Hapus',
+//                    'error'
+//                )
+//                console.log(error);
+//            });
+
+//        }
+//    })
+
+
+//}
 
 
 
