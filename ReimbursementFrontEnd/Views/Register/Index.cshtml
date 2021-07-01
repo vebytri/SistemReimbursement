@@ -21,8 +21,7 @@
 
     <!-- Custom CSS -->
     <link href="~/Adminmart/dist/css/style.min.css" rel="stylesheet">
-    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
-    <link rel="stylesheet" href="sweetalert2/dist/sweetalert2.min.css">
+
    
 </head>
 
@@ -103,15 +102,20 @@
                                         <input class="form-control rounded-pill" id="email" name="email" required type="email" placeholder="Email">
                                     </div>
                                 </div>
+
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input class="form-control rounded-pill" type="password" required id="password" name="password" placeholder="password">
+                                        <input class="form-control rounded-pill" id="password" name="password" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? 'Must have at least 6 characters' : ''); if(this.checkValidity()) form.password2.pattern = this.value;" placeholder="Password" required>
+
+                                        @*<input class="form-control rounded-pill" type="password" required id="password" name="password" placeholder="password">*@
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input class="form-control rounded-pill" type="password" required id="password2" name="password2" placeholder="retype-password">
+                                        <input class="form-control rounded-pill" id="password2" name="password2" type="password" pattern="^\S{6,}$" onchange="this.setCustomValidity(this.validity.patternMismatch ? '' : '');" placeholder="Verify Password" required>
+
+                                        @*<input class="form-control rounded-pill" type="password" required id="password2" name="password2" placeholder="retype-password">*@
                                         <span id="message"></span>
                                         <label id="message"></label>
                                     </div>
@@ -141,7 +145,7 @@
     <!-- Bootstrap tether Core JavaScript -->
     <script src="~/Adminmart/assets/libs/popper.js/dist/umd/popper.min.js "></script>
     <script src="~/Adminmart/assets/libs/bootstrap/dist/js/bootstrap.min.js "></script>
-    <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
+   
 
     <!-- ============================================================== -->
     <!-- This page plugin js -->
@@ -149,6 +153,7 @@
     <script>
         $(".preloader ").fadeOut();
     </script>
+
     <script src="~/js/register.js"></script>
 
 </body>

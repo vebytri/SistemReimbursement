@@ -64,3 +64,23 @@ function register() {
         console.log(error);
     });
 }
+
+
+////$(document).ready(function () {
+//function isPasswordMatch() {
+//    var password = $("#txtNewPassword").val();
+//    var confirmPassword = $("#txtConfirmPassword").val();
+
+//    if (password != confirmPassword) $("#divCheckPassword").html("Passwords do not match!");
+//    else $("#divCheckPassword").html("Passwords match.");
+//}
+
+//$(document).ready(function () {
+//    $("#txtConfirmPassword").keyup(isPasswordMatch);
+//});
+
+//function pass() {
+//    $("#txtConfirmPassword").keyup(isPasswordMatch);
+//    return a;
+//}
+////});

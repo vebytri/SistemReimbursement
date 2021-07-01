@@ -35,7 +35,7 @@ namespace ReimbursementFrontEnd.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Auth(LoginVM loginVM)
+        public async Task<IActionResult>Auth(LoginVM loginVM)
         {
 
             var jwToken = await loginRep.Auth(loginVM);

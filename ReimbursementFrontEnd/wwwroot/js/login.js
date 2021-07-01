@@ -25,17 +25,15 @@ function login() {
     $.ajax({
         url: 'https://localhost:44383/api/users/login',
         type: "POST",
-        headers: {
+       headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
         data: JSON.stringify(obj)
-
+      
     }).done((result) => {
-
-        $("#email").val(result.email);
-        $("#password").val(result.password);
-
+        //$("#email").val(result.email);
+        //$("#password").val(result.password);
         let timerInterval
         Swal.fire({
             title: 'Now Loading..',
@@ -53,8 +51,8 @@ function login() {
                 title: 'Login Success'   
             })
         })
-        window.location = "/home";
-        console.log(result);
+        //window.location = "/home";
+        //console.log(Token);
 
         
     }).fail((error) => {
@@ -67,7 +65,7 @@ function login() {
         )
       
         //alert("Data Gagal");
-        console.log(error);
+        //console.log(error);
     })
 
 }
