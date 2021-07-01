@@ -57,10 +57,7 @@ namespace SistemReimbursement.Context
             //attachment to category
            modelBuilder.Entity<Attachment>()
           .HasOne(a => a.Category)
-          .WithMany(b => b.Attachment);
-
-
-
+          .WithMany(b => b.Attachment).HasForeignKey(c => c.CategoryId);
 
         }
     }
