@@ -167,6 +167,9 @@ function Detail(id) {
             },
             columns: [
                 {
+                    "data": 'attachmentId'
+                },
+                 {
                     "data": 'requestAmount'
                 },
                 {
@@ -244,15 +247,24 @@ $('#submit').click(function (e) {
         $('#tableEmployee').DataTable().ajax.reload();
         //$('#viewEmployee').dataTable().fnClearTable();
         var obj2 = new Object();
+        obj2.requestAmount = [];
+        obj2.categoryId = [];
+        obj2.fileAttachment = [];
         obj2.paidAmount = [];
 
 
         console.log("success");
-        var inputsreq = document.querySelectorAll("#paidAmount");
+        var inputsreq = document.querySelectorAll("#requestAmount");
+        var inputsrca = document.querySelectorAll("#category");
+        var inputsrup = document.querySelectorAll("#upload");
+        var inputsrpd = document.querySelectorAll("#paidAmount");
 
         for (j = 0; j < inputsreq.length; j++) {
-            obj2.paidAmount[j] = inputsreq[j].value;
-            //console.log(inputsreq[j].value);
+            obj2.requestAmount[j] = inputsreq[j].value;
+            obj2.categoryId[j] = inputsrca[j].value;
+            obj2.fileAttachment[j] = inputsrup[j].value;
+            obj2.paidAmount[j] = inputsrpd[j].value;
+            
         }
 
 
@@ -381,6 +393,7 @@ function acc(id) {
     //$("#financeStatus").val(result.financeApprovalStatus);
     //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
     //$("#notes").val(result.notes);
+
 
 
 }

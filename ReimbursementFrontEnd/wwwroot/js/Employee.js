@@ -162,14 +162,15 @@ $(document).ready(function () {
             data: JSON.stringify(obj),
             success: function (data) {
                 Swal.fire({ title: 'Success', 'text': ('Your request successfully created'), 'type' : 'success' })
-                Swal.hideLoading()
+                Swal.hideLoading();
                 $('#insertModal').modal('hide');
                 $('#tableEmployee').DataTable().ajax.reload();
-                console.log(data)
+                console.log(data);
             },
             error: function (data) {
-                Swal.hideLoading()
-                Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type' : 'error' });
+                Swal.hideLoading();
+                Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+                console.log(data);
             }
         })
 
