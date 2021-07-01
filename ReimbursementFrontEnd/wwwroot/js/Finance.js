@@ -14,10 +14,6 @@
                 } 
 
             },
-            {    
-                "data": 'nik'
-
-            },
             {
                 "data": null, "sortable": true,
                 "render": function (data, type, row) {
@@ -26,9 +22,14 @@
                     var first = data.account.user.firstName;
                     var last = data.account.user.lastName;
 
-                    return (first +" "+ last);
+                    return (first + " " + last);
                 }
             },
+            {    
+                "data": 'reimbursementId'
+
+            },
+           
 
             {
                 "data": 'status'

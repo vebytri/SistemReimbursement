@@ -14,10 +14,6 @@
 
             },
             {
-                "data": 'nik'
-
-            },
-            {
                 "data": null, "sortable": true,
                 "render": function (data, type, row) {
                     console.log(data.account.user.firstName);
@@ -28,6 +24,11 @@
                     return (first + " " + last);
                 }
             },
+            {
+                "data": 'reimbursementId' 
+
+            },
+           
 
             {
                 "data": 'status'
@@ -192,7 +193,7 @@ function acc(id) {
         obj.status = "aprovedbymanager";
         obj.notes = result.notes;
 
-        obj.managerApprovalStatus = 1;
+        //obj.managerApprovalStatus = 1;
         obj.managerApprovalDate = new Date().toLocaleString();
         obj.financeApprovalStatus = result.financeApprovalStatus;
         obj.financeApprovalDate = result.financeApprovalDate;
@@ -201,15 +202,14 @@ function acc(id) {
         console.log(obj);
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
-            url: 'https://localhost:44383/api/reimbursements',
+            url: 'https://localhost:44383/api/reimbursements/updatemanager/' + id + '/1/' + obj.status,
+
             type: "PUT",
             data: JSON.stringify(obj),
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-
-
         }).done((result) => {
             console.log(result);
             $('#tableEmployee').DataTable().ajax.reload();
@@ -261,7 +261,7 @@ function rej(id) {
         obj.status = "rejectedbymanager";
         obj.notes = result.notes;
 
-        obj.managerApprovalStatus = 2;
+        //obj.managerApprovalStatus = 2;
         obj.managerApprovalDate = new Date().toLocaleString();
         obj.financeApprovalStatus = 2;
         obj.financeApprovalDate = result.financeApprovalDate;
@@ -270,7 +270,8 @@ function rej(id) {
         console.log(obj);
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
-            url: 'https://localhost:44383/api/reimbursements',
+            url: 'https://localhost:44383/api/reimbursements/updatemanager/' + id + '/2/' + obj.status,
+
             type: "PUT",
             data: JSON.stringify(obj),
             headers: {
