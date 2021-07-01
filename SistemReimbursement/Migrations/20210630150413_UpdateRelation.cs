@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemReimbursement.Migrations
 {
-    public partial class updateTable2 : Migration
+    public partial class UpdateRelation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -85,18 +85,17 @@ namespace SistemReimbursement.Migrations
                     FinanceApprovalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinanceApprovalStatus = table.Column<int>(type: "int", nullable: false),
                     FinanceApprovalNik = table.Column<int>(type: "int", nullable: false),
-                    Nik = table.Column<int>(type: "int", nullable: false),
-                    AccountNik = table.Column<int>(type: "int", nullable: true)
+                    Nik = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TB_M_Reimbursement", x => x.ReimbursementId);
                     table.ForeignKey(
-                        name: "FK_TB_M_Reimbursement_TB_M_Account_AccountNik",
-                        column: x => x.AccountNik,
+                        name: "FK_TB_M_Reimbursement_TB_M_Account_Nik",
+                        column: x => x.Nik,
                         principalTable: "TB_M_Account",
                         principalColumn: "Nik",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -155,9 +154,9 @@ namespace SistemReimbursement.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TB_M_Reimbursement_AccountNik",
+                name: "IX_TB_M_Reimbursement_Nik",
                 table: "TB_M_Reimbursement",
-                column: "AccountNik");
+                column: "Nik");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TB_TR_AccountRole_Nik",

@@ -29,7 +29,7 @@ namespace SistemReimbursement.Repository.Data
         }
         public IEnumerable<Reimbursement> GetAllbystatusandNik(string status,int nik)
         {
-            return conn.Reimbursement.Where(x => x.Status == status && x.FinanceApprovalNik == nik);
+            return conn.Reimbursement.Where(x => x.Status == status && x.Account.User.ManagerNik == nik);
         }
     }
     

@@ -1,31 +1,10 @@
-﻿function cek() {
-    var email = $("#email").val();
-    var password = $("#password").val();
+﻿////function cek() {
+////    var email = $("#email").val();
+////    var password = $("#password").val();
+////    console.log(email);
+////    console.log(password);
+////}
 
-    console.log(email);
-    console.log(password);
-}
-//function cek() {
-//    var firstname = $("#firstname").val();
-//    var lastname = $("#lastname").val();
-//    var gender = $("#gender").val();
-//    var date = $("#date").val();
-//    var job = $("#job").val();
-//    var address = $("#address").val();
-//    var email = $("#email").val();
-//    var password = $("#password").val();
-
-//    console.log(firstname);
-//    console.log(lastname);
-//    console.log(gender);
-//    console.log(date);
-//    console.log(email);
-//    console.log(job);
-//    console.log(address);
-//    console.log(password);
-
-
-//}
 function login() {
   
     //bootstrapValidate('#firstname', 'required:Kolom tidak boleh kosong');
@@ -40,23 +19,15 @@ function login() {
     //bootstrapValidate('#universityid', 'required:Kolom tidak boleh kosong');
 
     var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-    obj.email = $("#email").val();
-    obj.password = $("#password").val();
-
-   
-
-
+    obj.Email = $("#email").val();
+    obj.Password = $("#password").val();
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
-        url: '/login/Auth',
+        url: 'https://localhost:44383/api/users/login',
         type: "POST",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-            //'success': function (e) {
-            //    if (e.some(e.email == null)) {
-            //    }
-            //}
         },
         data: JSON.stringify(obj)
 
@@ -65,7 +36,24 @@ function login() {
         $("#email").val(result.email);
         $("#password").val(result.password);
 
-        window.location.href = "/home";
+        let timerInterval
+        Swal.fire({
+            title: 'Now Loading..',
+            //html: 'I will close in <b></b> milliseconds.',
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: () => {
+                Swal.showLoading()
+                
+            },
+          
+        }).then((result) => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Login Success'   
+            })
+        })
+        window.location = "/home";
         console.log(result);
 
         

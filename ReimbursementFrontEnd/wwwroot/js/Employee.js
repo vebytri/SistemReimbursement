@@ -21,9 +21,14 @@
 
             },
             {
-                "render": function (data)
-                {
-                return(first + last)
+                "data": null, "sortable": true,
+                "render": function (data, type, row) {
+                    console.log(data.account.user.firstName);
+
+                    var first = data.account.user.firstName;
+                    var last = data.account.user.lastName;
+
+                    return (first + " " + last);
                 }
             },
 
@@ -99,8 +104,8 @@ $(document).ready(function () {
     var i = 1;
 
     $("#add").click(function () {
-        i++;
-        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
+        i++;    
+        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  <option value = "1" > Medical</option ><option value = "2" > Transportation</option ></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
 
         console.log(show_value);
     });
@@ -213,11 +218,7 @@ function Detail(id) {
         else {
             $("#managerStatus").val("Unknown!");
         }
-   
 
-        
-       
-     
         if (result.managerApprovalDate == "0001-01-01T00:00:00") {
             $("#managerDate").val("Not Available");
         }

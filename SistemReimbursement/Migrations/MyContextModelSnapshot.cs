@@ -107,9 +107,6 @@ namespace SistemReimbursement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AccountNik")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("FinanceApprovalDate")
                         .HasColumnType("datetime2");
 
@@ -139,7 +136,7 @@ namespace SistemReimbursement.Migrations
 
                     b.HasKey("ReimbursementId");
 
-                    b.HasIndex("AccountNik");
+                    b.HasIndex("Nik");
 
                     b.ToTable("TB_M_Reimbursement");
                 });
@@ -248,7 +245,9 @@ namespace SistemReimbursement.Migrations
                 {
                     b.HasOne("SistemReimbursement.Models.Account", "Account")
                         .WithMany("Reimbursement")
-                        .HasForeignKey("AccountNik");
+                        .HasForeignKey("Nik")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Account");
                 });

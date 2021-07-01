@@ -2,7 +2,8 @@
     let nik2 = $("#nik2").val();
     $('#tableEmployee').DataTable({
         ajax: {
-            url: 'https://localhost:44383/api/Reimbursements/getallbystatus/aprovedbymanager' ,
+            url: 'https://localhost:44383/api/Reimbursements/getallbystatus/aprovedbymanager',
+
             dataSrc: ''
         },
         columns: [
@@ -14,8 +15,19 @@
 
             },
             {
-                "data": 'reimbursementId'
+                "data": 'nik'
 
+            },
+            {
+                "data": null, "sortable": true,
+                "render": function (data, type, row) {
+                    console.log(data.account.user.firstName);
+                  
+                    var first = data.account.user.firstName;
+                    var last = data.account.user.lastName;
+
+                    return (first +" "+ last);
+                }
             },
 
             {
@@ -67,12 +79,12 @@
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                            <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-eye"></i></button>
+                            <button type="button" class="btn btn-success rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-check"></i></button>
 
-                            <button type="button" class="btn btn-success rounded-pill" onclick="acc('${row['reimbursementId']}')"><i class="fas fa-check"></i></button>
                             <button type="button" class="btn btn-danger rounded-pill" onclick="rej('${row['reimbursementId']}')"><i class="fas fa-times"></i></button>
                             `;
                 }
+                    //< button type="button" class= "btn btn-success rounded-pill" onclick="acc('${row['reimbursementId']}')" > <i class="fas fa-check"></i></button>
 
             }
 
@@ -156,8 +168,20 @@ function Detail(id) {
                     "data": 'requestAmount'
                 },
                 {
-                    "data": 'categoryId'
-                },
+                    "data": null,
+                    "render": function (data, type, row) {
+                        if (row.categoryId == 1) {
+                            return ("Medical");
+                        }
+                        else if (row.categoryId == 2) {
+                            return ("Transportation");
+                        }
+                        else {
+                            return ("Not Found");
+
+                        }
+                    }
+                 },
 
                 {
                     "data": 'fileAttachment'
@@ -169,19 +193,19 @@ function Detail(id) {
                      
                         `;
                     }
-                },
-                {
-
-                    "render": function (data, type, row) {
-                        return `
-                    <button type="button" class="btn btn-success rounded-pill" onclick="updatePaid('${row['attachmentId']}'+,+'part[${row['attachmentId']}]paidAmount.value')" ><i class="fas fa-check"></i></button>
-
-                    `;
-                    }
                 }
+               
             ]
         });
+        //{
 
+        //    "render": function (data, type, row) {
+        //        return `
+        //            <button type="button" class="btn btn-success rounded-pill" onclick="updatePaid('${row['attachmentId']}'+,+'part[${row['attachmentId']}]paidAmount.value')" ><i class="fas fa-check"></i></button>
+
+        //            `;
+        //    }
+        //}
 
         $('#viewEmployee').DataTable().destroy();
 
