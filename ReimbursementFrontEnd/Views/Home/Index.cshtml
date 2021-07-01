@@ -1,11 +1,9 @@
-﻿
-@{
+﻿@{
 
     ViewData["Role"] = @ViewBag.sessionRole;
     ViewData["NIK"] = @ViewBag.sessionNik;
     Layout = "~/Views/Shared/Admin/_Layout.cshtml";
 }
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
@@ -18,8 +16,6 @@
                     </h3>
                     <h5>Role : @ViewData["Role"] </h5>
                     <h5>NIK : @ViewData["NIK"] </h5>
-
-
                 </div>
             </div>
         </div>
