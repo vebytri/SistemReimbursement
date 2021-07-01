@@ -23,8 +23,15 @@ namespace SistemReimbursement.Repository.Data
         {
             return conn.Attachment.Where(x => x.ReimbursementId == reimbursementId);
         }
+        public int updatepaid(int id,int paid)
+        {
+            var result = 0;
+            var cekPerson = conn.Attachment.FirstOrDefault(p => p.AttachmentId == id);
+            cekPerson.PaidAmount = paid;
+            result= conn.SaveChanges();
+            return result;
+        }
 
-        
 
     }
 }

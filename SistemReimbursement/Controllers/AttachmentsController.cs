@@ -35,6 +35,20 @@ namespace SistemReimbursement.Controllers
                 return NotFound("Data Tidak ditemukan");
             }
         }
+        [HttpPut("updatepaid/{id}/{paid}")]
+        public ActionResult updatepaidc(int id, int paid)
+        {
+
+            var get = repo.updatepaid(id, paid);
+            if (get != 0)
+            {
+                return Ok(get);
+            }
+            else
+            {
+                return NotFound("gagalupdate");
+            }
+        }
 
     }
 }
