@@ -208,44 +208,30 @@ function Detail(id) {
 
 }
 
-$('#submit').click(function () {
-
+$('#submit').click(function (e) {
+    e.preventDefault();
     var id = $("#reqId").val();
     var  rd =$("#reqDate").val();
     var notes = $("#viewnotes").val();
     var ms = $("#managerStatus").val();
     var md=  $("#managerDate").val();
     var nik = $("#nik").val();
-
-
     var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-
     obj.reimbursementId = id;   
-    obj.requestDate = rd;
+    obj.requestDate = new Date().toLocaleString();
     obj.status = "aprovedbyfinance";
     obj.notes = notes;
-    obj.managerApprovalStatus = ms;
-    obj.managerApprovalDate = md;
+    obj.managerApprovalStatus = 1;
+    obj.managerApprovalDate = new Date().toLocaleString();
     obj.financeApprovalStatus = 1;
     obj.financeApprovalDate = new Date().toLocaleString();
     obj.nik = nik;
-    obj.financeApprovalNik = "";
-
-    obj.paidAmount = [];
-
-
-    console.log(obj);
-    var inputsreq = document.querySelectorAll("#paidAmount");
-
-    for (j = 0; j < inputsreq.length; j++)
-    {
-          obj.paidAmount[j] = inputsreq[j].value;
-          //console.log(inputsreq[j].value);
-    }
-
+    obj.financeApprovalNik = 1;
+    console.log(obj)
+  
       
     $.ajax({
-        url: 'https://localhost:44383/api/attachments/',
+        url: 'https://localhost:44383/api/reimbursements',
         type: "PUT",
         data: JSON.stringify(obj),
         headers: {
@@ -255,88 +241,27 @@ $('#submit').click(function () {
 
     }).done((result) => {
         console.log(result);
-
-
+        $('#tableEmployee').DataTable().ajax.reload();
         //$('#viewEmployee').dataTable().fnClearTable();
+        var obj2 = new Object();
+        obj2.paidAmount = [];
+
+
+        console.log("success");
+        var inputsreq = document.querySelectorAll("#paidAmount");
+
+        for (j = 0; j < inputsreq.length; j++) {
+            obj2.paidAmount[j] = inputsreq[j].value;
+            //console.log(inputsreq[j].value);
+        }
+
 
     }).fail((error) => {
 
 
     })
-    //var paid = $("#paidAmount").val();
-    //console.log(paid);
 
-    //var nik = $("#nik2").val();
-    //var mnik = $("#mnik").val();
-    //console.log(mnik);
-    //var requestDate = new Date().toLocaleString();
-    //var status = "Process";
-    //var notes = $("#notes").val();
-    //console.log(notes);
-
-    //var inputsreq = document.querySelectorAll("#requestAmount");
-    //var inputsup = document.querySelectorAll("#upload");
-    //var inputscat = document.querySelectorAll("#category");
-
-    //var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-    //obj.requestDate = requestDate;
-    //obj.status = status;
-    //obj.notes = notes;
-
-
-    //obj.nik = nik;
-    //obj.FinanceApprovalNik = mnik;
-
-
-    //obj.requestAmount = [];
-    //obj.fileAttachment = [];
-    //obj.categoryId = [];
-
-    // for (j = 0; j < inputsreq.length; j++) {
-    //    console.log(inputsreq[j].value);
-    //    console.log(inputsup[j].value);
-    //    console.log(inputscat[j].value);
-    //}
-    //for (var j = 0; j < i; j++) {
-    //    obj.requestAmount[j] = inputsreq[j].value;
-    //    obj.fileAttachment[j] = inputsup[j].value;
-    //    obj.categoryId[j] = inputscat[j].value;
-    //}
-
-    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-//    $.ajax({
-//        url: 'https://localhost:44383/api/accounts/request/' + i,
-//        type: "POST",
-//        headers: {
-//            'Accept': 'application/json',
-//            'Content-Type': 'application/json'
-//        },
-//        data: JSON.stringify(obj)
-
-//    }).done((result) => {
-//        console.log(result);
-
-//        $('#tableEmployee').DataTable().ajax.reload();
-//        //buat alert pemberitahuan jika success
-//        //alert("Data Sukses");
-//        Swal.fire(
-//            'Success !',
-//            'Success Inserted!',
-//            'success'
-//        )
-//    }).fail((error) => {
-//        //alert pemberitahuan jika gagal
-
-//        Swal.fire(
-//            'Failed !',
-//            'Failed Inserted!',
-//            'error'
-//        )
-//        //alert("Data Gagal");
-//        console.log(error);
-//    });
 });
-
 
 function updatePaid(id,paid1) {
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
@@ -399,8 +324,6 @@ function updatePaid(id,paid1) {
     })
 
 }
-
-
 
 function acc(id) {
     $.ajax({
