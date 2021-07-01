@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemReimbursement.Migrations
 {
-    public partial class UpdateRelation : Migration
+    public partial class cekatt : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

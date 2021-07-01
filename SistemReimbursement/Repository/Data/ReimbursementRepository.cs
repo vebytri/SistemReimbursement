@@ -31,6 +31,16 @@ namespace SistemReimbursement.Repository.Data
         {
             return conn.Reimbursement.Where(x => x.Status == status && x.Account.User.ManagerNik == nik);
         }
+        public int updatefinance(int id, int status, string statusstring)
+        {
+            var result = 0;
+            var cekPerson = conn.Reimbursement.FirstOrDefault(p => p.ReimbursementId == id);
+            cekPerson.Status= statusstring;
+            cekPerson.FinanceApprovalDate = new Date().toLocaleString();
+            cekPerson.FinanceApprovalStatus = status;
+            result = conn.SaveChanges();
+            return result;
+        }
     }
     
 }
