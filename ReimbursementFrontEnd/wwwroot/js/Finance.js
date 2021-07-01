@@ -173,23 +173,15 @@ function Detail(id) {
                     "data": 'requestAmount'
                 },
                 {
-                    "data": null,
+                    "data": null, "sortable": true,
                     "render": function (data, type, row) {
-                        if (row.categoryId == 1) {
-                            return ("Medical");
-                        }
-                        else if (row.categoryId == 2) {
-                            return ("Transportation");
-                        }
-                        else {
-                            return ("Not Found");
-
-                        }
+                        return data.categoryId;
                     }
                  },
 
                 {
                     "data": 'fileAttachment'
+
                 },
                 {
                     "render": function (data, type, row) {
@@ -231,47 +223,57 @@ $('#submit').click(function (e) {
     obj.nik = nik;
     obj.financeApprovalNik = 1;
     console.log(obj)
-  
+    console.log("success");
+
+    // $('#viewEmployee').DataTable({
+    var table = $('#viewEmployee').DataTable().columns().data()[2].value;
+
+    console.log(table)
+    var obj2 = new Object();
+ //   obj2.attachmentId = [];
+    obj2.requestAmount = [];
+    obj2.categoryId = [];
+    obj2.fileAttachment = [];
+    obj2.paidAmount = [];
+
+
+ 
+//    var inputsrid = document.querySelectorAll("#attachmentId");
+    //var inputsreq = document.querySelectorAll("#requestAmount");
+    //var inputsrca = document.querySelectorAll("#category");
+    //var inputsrup = document.querySelectorAll("#upload");
+    //var inputsrpd = document.querySelectorAll("#paidAmount");
+
+    //for (j = 0; j < inputsreq.length; j++) {
+    //    obj2.attachmentId[j] = $('#viewEmployee').DataTable().columns().data()[0][j];
+    //    obj2.requestAmount[j] = $('#viewEmployee').DataTable().columns().data()[1][j];
+    //    obj2.categoryId[j] = inputsrca[j].value;
+    //    obj2.fileAttachment[j] = $('#viewEmployee').DataTable().columns().data()[3][j];
+    //    obj2.paidAmount[j] = inputsrpd[j].value;
+
+    //}
+    //console.log(obj2);
+
       
-    $.ajax({
-        url: 'https://localhost:44383/api/reimbursements',
-        type: "PUT",
-        data: JSON.stringify(obj),
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+    //$.ajax({
+    //    url: 'https://localhost:44383/api/reimbursements',
+    //    type: "PUT",
+    //    data: JSON.stringify(obj),
+    //    headers: {
+    //        'Accept': 'application/json',
+    //        'Content-Type': 'application/json'
+    //    },
 
-    }).done((result) => {
-        console.log(result);
-        $('#tableEmployee').DataTable().ajax.reload();
-        //$('#viewEmployee').dataTable().fnClearTable();
-        var obj2 = new Object();
-        obj2.requestAmount = [];
-        obj2.categoryId = [];
-        obj2.fileAttachment = [];
-        obj2.paidAmount = [];
+    //}).done((result) => {
+    //    console.log(result);
+    //    $('#tableEmployee').DataTable().ajax.reload();
+    //    //$('#viewEmployee').dataTable().fnClearTable();
+       
+
+    //}).fail((error) => {
 
 
-        console.log("success");
-        var inputsreq = document.querySelectorAll("#requestAmount");
-        var inputsrca = document.querySelectorAll("#category");
-        var inputsrup = document.querySelectorAll("#upload");
-        var inputsrpd = document.querySelectorAll("#paidAmount");
-
-        for (j = 0; j < inputsreq.length; j++) {
-            obj2.requestAmount[j] = inputsreq[j].value;
-            obj2.categoryId[j] = inputsrca[j].value;
-            obj2.fileAttachment[j] = inputsrup[j].value;
-            obj2.paidAmount[j] = inputsrpd[j].value;
-            
-        }
-
-
-    }).fail((error) => {
-
-
-    })
+    //})
 
 });
 
