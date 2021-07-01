@@ -13,10 +13,12 @@ using Microsoft.Extensions.Configuration;
 using System.Security.Claims;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace SistemReimbursement.Repository.Data
 {
-    
+
     public class UserRepository : GeneralRepository<MyContext, User, int>
     {
         private readonly MyContext conn;
@@ -41,10 +43,10 @@ namespace SistemReimbursement.Repository.Data
                     LastName = register.LastName,
                     BirthDate = register.BirthDate,
                     Email = register.Email,
-                    JobPosition=register.JobPosition,
+                    JobPosition = register.JobPosition,
                     ManagerNik = register.ManagerNik,
                     Gender = register.Gender,
-                    Address=register.Address
+                    Address = register.Address
                 };
                 conn.Add(User);
                 result = conn.SaveChanges();
@@ -62,12 +64,32 @@ namespace SistemReimbursement.Repository.Data
                 };
                 conn.Add(accountrole);
                 result = conn.SaveChanges();
+
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
+                message.To.Add(new MailboxAddress($"{register.FirstName}", $"{register.Email}"));
+                message.Subject = "Sucsess Registration Account";
+                message.Body = new TextPart("plain")
+                {
+                    Text = $"Dear, {register.FirstName}" +
+                    $" Your Account Successfully Created."
+                };
+
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate("hai.infodigital@gmail.com", "#Naufal1998");
+                    client.Send(message);
+                    client.Disconnect(true);
+
+                }
             }
-                return result;
+
+            return result;
         }
 
-       
-        public int Login(LoginVM login) 
+
+        public int Login(LoginVM login)
         {
             var cek = conn.Users.FirstOrDefault(p => p.Email == login.Email);
             if (cek == null)

@@ -76,5 +76,19 @@ namespace SistemReimbursement.Controllers
                 return NotFound("Data Tidak ditemukan");
             }
         }
+
+        [HttpPut("updatemanager/{id}/{status}/{statusstring}")]
+        public ActionResult updatemanager(int id, int status, string statusstring)
+        {
+            var get = repo.updatemanager(id, status, statusstring);
+            if (get != 0)
+            {
+                return Ok(get);
+            }
+            else
+            {
+                return NotFound("Data Tidak ditemukan");
+            }
+        }
     }
 }

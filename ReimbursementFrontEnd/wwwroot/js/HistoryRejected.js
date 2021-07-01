@@ -17,10 +17,6 @@
 
             },
             {
-                "data": 'nik'
-
-            },
-            {
                 "data": null, "sortable": true,
                 "render": function (data, type, row) {
                     console.log(data.account.user.firstName);
@@ -30,6 +26,10 @@
 
                     return (first + " " + last);
                 }
+            },   
+            {
+                "data": 'reimbursementId'
+
             },
 
             {
