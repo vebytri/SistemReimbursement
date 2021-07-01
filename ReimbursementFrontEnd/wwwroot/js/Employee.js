@@ -8,7 +8,7 @@
             url: 'https://localhost:44383/api/reimbursements/getallbynik/' + nik2,
             dataSrc: ''
         },
-        columns: [
+        columns: [ 
             {
                 "data": null, "sortable": true,
                 "render": function (data, type, row, meta) {

@@ -7,11 +7,11 @@
             dataSrc: ''
         },
         columns: [
-            {
+            { 
                 "data": null, "sortable": true,
                 "render": function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
-                }
+                } 
 
             },
             {
@@ -21,8 +21,8 @@
             {
                 "data": null, "sortable": true,
                 "render": function (data, type, row) {
-                    console.log(data.account.user.firstName);
-                  
+                    //console.log(data.account.user.firstName);
+
                     var first = data.account.user.firstName;
                     var last = data.account.user.lastName;
 
@@ -104,6 +104,8 @@ function Detail(id) {
         },
 
     }).done((result) => {
+        $("#nik").val(result.nik);
+
         $("#reqId").val(result.reimbursementId);
         $("#reqDate").val(result.requestDate.split("T")[0]);
         $("#status").val(result.status);
@@ -197,15 +199,7 @@ function Detail(id) {
                
             ]
         });
-        //{
-
-        //    "render": function (data, type, row) {
-        //        return `
-        //            <button type="button" class="btn btn-success rounded-pill" onclick="updatePaid('${row['attachmentId']}'+,+'part[${row['attachmentId']}]paidAmount.value')" ><i class="fas fa-check"></i></button>
-
-        //            `;
-        //    }
-        //}
+       
 
         $('#viewEmployee').DataTable().destroy();
 
@@ -214,6 +208,110 @@ function Detail(id) {
 
 }
 
+$('#submit').click(function () {
+
+     //var id = ("#reqId").val();
+     var  rd =("#reqDate").val();
+    //var notes = $("#viewnotes").val();
+    //var ms = $("#managerStatus").val();
+    //  var md=  $("#managerDate").val();
+    //var nik = ("#nik").val();
+    console.log(rd);
+    //var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+
+    //obj.reimbursementId = id;   
+    //obj.requestDate = rd;
+    //obj.status = "aprovedbyfinance";
+    //obj.notes = notes;
+    //obj.managerApprovalStatus = ms;
+    //obj.managerApprovalDate = md;
+    //obj.financeApprovalStatus = 1;
+    //obj.financeApprovalDate = new Date().toLocaleString();
+    //obj.nik = nik;
+    //obj.financeApprovalNik = "";
+
+    //console.log(obj);
+
+
+    var inputsreq = document.querySelectorAll("#paidAmount");
+      for (j = 0; j < inputsreq.length; j++) {
+        console.log(inputsreq[j].value);
+      
+    }
+
+    //var paid = $("#paidAmount").val();
+    //console.log(paid);
+
+    //var nik = $("#nik2").val();
+    //var mnik = $("#mnik").val();
+    //console.log(mnik);
+    //var requestDate = new Date().toLocaleString();
+    //var status = "Process";
+    //var notes = $("#notes").val();
+    //console.log(notes);
+
+    //var inputsreq = document.querySelectorAll("#requestAmount");
+    //var inputsup = document.querySelectorAll("#upload");
+    //var inputscat = document.querySelectorAll("#category");
+
+    //var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+    //obj.requestDate = requestDate;
+    //obj.status = status;
+    //obj.notes = notes;
+
+
+    //obj.nik = nik;
+    //obj.FinanceApprovalNik = mnik;
+
+
+    //obj.requestAmount = [];
+    //obj.fileAttachment = [];
+    //obj.categoryId = [];
+
+    // for (j = 0; j < inputsreq.length; j++) {
+    //    console.log(inputsreq[j].value);
+    //    console.log(inputsup[j].value);
+    //    console.log(inputscat[j].value);
+    //}
+    //for (var j = 0; j < i; j++) {
+    //    obj.requestAmount[j] = inputsreq[j].value;
+    //    obj.fileAttachment[j] = inputsup[j].value;
+    //    obj.categoryId[j] = inputscat[j].value;
+    //}
+
+    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+//    $.ajax({
+//        url: 'https://localhost:44383/api/accounts/request/' + i,
+//        type: "POST",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
+//        data: JSON.stringify(obj)
+
+//    }).done((result) => {
+//        console.log(result);
+
+//        $('#tableEmployee').DataTable().ajax.reload();
+//        //buat alert pemberitahuan jika success
+//        //alert("Data Sukses");
+//        Swal.fire(
+//            'Success !',
+//            'Success Inserted!',
+//            'success'
+//        )
+//    }).fail((error) => {
+//        //alert pemberitahuan jika gagal
+
+//        Swal.fire(
+//            'Failed !',
+//            'Failed Inserted!',
+//            'error'
+//        )
+//        //alert("Data Gagal");
+//        console.log(error);
+//    });
+});
 
 
 function updatePaid(id,paid1) {
@@ -230,8 +328,8 @@ function updatePaid(id,paid1) {
     }).done((result) => {
         //$("#paidAmount").val(result.paidAmount);
         //var paid = document.querySelectorAll("#paidAmount");
-        var paid = $("#paidAmount").val();
-        console.log(paid1);
+        //var paid = $("#paidAmount").val();
+        //console.log(paid1);
 
 
         var attachmentId = result.attachmentId;
@@ -278,87 +376,7 @@ function updatePaid(id,paid1) {
 
 }
 
-//--add new data---
-$(document).ready(function () {
 
-    var i = 1;
-
-    $("#add").click(function () {
-        i++;
-        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
-        console.log(show_value);
-    });
-
-    $(document).on('click', '.btn_remove', function () {
-        var button_id = $(this).attr("id");
-        $('#row' + button_id + '').remove();
-    });
-
-
-    $('#submit').click(function () {
-        var nik = $("#nik2").val();
-        var requestDate = new Date().toLocaleString();
-        var status = "Process";
-        console.log(i);
-
-        var inputsreq = document.querySelectorAll("#requestAmount");
-        var inputsup = document.querySelectorAll("#upload");
-        var inputscat = document.querySelectorAll("#category");
-
-        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-        obj.requestDate = requestDate;
-        obj.status = status;
-        obj.notes = $("#notes").val();
-        obj.nik = nik;
-        obj.requestAmount = [];
-        obj.fileAttachment = [];
-        obj.categoryId = [];
-
-        // for (j = 0; j < inputsreq.length; j++) {
-        //    console.log(inputsreq[j].value);
-        //    console.log(inputsup[j].value);
-        //    console.log(inputscat[j].value);
-        //}
-        for (var j = 0; j < i; j++) {
-            obj.requestAmount[j] = inputsreq[j].value;
-            obj.fileAttachment[j] = inputsup[j].value;
-            obj.categoryId[j] = inputscat[j].value;
-        }
-
-        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-        $.ajax({
-            url: 'https://localhost:44383/api/accounts/request/' + i,
-            type: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            data: JSON.stringify(obj)
-
-        }).done((result) => {
-            console.log(result);
-
-            $('#tableEmployee').DataTable().ajax.reload();
-            //buat alert pemberitahuan jika success
-            //alert("Data Sukses");
-            Swal.fire(
-                'Success !',
-                'Data Berhasil Di Tambahkan',
-                'success'
-            )
-        }).fail((error) => {
-            //alert pemberitahuan jika gagal
-
-            Swal.fire(
-                'Failed !',
-                'Data Gagal di Tambahkan',
-                'error'
-            )
-            //alert("Data Gagal");
-            console.log(error);
-        });
-    });
-});
 
 function acc(id) {
     $.ajax({
