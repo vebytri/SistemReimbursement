@@ -14,7 +14,7 @@
                 } 
 
             },
-            {
+            {    
                 "data": 'nik'
 
             },
@@ -165,6 +165,10 @@ function Detail(id) {
                 url: 'https://localhost:44383/api/attachments/getdetail/' + id,
                 dataSrc: ''
             },
+            columnDefs: [
+                { className: 'never', targets: 0 }
+            ],
+            responsive: true,
             columns: [
                 {
                     "data": 'attachmentId'
@@ -175,9 +179,10 @@ function Detail(id) {
                 {
                     "data": null, "sortable": true,
                     "render": function (data, type, row) {
-                        return data.categoryId;
+                        return data.category.categoryName;
                     }
-                 },
+                },
+               
 
                 {
                     "data": 'fileAttachment'
@@ -190,11 +195,11 @@ function Detail(id) {
                      
                         `;
                     }
-                }
-               
+                }   
             ]
+            
+
         });
-       
 
         $('#viewEmployee').DataTable().destroy();
 
@@ -202,6 +207,7 @@ function Detail(id) {
     })
 
 }
+
 
 $('#submit').click(function (e) {
     e.preventDefault();
@@ -212,47 +218,88 @@ $('#submit').click(function (e) {
     var md=  $("#managerDate").val();
     var nik = $("#nik").val();
     var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-    obj.reimbursementId = id;   
-    obj.requestDate = new Date().toLocaleString();
+  //  obj.reimbursementId = id;   
+  //  obj.requestDate = new Date().toLocaleString();
     obj.status = "aprovedbyfinance";
-    obj.notes = notes;
-    obj.managerApprovalStatus = 1;
-    obj.managerApprovalDate = new Date().toLocaleString();
-    obj.financeApprovalStatus = 1;
+   // obj.notes = notes;
+   // obj.managerApprovalStatus = 1;
+//    obj.managerApprovalDate = new Date().toLocaleString();
+  //  obj.financeApprovalStatus = 1;
     obj.financeApprovalDate = new Date().toLocaleString();
-    obj.nik = nik;
-    obj.financeApprovalNik = 1;
-    console.log(obj)
+  //  obj.nik = nik;
+  //  obj.financeApprovalNik = 1;
+ //   console.log(obj)
     console.log("success");
 
-    // $('#viewEmployee').DataTable({
-    var table = $('#viewEmployee').DataTable().columns().data()[2].value;
+    $.ajax({
+        url: 'https://localhost:44383/api/reimbursements/updatefinance/' + id + '/1/' + obj.status ,
+        type: "PUT",
+        data: JSON.stringify(obj),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
 
-    console.log(table)
+    }).done((result) => {
+        console.log(result);
+        $('#tableEmployee').DataTable().ajax.reload();
+        //$('#viewEmployee').dataTable().fnClearTable();
+
+    }).fail((error) => {
+
+
+    })
+
+    // $('#viewEmployee').DataTable({
+   
     var obj2 = new Object();
- //   obj2.attachmentId = [];
-    obj2.requestAmount = [];
-    obj2.categoryId = [];
-    obj2.fileAttachment = [];
+    obj2.attachmentId = [];
+    //obj2.requestAmount = [];
+    //obj2.categoryId = [];
+    //obj2.fileAttachment = [];
     obj2.paidAmount = [];
 
 
- 
-//    var inputsrid = document.querySelectorAll("#attachmentId");
+    //tabblecategory = ($('#viewEmployee').DataTable().columns().data()[2]);
+
+    //for (j = 0; j < tabblecategory.length; j++) {
+    //    if (tabblecategory[j] == "Transportation") {
+
+    //    } else if (tabblecategory[j] == "Medical") {
+
+    //    }
+    //}
+   var inputsrid = $('#viewEmployee').DataTable().columns().data()[0];
+  //  console.log(inputsrid);
     //var inputsreq = document.querySelectorAll("#requestAmount");
     //var inputsrca = document.querySelectorAll("#category");
     //var inputsrup = document.querySelectorAll("#upload");
-    //var inputsrpd = document.querySelectorAll("#paidAmount");
+    var inputsrpd = document.querySelectorAll("#paidAmount");
 
-    //for (j = 0; j < inputsreq.length; j++) {
-    //    obj2.attachmentId[j] = $('#viewEmployee').DataTable().columns().data()[0][j];
-    //    obj2.requestAmount[j] = $('#viewEmployee').DataTable().columns().data()[1][j];
-    //    obj2.categoryId[j] = inputsrca[j].value;
-    //    obj2.fileAttachment[j] = $('#viewEmployee').DataTable().columns().data()[3][j];
-    //    obj2.paidAmount[j] = inputsrpd[j].value;
+    for (j = 0; j < inputsrid.length; j++) {
+        obj2.attachmentId[j] = $('#viewEmployee').DataTable().columns().data()[0][j];
+        console.log(obj2.attachmentId[j])
+        obj2.paidAmount[j] = inputsrpd[j].value;
+        $.ajax({
+            url: 'https://localhost:44383/api/attachments/updatepaid/' + obj2.attachmentId[j] + '/' + obj2.paidAmount[j],
+        type: "PUT",
+        data: JSON.stringify(obj),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+    }).done((result) => {
+        console.log(result);
+        $('#tableEmployee').DataTable().ajax.reload();
+        $('#viewEmployee').DataTable().fnClearTable();
 
-    //}
-    //console.log(obj2);
+
+    }).fail((error) => {
+
+
+    })
+    }
+
 
       
     //$.ajax({

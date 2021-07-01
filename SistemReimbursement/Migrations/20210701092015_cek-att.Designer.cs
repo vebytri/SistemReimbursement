@@ -10,8 +10,8 @@ using SistemReimbursement.Context;
 namespace SistemReimbursement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210630150413_UpdateRelation")]
-    partial class UpdateRelation
+    [Migration("20210701092015_cek-att")]
+    partial class cekatt
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
