@@ -31,8 +31,6 @@ namespace SistemReimbursement.Repository.Data
         {
             return conn.Reimbursement.Where(x => x.Status == status && x.Account.User.ManagerNik == nik);
         }
-
-
     }
     
 }
