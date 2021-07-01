@@ -210,35 +210,59 @@ function Detail(id) {
 
 $('#submit').click(function () {
 
-     //var id = ("#reqId").val();
-     var  rd =("#reqDate").val();
-    //var notes = $("#viewnotes").val();
-    //var ms = $("#managerStatus").val();
-    //  var md=  $("#managerDate").val();
-    //var nik = ("#nik").val();
-    console.log(rd);
-    //var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-
-    //obj.reimbursementId = id;   
-    //obj.requestDate = rd;
-    //obj.status = "aprovedbyfinance";
-    //obj.notes = notes;
-    //obj.managerApprovalStatus = ms;
-    //obj.managerApprovalDate = md;
-    //obj.financeApprovalStatus = 1;
-    //obj.financeApprovalDate = new Date().toLocaleString();
-    //obj.nik = nik;
-    //obj.financeApprovalNik = "";
-
-    //console.log(obj);
+    var id = $("#reqId").val();
+    var  rd =$("#reqDate").val();
+    var notes = $("#viewnotes").val();
+    var ms = $("#managerStatus").val();
+    var md=  $("#managerDate").val();
+    var nik = $("#nik").val();
 
 
+    var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+
+    obj.reimbursementId = id;   
+    obj.requestDate = rd;
+    obj.status = "aprovedbyfinance";
+    obj.notes = notes;
+    obj.managerApprovalStatus = ms;
+    obj.managerApprovalDate = md;
+    obj.financeApprovalStatus = 1;
+    obj.financeApprovalDate = new Date().toLocaleString();
+    obj.nik = nik;
+    obj.financeApprovalNik = "";
+
+    obj.paidAmount = [];
+
+
+    console.log(obj);
     var inputsreq = document.querySelectorAll("#paidAmount");
-      for (j = 0; j < inputsreq.length; j++) {
-        console.log(inputsreq[j].value);
-      
+
+    for (j = 0; j < inputsreq.length; j++)
+    {
+          obj.paidAmount[j] = inputsreq[j].value;
+          //console.log(inputsreq[j].value);
     }
 
+      
+    $.ajax({
+        url: 'https://localhost:44383/api/attachments/',
+        type: "PUT",
+        data: JSON.stringify(obj),
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+    }).done((result) => {
+        console.log(result);
+
+
+        //$('#viewEmployee').dataTable().fnClearTable();
+
+    }).fail((error) => {
+
+
+    })
     //var paid = $("#paidAmount").val();
     //console.log(paid);
 
