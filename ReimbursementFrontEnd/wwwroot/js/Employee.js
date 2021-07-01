@@ -2,7 +2,6 @@
     let nik2 = $("#nik2").val();
     let first = $("#first").val();
     let last = $("#last").val();
-    console.log(first);
     $('#tableEmployee').DataTable({
         ajax: {
             url: 'https://localhost:44383/api/reimbursements/getallbynik/' + nik2,
@@ -23,8 +22,6 @@
             {
                 "data": null, "sortable": true,
                 "render": function (data, type, row) {
-                    console.log(data.account.user.firstName);
-
                     var first = data.account.user.firstName;
                     var last = data.account.user.lastName;
 
@@ -107,7 +104,6 @@ $(document).ready(function () {
         i++;    
         $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  <option value = "1" > Medical</option ><option value = "2" > Transportation</option ></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
 
-        console.log(show_value);
     });
 
     $(document).on('click', '.btn_remove', function () {
@@ -116,14 +112,13 @@ $(document).ready(function () {
     });
 
 
-    $('#submit').click(function () {
+    $('#submit').click(function (e) {
+        e.preventDefault();
         var nik = $("#nik2").val();
         var mnik = $("#mnik").val();
-        console.log(mnik);
         var requestDate = new Date().toLocaleString();
         var status = "Process";
         var notes = $("#notes").val();
-        console.log(notes);
 
         var inputsreq = document.querySelectorAll("#requestAmount");
         var inputsup = document.querySelectorAll("#upload");
@@ -133,7 +128,7 @@ $(document).ready(function () {
         obj.requestDate = requestDate;
         obj.status = status;
         obj.notes = notes;
-  
+
 
         obj.nik = nik;
         obj.FinanceApprovalNik = mnik;
@@ -153,7 +148,6 @@ $(document).ready(function () {
             obj.fileAttachment[j] = inputsup[j].value;
             obj.categoryId[j] = inputscat[j].value;
         }
-
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
             url: 'https://localhost:44383/api/accounts/request/' + i,
@@ -162,30 +156,25 @@ $(document).ready(function () {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            data: JSON.stringify(obj)
+            beforeSend: function () {
+                Swal.showLoading()
+            },
+            data: JSON.stringify(obj),
+            success: function (data) {
+                Swal.fire({ title: 'Success', 'text': ('Your request successfully created'), 'type' : 'success' })
+                Swal.hideLoading()
+                $('#insertModal').modal('hide');
+                $('#tableEmployee').DataTable().ajax.reload();
+                console.log(data)
+            },
+            error: function (data) {
+                Swal.hideLoading()
+                Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type' : 'error' });
+            }
+        })
 
-        }).done((result) => {
-            console.log(result);
 
-            $('#tableEmployee').DataTable().ajax.reload();
-            //buat alert pemberitahuan jika success
-            //alert("Data Sukses");
-            Swal.fire(
-                'Success !',
-                'Success Inserted!',
-                'success'
-            )
-        }).fail((error) => {
-            //alert pemberitahuan jika gagal
-
-            Swal.fire(
-                'Failed !',
-                'Failed Inserted!',
-                'error'
-            )
-            //alert("Data Gagal");
-            console.log(error);
-        });
+      
     });
 });
 
@@ -255,7 +244,6 @@ function Detail(id) {
 
         //---tablemodal--
       
-            console.log(id);
             $('#viewEmployee').DataTable({
                 ajax: {
                     url: 'https://localhost:44383/api/attachments/getdetail/' + id,
@@ -320,7 +308,6 @@ function del(id) {
         obj.financeApprovalDate = result.financeApprovalDate;
         obj.nik = result.nik;
         obj.financeApprovalNik = result.financeApprovalNik;
-        console.log(obj);
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
             url: 'https://localhost:44383/api/reimbursements',
@@ -333,7 +320,6 @@ function del(id) {
 
 
         }).done((result) => {
-            console.log(result);
             $('#tableEmployee').DataTable().ajax.reload();
 
         }).fail((error) => {
