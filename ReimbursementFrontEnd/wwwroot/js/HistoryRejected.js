@@ -26,7 +26,7 @@
 
                     return (first + " " + last);
                 }
-            },
+            },   
             {
                 "data": 'reimbursementId'
 
