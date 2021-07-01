@@ -5,8 +5,6 @@
     Layout = null ;
 
 }
-
-
 <!DOCTYPE html>
 <html dir="ltr">
 
@@ -23,12 +21,9 @@
 
     <!-- Custom CSS -->
     <link href="~/Adminmart/dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <script src="sweetalert2/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="sweetalert2/dist/sweetalert2.min.css">
+   
 </head>
 
 <body>
@@ -60,71 +55,72 @@
                         <h2 class="mt-3 text-center">Sign Up for <strong>Reimbursement</strong> </h2>
 
 
-                        <form action="/register/regis" method="post" class="mt-4">
+                        <form action="javascript:register()" method="post" class="mt-4">
                             <div class="row">
                                 <div class="col-lg-5">
                                     <div class="form-group">
-                                        <input class="form-control" type="text" required id="firstname" name="firstname" placeholder="First Name">
+                                        <input class="form-control rounded-pill" type="text" required id="firstname" name="firstname" placeholder="First Name">
                                     </div>
 
                                 </div>
                                 <div class="col-lg-7">
                                     <div class="form-group">
-                                        <input class="form-control" type="text" required id="lastname" name="lastname" placeholder="Last Name">
+                                        <input class="form-control rounded-pill" type="text" required id="lastname" name="lastname" placeholder="Last Name">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-5">
 
                                     <div class="form-group">
-                                        <select class="form-control" id="gender" placeholder="Gender" name="gender">
+                                        <select class="form-control rounded-pill" id="gender" placeholder="Gender" name="gender">
                                             <option value="Male">Male</option>
                                             <option value="Female">Female</option>
-
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-7">
-
                                     <div class="form-group">
-                                        <input class="form-control" type="date" id="birthDate" required name="birthDate" placeholder="date">
+                                        <input class="form-control rounded-pill" type="date" id="date" required name="birthDate" placeholder="date">
                                     </div>
                                 </div>
+
+
+                                <div class="form-group">
+                                    <input class="form-controll" type="text" id="roleId" hidden name="roleId" value="1">
+                                </div>
+
                                 <div class="col-lg-12">
 
                                     <div class="form-group">
-                                        <select class="form-control" id="roleId" placeholder="Job Position" name="roleId">
-                                            <option value="1">Employee</option>
-                                            <option value="2">Manager</option>
-                                            <option value="3">Finanace</option>
+                                        <input class="form-control rounded-pill" id="ManagerNik" name="ManagerNik" hidden value="1">
 
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-
-                                    <div class="form-group">
-                                        <input class="form-control" id="ManagerNik" name="ManagerNik" hidden value="6">
-
-                                        <input class="form-control" id="address" name="address" required type="text" placeholder="Address">
+                                        <input class="form-control rounded-pill" id="address" name="address" required type="text" placeholder="Address">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input class="form-control" id="email" name="email" required type="email" placeholder="Email">
+                                        <input class="form-control rounded-pill" id="email" name="email" required type="email" placeholder="Email">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                        <input class="form-control" type="password" required id="password" name="password" placeholder="password">
+                                        <input class="form-control rounded-pill" type="password" required id="password" name="password" placeholder="password">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input class="form-control rounded-pill" type="password" required id="password2" name="password2" placeholder="retype-password">
+                                        <span id="message"></span>
+                                        <label id="message"></label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 text-center">
-                                    <button type="submit" class="btn btn-block btn-dark">Sign Up</button>
+                                    <button type="submit" class="btn btn-block btn-dark rounded-pill">Sign Up</button>
                                 </div>
                                 <div class="col-lg-12 text-center mt-5">
-                                    Already have an account? <a href="/login" class="text-danger">Sign In</a>
+                                    Already have an account? <a href="/login" class="text-danger ">Sign In</a>
                                 </div>
                             </div>
                         </form>
@@ -140,16 +136,20 @@
     <!-- All Required js -->
     <!-- ============================================================== -->
     <script src="~/Adminmart/assets/libs/jquery/dist/jquery.min.js "></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Bootstrap tether Core JavaScript -->
     <script src="~/Adminmart/assets/libs/popper.js/dist/umd/popper.min.js "></script>
     <script src="~/Adminmart/assets/libs/bootstrap/dist/js/bootstrap.min.js "></script>
+    <script src="sweetalert2/dist/sweetalert2.all.min.js"></script>
+
     <!-- ============================================================== -->
     <!-- This page plugin js -->
     <!-- ============================================================== -->
     <script>
         $(".preloader ").fadeOut();
     </script>
-       <script src="~/js/login.js" ></script>
+    <script src="~/js/register.js"></script>
 
 </body>
 

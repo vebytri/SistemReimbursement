@@ -43,6 +43,8 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            ViewBag.sessionName2 = tokenS.Claims.First(claim => claim.Type == "LastName").Value;
+
             return View();
         }
  
@@ -68,7 +70,8 @@ namespace ReimbursementFrontEnd.Controllers
 
             ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
-            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            ViewBag.sessionNameFirst = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            ViewBag.sessionNameLast = tokenS.Claims.First(claim => claim.Type == "LastName").Value;
             ViewBag.sessionManagerNik= tokenS.Claims.First(claim => claim.Type == "ManagerNik").Value;
 
 
@@ -111,6 +114,68 @@ namespace ReimbursementFrontEnd.Controllers
             return View();
         }
 
+
+        [Authorize(Roles = "Finance")]
+        //[AllowAnonymous]
+
+        public IActionResult HistoryAll()
+        {
+            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+            var token = HttpContext.Session.GetString("JWToken");
+            //string apiResponse = token.ToString();
+            //var token1 = JsonConvert.DeserializeObject(token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
+            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
+            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+
+            return View();
+        }
+
+        [Authorize(Roles = "Finance")]
+        //[AllowAnonymous]
+
+        public IActionResult HistoryApp()
+        {
+            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+            var token = HttpContext.Session.GetString("JWToken");
+            //string apiResponse = token.ToString();
+            //var token1 = JsonConvert.DeserializeObject(token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
+            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
+            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+
+            return View();
+        }
+        [Authorize(Roles = "Finance")]
+        //[AllowAnonymous]
+
+        public IActionResult HistoryRej()
+        {
+            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+            var token = HttpContext.Session.GetString("JWToken");
+            //string apiResponse = token.ToString();
+            //var token1 = JsonConvert.DeserializeObject(token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
+            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
+            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

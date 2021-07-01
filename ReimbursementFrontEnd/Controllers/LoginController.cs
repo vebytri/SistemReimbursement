@@ -32,10 +32,6 @@ namespace ReimbursementFrontEnd.Controllers
             return View();
         }
 
-        //public IActionResult Register()
-        //{
-        //    return View();
-        //}
 
 
         [HttpPost]

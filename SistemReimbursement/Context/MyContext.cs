@@ -42,10 +42,11 @@ namespace SistemReimbursement.Context
                 .HasOne(role => role.Roles)
                 .WithMany(ar => ar.AccountRoles)
                 .HasForeignKey(role => role.RoleId);
+
             //account to reimburstment (request)
-            modelBuilder.Entity<Account>()
-           .HasMany(a => a.Reimbursement)
-           .WithOne(b => b.Account);
+           modelBuilder.Entity<Reimbursement>()
+         .HasOne(a => a.Account)
+         .WithMany(b => b.Reimbursement).HasForeignKey(b => b.Nik);
 
 
             // reimburstment to attachment

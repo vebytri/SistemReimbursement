@@ -63,7 +63,10 @@
                                         No
                                     </th>
                                     <th class="border-0 font-14 font-weight-medium  ">
-                                        Reimbursements ID
+                                        Nik
+                                    </th>
+                                    <th class="border-0 font-14 font-weight-medium  ">
+                                        Nama
                                     </th>
                                     <th class="border-0 font-14 font-weight-medium ">Status</th>
                                     <th class="border-0 font-14 font-weight-medium ">Manager Status</th>
@@ -94,106 +97,76 @@
                 </button>
             </div>
 
+
             <div class="modal-body m-1">
-                <div class="form-row">
+                <div class="form-row m-2">
 
                     <div class="form-group col-md-3">
                         <label>Request Date</label>
                         <input class="form-control rounded-pill" id="reqDate">
                         <input class="form-control rounded-pill" hidden id="reqId">
 
+                        <div class="form-row m-2 text-center">
+                            <label>  Status Manager</label>
+                            <input class="form-control rounded-pill" id="managerStatus">
+                        </div>
+
+                        <div class="form-row m-2 text-center">
+                            <label> Status Finance</label>
+                            <input class="form-control rounded-pill" id="financeStatus">
+                        </div>
+
                     </div>
 
                     <div class="form-group col-md-3">
                         <label>Status</label>
                         <input class="form-control rounded-pill" id="status">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6 text-center">
-                        <label>Manager</label>
+                        <div class="form-row m-2  text-center">
+                            <label> Date Manager</label>
+                            <input class="form-control rounded-pill" id="managerDate">
+                        </div>
+
+                        <div class="form-row m-2 text-center">
+                            <label> Date Finance</label>
+                            <input class="form-control rounded-pill" id="financeDate">
+                        </div>
 
                     </div>
 
-                    <div class="form-group col-md-6 text-center">
-                        <label>Finance</label>
-
-
-                    </div>
-                </div>
-                <div class="form-row">
-
-                    <div class="form-group col-md-3 text-center">
-                        <label> Approval Status</label>
-                        <input class="form-control rounded-pill" id="managerStatus">
-
-                    </div>
-
-                    <div class="form-group col-md-3 text-center">
-                        <label> Approval Date</label>
-                        <input class="form-control rounded-pill" id="managerDate">
-
-                    </div>
-
-
-                    <div class="form-group col-md-3 text-center">
-                        <label> Approval Status</label>
-                        <input class="form-control rounded-pill" id="financeStatus">
-
-                    </div>
-                    <div class="form-group col-md-3 text-center">
-                        <label> Approval Date</label>
-                        <input class="form-control rounded-pill" id="financeDate">
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-12">
+                    <div class="form-group col-md-6">
                         <label>Notes</label>
-                        <textarea class="form-control" id="viewnotes" rows="3"></textarea>
+                        <textarea class="form-control" id="viewnotes" rows="8"></textarea>
                     </div>
+
                 </div>
-
-
-
-                @*--table view---*@
-                <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
-                <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
-
-                @*<table id="viewEmployee" class="table table-responsive no-wrap v-middle mb-0">
-            <thead>
-                <tr class="border-0">
-                    <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
-                    <th class="border-0 font-14 font-weight-medium text-center">Category</th>
-                    <th class="border-0 font-14 font-weight-medium text-center ">File</th>
-                    <th class="border-0 font-14 font-weight-medium text-center ">Paid Amount</th>
-                    <th class="border-0 font-14 font-weight-medium text-center ">Action</th>
-                </tr>
-            </thead>
-            <tbody class="table">
-            </tbody>
-
-        </table>*@
-
-                <table id="viewEmployee" class="table table-responsive no-wrap v-middle mb-0">
-                    <thead>
-                        <tr class="border-0">
-                            <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
-                            <th class="border-0 font-14 font-weight-medium text-center">Category</th>
-                            <th class="border-0 font-14 font-weight-medium text-center ">File</th>
-                            <th class="border-0 font-14 font-weight-medium text-center ">Paid Amount</th>
-                            @*<th class="border-0 font-14 font-weight-medium text-center ">Action</th>*@
-                        </tr>
-                      
-                    </thead>
-                    <tbody >
-                        
-                    </tbody>
-
-                </table>
-
-
             </div>
+
+
+
+            @*--table view---*@
+            <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
+            <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
+
+
+
+            <table id="viewEmployee" class="table table-responsive no-wrap v-middle mb-0">
+                <thead>
+                    <tr class="border-0">
+                        <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
+                        <th class="border-0 font-14 font-weight-medium text-center">Category</th>
+                        <th class="border-0 font-14 font-weight-medium text-center ">File</th>
+                        <th class="border-0 font-14 font-weight-medium text-center ">Paid Amount</th>
+                        @*<th class="border-0 font-14 font-weight-medium text-center ">Action</th>*@
+                    </tr>
+
+                </thead>
+                <tbody>
+                </tbody>
+
+            </table>
+
+
+     
 
             <!--<table class="table no-wrap v-middle mb-0" id="viewEmployee">
     <tr class="border-0">-->

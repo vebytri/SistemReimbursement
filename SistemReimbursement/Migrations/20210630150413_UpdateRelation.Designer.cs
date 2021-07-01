@@ -10,8 +10,8 @@ using SistemReimbursement.Context;
 namespace SistemReimbursement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210629082326_updateTable2")]
-    partial class updateTable2
+    [Migration("20210630150413_UpdateRelation")]
+    partial class UpdateRelation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,9 +109,6 @@ namespace SistemReimbursement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AccountNik")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("FinanceApprovalDate")
                         .HasColumnType("datetime2");
 
@@ -141,7 +138,7 @@ namespace SistemReimbursement.Migrations
 
                     b.HasKey("ReimbursementId");
 
-                    b.HasIndex("AccountNik");
+                    b.HasIndex("Nik");
 
                     b.ToTable("TB_M_Reimbursement");
                 });
@@ -250,7 +247,9 @@ namespace SistemReimbursement.Migrations
                 {
                     b.HasOne("SistemReimbursement.Models.Account", "Account")
                         .WithMany("Reimbursement")
-                        .HasForeignKey("AccountNik");
+                        .HasForeignKey("Nik")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Account");
                 });

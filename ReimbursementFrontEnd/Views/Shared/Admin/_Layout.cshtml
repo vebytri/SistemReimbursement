@@ -30,6 +30,9 @@
     <link href="~/Adminmart/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
     <link href="~/Adminmart/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="~/Adminmart/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+  
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/sweetalert2/5.3.8/sweetalert2.css">
+
     <!-- Custom CSS -->
     <link href="~/Adminmart/dist/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
@@ -38,7 +41,7 @@
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>-->
     @*<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>*@
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>*@
     <!--<![endif]-->
 </head>
 
@@ -139,7 +142,7 @@
                                      width="40">
                                 <span class="ml-2 d-none d-lg-inline-block">
                                     <span>Hello,</span> <span class="text-dark">@ViewBag.sessionName</span> <i data-feather="chevron-down"
-                                                                                                    class="svg-icon"></i>
+                                                                                                               class="svg-icon"></i>
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
@@ -205,36 +208,76 @@
                                 </a>
                             </li>
                         }
-                            @if (ViewBag.sessionRole == "Manager")
+                        @if (ViewBag.sessionRole == "Manager")
 
-                            {
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link sidebar-link" href="/home/manager"
-                                       aria-expanded="false">
-                                        <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Manager</span>
-                                    </a>
-                                </li>
-                            }
-
-                            @if (ViewBag.sessionRole == "Finance")
-
-                            {
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link sidebar-link" href="/home/finance"
-                                       aria-expanded="false">
-                                        <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Finanace</span>
-                                    </a>
-                                </li>
-                            }
-
-
+                        {
                             <li class="sidebar-item">
-                                <a class="sidebar-link sidebar-link" href="/login/logout"
+                                <a class="sidebar-link sidebar-link" href="/home/manager"
                                    aria-expanded="false">
-                                    <i data-feather="log-out" class="feather-icon"></i><span class="hide-menu">Logout</span>
+                                    <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Manager</span>
                                 </a>
                             </li>
-                        </ul>
+                        }
+
+                        @if (ViewBag.sessionRole == "Finance")
+
+                        {
+                            <li class="sidebar-item">
+                                <a class="sidebar-link sidebar-link" href="/home/finance"
+                                   aria-expanded="false">
+                                    <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Finance</span>
+                                </a>
+                            </li>
+
+                        }
+
+                        @if (ViewBag.sessionRole == "Finance" || ViewBag.sessionRole=="Manager")
+
+                        {
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                   aria-expanded="false">
+                                    <i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Forms History </span>
+                                </a>
+
+                                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                    <li class="sidebar-item">
+                                        <a href="/home/historyall" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Form All
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="/home/historyapp" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Form Approved
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="/home/historyrej" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Form Rejected
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        }
+
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link sidebar-link" href="/login/logout"
+                               aria-expanded="false">
+                                <i data-feather="log-out" class="feather-icon"></i><span class="hide-menu">Logout</span>
+                            </a>
+                        </li>
+
+
+                    </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
             </div>
@@ -269,6 +312,7 @@
     <script src="~/Adminmart/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="~/Adminmart/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="~/Adminmart/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @*<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>*@
 
     @*---pdf---*@

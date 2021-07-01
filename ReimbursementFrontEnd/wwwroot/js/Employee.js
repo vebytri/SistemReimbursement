@@ -1,5 +1,8 @@
 ﻿$(document).ready(function () {
     let nik2 = $("#nik2").val();
+    let first = $("#first").val();
+    let last = $("#last").val();
+    console.log(first);
     $('#tableEmployee').DataTable({
         ajax: {
             url: 'https://localhost:44383/api/reimbursements/getallbynik/' + nik2,
@@ -14,8 +17,19 @@
 
             },
             {
-                "data": 'reimbursementId'
+                "data": 'nik'
 
+            },
+            {
+                "data": null, "sortable": true,
+                "render": function (data, type, row) {
+                    console.log(data.account.user.firstName);
+
+                    var first = data.account.user.firstName;
+                    var last = data.account.user.lastName;
+
+                    return (first + " " + last);
+                }
             },
 
             {
@@ -69,7 +83,6 @@
                     return `
                             <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-eye"></i></button>
 
-                            <button type="button" class="btn btn-danger rounded-pill" onclick="del('${row['reimbursementId']}')"><i class="fas fa-trash"></i></button>
                             `;
                 }
 
@@ -80,6 +93,7 @@
 
 });
 
+//<button type="button" class="btn btn-danger rounded-pill" onclick="del('${row['reimbursementId']}')"><i class="fas fa-trash"></i></button>
 
 
 
@@ -90,8 +104,8 @@ $(document).ready(function () {
     var i = 1;
 
     $("#add").click(function () {
-        i++;
-        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
+        i++;    
+        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  <option value = "1" > Medical</option ><option value = "2" > Transportation</option ></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
 
         console.log(show_value);
     });
@@ -158,7 +172,7 @@ $(document).ready(function () {
             //alert("Data Sukses");
             Swal.fire(
                 'Success !',
-                'Data Berhasil Di Tambahkan',
+                'Success Inserted!',
                 'success'
             )
         }).fail((error) => {
@@ -166,7 +180,7 @@ $(document).ready(function () {
 
             Swal.fire(
                 'Failed !',
-                'Data Gagal di Tambahkan',
+                'Failed Inserted!',
                 'error'
             )
             //alert("Data Gagal");
@@ -204,11 +218,7 @@ function Detail(id) {
         else {
             $("#managerStatus").val("Unknown!");
         }
-   
 
-        
-       
-     
         if (result.managerApprovalDate == "0001-01-01T00:00:00") {
             $("#managerDate").val("Not Available");
         }

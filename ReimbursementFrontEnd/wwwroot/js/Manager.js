@@ -14,8 +14,19 @@
 
             },
             {
-                "data": 'reimbursementId'
+                "data": 'nik'
 
+            },
+            {
+                "data": null, "sortable": true,
+                "render": function (data, type, row) {
+                    console.log(data.account.user.firstName);
+
+                    var first = data.account.user.firstName;
+                    var last = data.account.user.lastName;
+
+                    return (first + " " + last);
+                }
             },
 
             {
@@ -203,9 +214,19 @@ function acc(id) {
             console.log(result);
             $('#tableEmployee').DataTable().ajax.reload();
 
+            Swal.fire(
+                'Success !',
+                'Success Updated',
+                'success'
+            )
+
         }).fail((error) => {
 
-
+            Swal.fire(
+                'Failed !',
+                'Failed Updated!',
+                'error'
+            )
         })
 
     }).fail((error) => {
