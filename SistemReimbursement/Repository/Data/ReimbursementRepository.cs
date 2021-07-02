@@ -50,7 +50,7 @@ namespace SistemReimbursement.Repository.Data
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
             message.To.Add(new MailboxAddress($"{first}", $"{email}"));
-            message.Subject = "Update Request Reimburstment";
+            message.Subject = "Update Request Reimburstment From Finance";
             message.Body = new TextPart("plain")
             {
                 Text = $"Dear, {first}" +
@@ -87,7 +87,7 @@ namespace SistemReimbursement.Repository.Data
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
             message.To.Add(new MailboxAddress($"{first}", $"{email}"));
-            message.Subject = "Update Request Reimburstment";
+            message.Subject = "Update Request Reimburstment From Manager";
             message.Body = new TextPart("plain")
             {
                 Text = $"Dear, {first}" +
