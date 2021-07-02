@@ -157,16 +157,19 @@ $(document).ready(function () {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
+            data: JSON.stringify(obj),
             beforeSend: function () {
                 Swal.showLoading()
             },
-            data: JSON.stringify(obj),
             success: function (data) {
                 Swal.fire({ title: 'Success', 'text': ('Your request successfully created'), 'type' : 'success' })
                 Swal.hideLoading();
+                //$('#insertModal').DataTable().fncl();
                 $('#insertModal').modal('hide');
+
                 $('#tableEmployee').DataTable().ajax.reload();
-                console.log(data);
+                //console.log(data);
+
             },
             error: function (data) {
                 Swal.hideLoading();
