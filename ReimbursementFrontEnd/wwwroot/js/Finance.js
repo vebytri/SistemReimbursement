@@ -240,14 +240,20 @@ $('#submit').click(function (e) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
-
+        beforeSend: function () {
+            Swal.showLoading()
+        },
     }).done((result) => {
-        console.log(result);
+        Swal.fire({ title: 'Success', 'text': ('Your request successfully created'), 'type': 'success' })
+        Swal.hideLoading();
+        $('#viewModal').modal('hide');
+        //console.log(result);
         $('#tableEmployee').DataTable().ajax.reload();
-        //$('#viewEmployee').dataTable().fnClearTable();
 
     }).fail((error) => {
-
+        Swal.hideLoading();
+        Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+        console.log(data);
 
     })
 
@@ -288,15 +294,21 @@ $('#submit').click(function (e) {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
-        },
-    }).done((result) => {
-        console.log(result);
+            },
+          
+        }).done((result) => {
+            //Swal.fire({ title: 'Success', 'text': ('Your request successfully created'), 'type': 'success' })
+            //Swal.hideLoading();
+            //$('#viewModal').modal('hide');
+        //console.log(result);
         $('#tableEmployee').DataTable().ajax.reload();
-        $('#viewEmployee').DataTable().fnClearTable();
+            //$('#viewModal').DataTable().fnClearTable();
 
 
     }).fail((error) => {
-
+        Swal.hideLoading();
+        Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+        console.log(data);
 
     })
     }
@@ -368,11 +380,8 @@ function updatePaid(id,paid1) {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-
         }).done((result) => {
             console.log(result);
-
-            
             $('#viewEmployee').dataTable().fnClearTable();
 
         }).fail((error) => {
@@ -387,66 +396,66 @@ function updatePaid(id,paid1) {
 
 }
 
-function acc(id) {
-    $.ajax({
-        url: 'https://localhost:44383/api/reimbursements/' + id,
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+//function acc(id) {
+//    $.ajax({
+//        url: 'https://localhost:44383/api/reimbursements/' + id,
+//        type: "GET",
+//        headers: {
+//            'Accept': 'application/json',
+//            'Content-Type': 'application/json'
+//        },
 
-    }).done((result) => {
+//    }).done((result) => {
 
-        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-        obj.reimbursementId = id;
-        obj.requestDate = result.requestDate;
-        obj.status = "aprovedbyfinance";
-        obj.notes = result.notes;
+//        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+//        obj.reimbursementId = id;
+//        obj.requestDate = result.requestDate;
+//        obj.status = "aprovedbyfinance";
+//        obj.notes = result.notes;
 
-        obj.managerApprovalStatus = result.managerApprovalStatus;
-        obj.managerApprovalDate = result.managerApprovalDate;
-        obj.financeApprovalStatus = 1;
-        obj.financeApprovalDate = new Date().toLocaleString();
-        obj.nik = result.nik;
-        obj.financeApprovalNik = result.financeApprovalNik;
-        console.log(obj);
-        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-        $.ajax({
-            url: 'https://localhost:44383/api/reimbursements',
-            type: "PUT",
-            data: JSON.stringify(obj),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-
-
-        }).done((result) => {
-            console.log(result);
-            $('#tableEmployee').DataTable().ajax.reload();
-
-        }).fail((error) => {
+//        obj.managerApprovalStatus = result.managerApprovalStatus;
+//        obj.managerApprovalDate = result.managerApprovalDate;
+//        obj.financeApprovalStatus = 1;
+//        obj.financeApprovalDate = new Date().toLocaleString();
+//        obj.nik = result.nik;
+//        obj.financeApprovalNik = result.financeApprovalNik;
+//        console.log(obj);
+//        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+//        $.ajax({
+//            url: 'https://localhost:44383/api/reimbursements',
+//            type: "PUT",
+//            data: JSON.stringify(obj),
+//            headers: {
+//                'Accept': 'application/json',
+//                'Content-Type': 'application/json'
+//            },
 
 
-        })
+//        }).done((result) => {
+//            console.log(result);
+//            $('#tableEmployee').DataTable().ajax.reload();
 
-    }).fail((error) => {
-
-
-    })
-
-    //$("#reqDate").val(result.requestDate.split("T")[0]);
-    //$("#status").val(result.status);
-    //$("#managerStatus").val(result.managerApprovalStatus);
-    //$("#managerDate").val(result.managerApprovalDate.split("T")[0]);
-    //$("#financeStatus").val(result.financeApprovalStatus);
-    //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
-    //$("#notes").val(result.notes);
+//        }).fail((error) => {
 
 
+//        })
 
-}
+//    }).fail((error) => {
+
+
+//    })
+
+//    //$("#reqDate").val(result.requestDate.split("T")[0]);
+//    //$("#status").val(result.status);
+//    //$("#managerStatus").val(result.managerApprovalStatus);
+//    //$("#managerDate").val(result.managerApprovalDate.split("T")[0]);
+//    //$("#financeStatus").val(result.financeApprovalStatus);
+//    //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
+//    //$("#notes").val(result.notes);
+
+
+
+//}
 function rej(id) {
     $.ajax({
         url: 'https://localhost:44383/api/reimbursements/' + id,

@@ -16,7 +16,7 @@
             {
                 "data": null, "sortable": true,
                 "render": function (data, type, row) {
-                    console.log(data.account.user.firstName);
+                    //console.log(data.account.user.firstName);
 
                     var first = data.account.user.firstName;
                     var last = data.account.user.lastName;
@@ -102,7 +102,7 @@ $(document).ready(function () {
     $("#add").click(function () {
         i++;
         $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
-        console.log(show_value);
+        //console.log(show_value);
     });
 
     $(document).on('click', '.btn_remove', function () {
@@ -115,7 +115,7 @@ $(document).ready(function () {
         var nik = $("#nik2").val();
         var requestDate = new Date().toLocaleString();
         var status = "Process";
-        console.log(i);
+        //console.log(i);
 
         var inputsreq = document.querySelectorAll("#requestAmount");
         var inputsup = document.querySelectorAll("#upload");
@@ -152,7 +152,7 @@ $(document).ready(function () {
             data: JSON.stringify(obj)
 
         }).done((result) => {
-            console.log(result);
+            //console.log(result);
 
             $('#tableEmployee').DataTable().ajax.reload();
             //buat alert pemberitahuan jika success
@@ -184,6 +184,7 @@ function acc(id) {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         },
+       
 
     }).done((result) => {
 
@@ -199,7 +200,7 @@ function acc(id) {
         obj.financeApprovalDate = result.financeApprovalDate;
         obj.nik = result.nik;
         obj.financeApprovalNik = result.financeApprovalNik;
-        console.log(obj);
+        //console.log(obj);
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
             url: 'https://localhost:44383/api/reimbursements/updatemanager/' + id + '/1/' + obj.status,
@@ -210,23 +211,31 @@ function acc(id) {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
+            beforeSend: function () {
+                Swal.showLoading()
+            },
         }).done((result) => {
-            console.log(result);
-            $('#tableEmployee').DataTable().ajax.reload();
 
-            Swal.fire(
-                'Success !',
-                'Success Updated',
-                'success'
-            )
+            Swal.fire({ title: 'Success', 'text': ('Updated successfully'), 'type': 'success' })
+            Swal.hideLoading();
+
+            //$('#viewModal').modal('hide');
+            $('#tableEmployee').DataTable().ajax.reload();
+          
+            //console.log(result);
+            //$('#tableEmployee').DataTable().ajax.reload();
+
+            //Swal.fire(
+            //    'Success !',
+            //    'Success Updated',
+            //    'success'
+            //)
 
         }).fail((error) => {
 
-            Swal.fire(
-                'Failed !',
-                'Failed Updated!',
-                'error'
-            )
+            Swal.hideLoading();
+            Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+            //console.log(data);
         })
 
     }).fail((error) => {
@@ -267,7 +276,7 @@ function rej(id) {
         obj.financeApprovalDate = result.financeApprovalDate;
         obj.nik = result.nik;
         obj.financeApprovalNik = result.financeApprovalNik;
-        console.log(obj);
+        //console.log(obj);
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
             url: 'https://localhost:44383/api/reimbursements/updatemanager/' + id + '/2/' + obj.status,
@@ -278,30 +287,22 @@ function rej(id) {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-
-
+            beforeSend: function () {
+                Swal.showLoading()
+            },
         }).done((result) => {
-            console.log(result);
+            Swal.fire({ title: 'Success', 'text': ('Updated successfully'), 'type': 'success' })
+            Swal.hideLoading();
+            //console.log(result);
             $('#tableEmployee').DataTable().ajax.reload();
 
         }).fail((error) => {
-
-
+            Swal.hideLoading();
+            Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+            //console.log(data);
         })
-
     }).fail((error) => {
-
-
     })
-
-    //$("#reqDate").val(result.requestDate.split("T")[0]);
-    //$("#status").val(result.status);
-    //$("#managerStatus").val(result.managerApprovalStatus);
-    //$("#managerDate").val(result.managerApprovalDate.split("T")[0]);
-    //$("#financeStatus").val(result.financeApprovalStatus);
-    //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
-    //$("#notes").val(result.notes);
-
 
 }
 
@@ -379,7 +380,7 @@ function Detail(id) {
 
 
         //---tablemodal--
-        console.log(id);
+        //console.log(id);
         $('#viewEmployee').DataTable({
 
             ajax: {
