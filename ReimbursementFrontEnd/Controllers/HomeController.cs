@@ -133,7 +133,7 @@ namespace ReimbursementFrontEnd.Controllers
             return View();
         }
 
-        [HttpPost("FileUpload")]
+        [HttpPost]
         public async Task<IActionResult> upload(List<IFormFile> files)
         {
             long size = files.Sum(f => f.Length);
@@ -158,8 +158,19 @@ namespace ReimbursementFrontEnd.Controllers
             // Don't rely on or trust the FileName property without validation.
             return Ok(new { count = files.Count, size, filePaths });
         }
+        [HttpPost]
+        public async Task<IActionResult> testupload(IFormFile file)
+        {
+            var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\Files\\");
 
-
+            var filePath = Path.Combine(basePath, file.FileName);
+            var length = file.Length;
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            return Ok(filePath);
+        }
         [Authorize(Roles = "Finance")]
         //[AllowAnonymous]
 
@@ -221,6 +232,9 @@ namespace ReimbursementFrontEnd.Controllers
 
             return View();
         }
+
+
+
         public IActionResult Privacy()
         {
             return View();
