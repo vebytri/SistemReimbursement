@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Role"] = @ViewBag.sessionRole;
+    ViewData["NIK"] = @ViewBag.sessionNik;
+    ViewData["Name"] = @ViewBag.sessionName;
+
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+}
+<input type="file" id="FileUpload1" />
+<input type="button" id="btnUpload" value="Upload Files" />
+<form id="uploader">
+    <input id="fileInput" type="file" multiple>
+    <input type="submit" value="Upload file" />
+</form>
+
+@section scripts{
+    <script src="~/js/trial.js" asp-append-version="true"></script>
+
+}
