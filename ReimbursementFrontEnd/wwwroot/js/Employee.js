@@ -93,6 +93,7 @@
 
 //<button type="button" class="btn btn-danger rounded-pill" onclick="del('${row['reimbursementId']}')"><i class="fas fa-trash"></i></button>
 
+//generaterandom number
 
 
 
@@ -129,15 +130,17 @@ $(document).ready(function () {
         obj.requestDate = requestDate;
         obj.status = status;
         obj.notes = notes;
-
-
         obj.nik = nik;
         obj.FinanceApprovalNik = mnik;
-
 
         obj.requestAmount = [];
         obj.fileAttachment = [];
         obj.categoryId = [];
+        var fileinput = [];
+        var changename = [];
+        var extension = [];
+        var uploadname = [];
+        var new_file = [];
 
         // for (j = 0; j < inputsreq.length; j++) {
         //    console.log(inputsreq[j].value);
@@ -145,11 +148,45 @@ $(document).ready(function () {
         //    console.log(inputscat[j].value);
         //}
         for (var j = 0; j < i; j++) {
+
+            fileinput[j] = inputsup[j].files[0]; // file untuk di input
+
+            //name for upload file
+            extension[j] = fileinput[j].name.substring(fileinput[j].name.lastIndexOf('.') + 1);
+            changename = (Math.floor(Math.random() * Date.now())).toString();
+            uploadname[j] = changename + nik + '.'+extension[j];
+            fileinput[j].name = uploadname[j];// rename not working
+            new_file[j] = new File([fileinput[j]], uploadname[j]); // createnew file from file, with new name
+            console.log(fileinput[j].name);
+            console.log(new_file[j].name);
+
             obj.requestAmount[j] = inputsreq[j].value;
-            obj.fileAttachment[j] = inputsup[j].value;
+           // obj.fileAttachment[j] = new_file[j].name.toString();
+            obj.fileAttachment[j] = new_file[j].name.toString();
             obj.categoryId[j] = inputscat[j].value;
+
+            var formData = new FormData();
+            formData.append('file',  new_file[j]);//input newfile to local files
+            $.ajax({
+                //url: '/home/testupload',
+                url: '/home/testupload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    //rendering success
+                    console.log(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    //rendering errors
+                    console.log("somethingworng");
+                }
+            });
+
         }
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+        //insert request reimbursement
         $.ajax({
             url: 'https://localhost:44383/api/accounts/request/' + i,
             type: "POST",
@@ -174,10 +211,10 @@ $(document).ready(function () {
             error: function (data) {
                 Swal.hideLoading();
                 Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+                $('#tableEmployee').DataTable().ajax.reload();
                 console.log(data);
             }
         })
-
 
       
     });
