@@ -13,6 +13,8 @@ using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+
 
 namespace ReimbursementFrontEnd.Controllers
 {
@@ -112,6 +114,49 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
 
             return View();
+        }
+        public IActionResult trial()
+        {
+            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+            var token = HttpContext.Session.GetString("JWToken");
+            //string apiResponse = token.ToString();
+            //var token1 = JsonConvert.DeserializeObject(token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
+            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
+            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+
+            return View();
+        }
+
+        [HttpPost("FileUpload")]
+        public async Task<IActionResult> upload(List<IFormFile> files)
+        {
+            long size = files.Sum(f => f.Length);
+            var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\Files\\");
+            var filePaths = new List<string>();
+            foreach (var formFile in files)
+            {
+                if (formFile.Length > 0)
+                {
+                    // full path to file in temp location					
+                    var filePath = Path.Combine(basePath, formFile.FileName);
+                    filePaths.Add(filePath);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await formFile.CopyToAsync(stream);
+                    }
+                }
+            }
+
+            // process uploaded files
+            // Don't rely on or trust the FileName property without validation.
+            return Ok(new { count = files.Count, size, filePaths });
         }
 
 
