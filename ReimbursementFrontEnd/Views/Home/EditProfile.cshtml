@@ -1,0 +1,123 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Role"] = @ViewBag.sessionRole;
+    ViewData["NIK"] = @ViewBag.sessionNik;
+
+    ViewData["ManagerNik"] = @ViewBag.sessionManagerNik;
+    var datanow = ViewBag.data;
+    var tgl = String.Format("{0:MM/dd/yyyy}", datanow.BirthDate);
+
+    Layout = "~/Views/Shared/Admin/_Layout.cshtml";
+}
+
+<div class="container bootstrap">
+    <form class="form" method="post" id="registrationForm" enctype="multipart/form-data">
+        <div class="row">
+            <div class="col-sm-3">
+                <!--left col-->
+
+                <div class="text-center">
+                    <img src="/Files/Profile/@datanow.Image" class="avatar img-circle img-thumbnail" alt="avatar" id="imgprev" >
+                    <h6>Upload a different photo...</h6>
+                    <input type="file" name="imagefile" id="imgprofile" placeholder="Upload Image" class="form-control-file" />
+                    <button type="button" class="btn btn-success" onclick="savechange()">Save Change</button>
+                </div><br>
+            </div><!--/col-3-->
+            <div class="col-sm-9">
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                        <hr>
+                        <div class="row">
+
+                            <div class="form-group col-sm-6">
+                                <label for="firstName"> First name </label>
+                                <input type="text" class="form-control" name="firstName" id="firstName" value="@datanow.FirstName" >
+                                <input type="text" class="form-control" name="nik" id="nik" value="@datanow.Nik" hidden>
+                                <input type="text" class="form-control" name="imgdef" id="imgdef" value="@datanow.Image" hidden>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="lastName"> Last name </label>
+                                <input type="text" class="form-control" name="lastName" id="lastName" value="@datanow.LastName" >
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <div class="dropdown">
+                                    <div class="form-control dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="form-control dropdown-item" value="@datanow.Gender"></a>
+                                        @if (@datanow.Gender == "Male")
+                                        {
+                                            <a class="form-control dropdown-item" value="Female">Female</a>
+
+                                        }
+                                        else
+                                        {
+                                            <a class="form-control dropdown-item" value="Male">Male</a>
+
+                                        }
+
+
+                                    </div>
+                                </div>
+                                    <label for="gender"> Gender </label>
+                                    <input type="text" class="form-control" name="gender" id="gender" value="@datanow.Gender">
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label for="birthDate"> BirthDate </label>
+                                    <input type="datetime" class="form-control" name="birthDate" id="birthDate" value="@datanow.BirthDate" hidden>
+                                    <input type="datetime" class="form-control" name="birthDate2" id="birthDate2" value="@tgl" >
+                                </div>
+
+                            </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="email"> Email </label>
+                                <input type="email" class="form-control" name="email" id="email" value="@datanow.Email">
+                            </div>
+
+                            <div class="form-group col-sm-6">
+                                <label for="role"> Role </label>
+                                <input type="text" class="form-control" name="role" id="role" value="@ViewData["Role"]" readonly>
+                            </div>
+
+                        </div>
+                        @*<div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="password"> Password </label>
+                                <input type="password" class="form-control" name="password" id="password" value="@datanow.Password">
+                            </div>
+                        </div>*@
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <label for="address"> Address </label>
+                                <input class="form-control" name="address" id="address" value="@datanow.Address" >
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+
+
+
+
+                        <hr>
+
+                    </div><!--/tab-pane-->
+
+
+                </div><!--/tab-pane-->
+            </div><!--/tab-content-->
+
+        </div><!--/col-9-->
+    </form>
+</div><!--/row-->
+
+@section scripts{
+    <script src="~/js/EditProfile.js" asp-append-version="true"></script>
+}
