@@ -190,6 +190,18 @@ namespace ReimbursementFrontEnd.Controllers
             }
             return Ok(filePath);
         }
+        public async Task<IActionResult> uploadimgprofile(IFormFile file)
+        {
+            var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Files\\Profile");
+
+            var filePath = Path.Combine(basePath, file.FileName);
+            var length = file.Length;
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            return Ok(filePath);
+        }
         [Authorize(Roles = "Finance")]
         //[AllowAnonymous]
 
@@ -254,6 +266,25 @@ namespace ReimbursementFrontEnd.Controllers
 
 
         public async  Task<IActionResult> ViewProfile()
+        {
+            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+            var token = HttpContext.Session.GetString("JWToken");
+            //string apiResponse = token.ToString();
+            //var token1 = JsonConvert.DeserializeObject(token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
+            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
+            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            var id = int.Parse(tokenS.Claims.First(claim => claim.Type == "NIK").Value);
+            ViewBag.data = await repository.GetProfilbyId(id);
+
+            return View();
+        }
+        public async Task<IActionResult> EditProfile()
         {
             //ViewBag.session = HttpContext.Session.GetString("JWToken");
             var token = HttpContext.Session.GetString("JWToken");

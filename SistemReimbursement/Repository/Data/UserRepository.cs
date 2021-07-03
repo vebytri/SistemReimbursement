@@ -188,5 +188,44 @@ namespace SistemReimbursement.Repository.Data
             return result;
         }
 
+        //public int updateprofiles(User user)
+        //{
+        //    var result = 0;
+        //    var cekPerson = conn.Users.FirstOrDefault(p => p.Nik == user.Nik);
+        //    if (cekPerson != null)
+        //    {
+
+        //        cekPerson.FirstName = user.FirstName;
+        //        cekPerson.LastName = user.LastName;
+        //        cekPerson.Gender = user.Gender;
+        //        cekPerson.BirthDate = user.BirthDate;
+        //        cekPerson.Email = user.Email;
+        //        cekPerson.Address = user.Address;
+        //        result = conn.SaveChanges();
+        //        return result;
+        //    }
+
+        //    return result;
+        //}
+        public int updateprofiles(RegisterVM user)
+        {
+            var result = 2;
+            var cekPerson = conn.Users.FirstOrDefault(p => p.Nik == user.Nik);
+            if (cekPerson != null)
+            {
+                cekPerson.Nik = user.Nik;
+                cekPerson.FirstName = user.FirstName;
+                cekPerson.LastName = user.LastName;
+                cekPerson.Gender = user.Gender;
+                cekPerson.BirthDate = user.BirthDate;
+                cekPerson.Email = user.Email;
+                cekPerson.Address = user.Address;
+                cekPerson.Image = user.Image;
+                result = conn.SaveChanges();
+                return result;
+            }
+
+            return result;
+        }
     }
 }

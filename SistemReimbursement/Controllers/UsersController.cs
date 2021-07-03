@@ -24,8 +24,7 @@ namespace SistemReimbursement.Controllers
             this.repo = user;
         }
       //  [AllowAnonymous]
-        [HttpPost]
-        [Route("register")]
+        [HttpPost("register")]
         public ActionResult Register(RegisterVM register)
         {
 
@@ -57,8 +56,8 @@ namespace SistemReimbursement.Controllers
             }
         }
         // [AllowAnonymous]
-        [Route("Login")]
-        [HttpPost]
+    
+        [HttpPost("Login")]
         public ActionResult Login(LoginVM login)
         {
             var ceklogin = repo.Login(login);
@@ -79,6 +78,25 @@ namespace SistemReimbursement.Controllers
             else
             {
                 return BadRequest("Login Gagal");
+            }
+
+        }
+
+        [HttpPost("updateuser")]
+        public ActionResult updateuser(RegisterVM user)
+        {
+            var update = repo.updateprofiles(user);
+            if (update == 0)
+            {
+                return Ok("Tidak ada perubahan");
+            }
+            if (update == 1)
+            {
+                return Ok(update);
+            }
+            else
+            {
+                return BadRequest("gagalupdate");
             }
 
         }
