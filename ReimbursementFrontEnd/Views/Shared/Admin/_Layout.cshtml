@@ -25,7 +25,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="~/Adminmart/assets/images/favicon.png">
-    <title>@ViewData["Title"]</title>
+    <title>@ViewBag.sessionRole</title>
     <!-- Custom CSS -->
     <link href="~/Adminmart/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
     <link href="~/Adminmart/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
@@ -44,21 +44,7 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>*@
 
 
-    @*----data for profile---*@
 
-    <!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
-    <!------ Include the above in your HEAD tag ---------->
-
-    <!--<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
-    <!------ Include the above in your HEAD tag ---------->
-    <!--<![endif]-->
 </head>
 
 <body>
@@ -212,6 +198,49 @@
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Roles</span></li>
 
+
+                        @if (ViewBag.sessionRole == "Admin" || ViewBag.sessionRole == "Finance")
+                        {
+                            @*<li class="sidebar-item">
+                <a class="sidebar-link" href="/home/admin"
+                   aria-expanded="false">
+                    <i data-feather="user" class="feather-icon"></i><span class="hide-menu">
+                        Admin
+                    </span>
+                </a>
+            </li>*@
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                   aria-expanded="false">
+                                    <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Table Roles</span>
+                                </a>
+
+                                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                                    <li class="sidebar-item">
+                                        <a href="/home/historyall" class="sidebar-link">
+                                            <span class="hide-menu">
+                                              Table Employee
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="/home/historyapp" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Table Manager
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a href="/home/historyrej" class="sidebar-link">
+                                            <span class="hide-menu">
+                                                Table Finance
+                                            </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                        }
                         @if (ViewBag.sessionRole == "Employee")
 
                         {
@@ -247,7 +276,7 @@
 
                         }
 
-                        @if (ViewBag.sessionRole == "Finance" || ViewBag.sessionRole=="Manager")
+                        @if (ViewBag.sessionRole == "Finance" || ViewBag.sessionRole == "Manager" || ViewBag.sessionRole == "Admin")
 
                         {
                             <li class="sidebar-item">
