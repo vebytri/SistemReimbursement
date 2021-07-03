@@ -20,7 +20,6 @@ namespace SistemReimbursement.ViewModels
         //finanace
         public DateTime FinanceApprovalDate { get; set; }
         public int FinanceApprovalStatus { get; set; }
-        public int FinanceApprovalNik { get; set; }
 
         //user
         public int Nik { get; set; }

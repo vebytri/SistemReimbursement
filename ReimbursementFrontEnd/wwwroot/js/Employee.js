@@ -117,7 +117,7 @@ $(document).ready(function () {
     $('#submit').click(function (e) {
         e.preventDefault();
         var nik = $("#nik2").val();
-        var mnik = $("#mnik").val();
+
         var requestDate = new Date().toLocaleString();
         var status = "Process";
         var notes = $("#notes").val();
@@ -131,7 +131,7 @@ $(document).ready(function () {
         obj.status = status;
         obj.notes = notes;
         obj.nik = nik;
-        obj.FinanceApprovalNik = mnik;
+
 
         obj.requestAmount = [];
         obj.fileAttachment = [];

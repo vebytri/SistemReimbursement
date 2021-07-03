@@ -199,7 +199,6 @@ function acc(id) {
         obj.financeApprovalStatus = result.financeApprovalStatus;
         obj.financeApprovalDate = result.financeApprovalDate;
         obj.nik = result.nik;
-        obj.financeApprovalNik = result.financeApprovalNik;
         //console.log(obj);
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
@@ -275,7 +274,6 @@ function rej(id) {
         obj.financeApprovalStatus = 2;
         obj.financeApprovalDate = result.financeApprovalDate;
         obj.nik = result.nik;
-        obj.financeApprovalNik = result.financeApprovalNik;
         //console.log(obj);
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({

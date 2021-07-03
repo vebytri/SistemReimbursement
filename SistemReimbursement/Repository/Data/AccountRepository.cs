@@ -42,7 +42,6 @@ namespace SistemReimbursement.Repository.Data
                 {
                     Nik = reqReimbursement.Nik,
                     RequestDate = reqReimbursement.RequestDate,
-                    FinanceApprovalNik = reqReimbursement.FinanceApprovalNik,
 
                     Status = reqReimbursement.Status,
                     Notes = reqReimbursement.Notes
