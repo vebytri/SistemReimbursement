@@ -253,7 +253,7 @@ namespace ReimbursementFrontEnd.Controllers
         }
 
 
-        public IActionResult ViewProfile()
+        public async  Task<IActionResult> ViewProfile()
         {
             //ViewBag.session = HttpContext.Session.GetString("JWToken");
             var token = HttpContext.Session.GetString("JWToken");
@@ -267,6 +267,8 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            var id = int.Parse(tokenS.Claims.First(claim => claim.Type == "NIK").Value);
+            ViewBag.data = await repository.GetProfilbyId(id);
 
             return View();
         }

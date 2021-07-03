@@ -45,7 +45,7 @@ namespace SistemReimbursement.Repository.Data
                     LastName = register.LastName,
                     BirthDate = register.BirthDate,
                     Email = register.Email,
-                    Image = "default.jpg",
+                    Image = register.Image,
                     ManagerNik = register.ManagerNik,
                     Gender = register.Gender,
                     Address = register.Address

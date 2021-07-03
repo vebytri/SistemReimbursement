@@ -299,10 +299,11 @@ $('#submit').click(function (e) {
         }).done((result) => {
             //Swal.fire({ title: 'Success', 'text': ('Your request successfully created'), 'type': 'success' })
             //Swal.hideLoading();
-            //$('#viewModal').modal('hide');
+            $('#viewModal').modal('hide');
         //console.log(result);
         $('#tableEmployee').DataTable().ajax.reload();
-            //$('#viewModal').DataTable().fnClearTable();
+            $('#viewModal').DataTable().fnClearTable();
+
 
 
     }).fail((error) => {
