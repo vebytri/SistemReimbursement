@@ -21,15 +21,17 @@ namespace SistemReimbursement.Repository.Data
 
     public class UserRepository : GeneralRepository<MyContext, User, int>
     {
+        private readonly User user1 = new User();
+
         private readonly MyContext conn;
         private readonly IConfiguration configuration;
-
         // public UserRepository(MyContext myContext) : base(myContext) { }
 
         public UserRepository(MyContext myContext, IConfiguration config) : base(myContext)
         {
             this.conn = myContext;
             this.configuration = config;
+
         }
         public int Register(RegisterVM register)
         {
@@ -134,6 +136,57 @@ namespace SistemReimbursement.Repository.Data
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        public int forgotpassword(LoginVM login)
+        {
+
+            var result = 0;
+            var cekPerson = conn.Users.FirstOrDefault(p => p.Email == login.Email);
+            var email = cekPerson.Account.User.Email;
+            var first = cekPerson.Account.User.FirstName;
+            var nik = cekPerson.Account.User.Nik;
+
+
+
+            var pass = "NEWPASSWORD";
+
+            if (cekPerson != null)
+            {
+                var br = "<br>";
+                var str = "<strong>";
+                var str2 = "</strong>";
+                //var link = "<a href='" + "https://localhost:44382/login/newpassword/"+$"{email}"+ "'>Reset Password</a>";
+                var message = new MimeMessage();
+                message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
+                message.To.Add(new MailboxAddress($"{first}", $"{email}"));
+                message.Subject = "Forgot Password Account";
+                message.Body = new TextPart("plain")
+                {
+                    Text = $"Dear, {first}" +
+                    $"  It's Your New Password : {br}" +
+                    $" {str}{pass}{str2}" 
+                  
+                };
+
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.Authenticate("hai.infodigital@gmail.com", "#Naufal1998");
+                    client.Send(message);
+                    client.Disconnect(true);
+
+                }
+
+                cekPerson.Account.Nik = nik;
+                cekPerson.Account.Password = BC.HashPassword(pass);
+                
+                result = conn.SaveChanges();
+
+
+
+            }
+
+            return result;
+        }
 
     }
 }

@@ -32,7 +32,20 @@ namespace ReimbursementFrontEnd.Controllers
             return View();
         }
 
+        //[HttpPost]
+        public IActionResult forgotpassword()
+        {
 
+            return View("forgotpassword");
+
+        }
+        //[HttpPost]
+        public IActionResult newpassword()
+        {
+
+            return View("newpassword");
+
+        }
 
         [HttpPost]
         public async Task<IActionResult>Auth(LoginVM loginVM)
@@ -49,8 +62,6 @@ namespace ReimbursementFrontEnd.Controllers
             //HttpContext.Request.Cookies["JWToken"];
 
             return RedirectToAction("index", "home");
-
-
         }
 
         public IActionResult Logout()
