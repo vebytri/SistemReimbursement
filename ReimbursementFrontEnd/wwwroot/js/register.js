@@ -17,14 +17,14 @@ function register() {
     var email = $("#email").val();
     var password = $("#password").val();
     var password2 = $("#password2").val();
-    var job = "Employee";
+
 
    
 
     var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
     obj.FirstName = first;
     obj.LastName = last;
-    obj.JobPosition = job;
+
     obj.ManagerNik = mnik;
     obj.Email = email;
     obj.BirthDate = date;

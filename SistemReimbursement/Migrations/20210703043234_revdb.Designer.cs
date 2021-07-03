@@ -10,8 +10,8 @@ using SistemReimbursement.Context;
 namespace SistemReimbursement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210701092015_cek-att")]
-    partial class cekatt
+    [Migration("20210703043234_revdb")]
+    partial class revdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,9 +112,6 @@ namespace SistemReimbursement.Migrations
                     b.Property<DateTime>("FinanceApprovalDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FinanceApprovalNik")
-                        .HasColumnType("int");
-
                     b.Property<int>("FinanceApprovalStatus")
                         .HasColumnType("int");
 
@@ -180,7 +177,7 @@ namespace SistemReimbursement.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("JobPosition")
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")

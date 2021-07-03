@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemReimbursement.Migrations
 {
-    public partial class cekatt : Migration
+    public partial class revdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -41,7 +41,7 @@ namespace SistemReimbursement.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    JobPosition = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ManagerNik = table.Column<int>(type: "int", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BirthDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -84,7 +84,6 @@ namespace SistemReimbursement.Migrations
                     ManagerApprovalStatus = table.Column<int>(type: "int", nullable: false),
                     FinanceApprovalDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FinanceApprovalStatus = table.Column<int>(type: "int", nullable: false),
-                    FinanceApprovalNik = table.Column<int>(type: "int", nullable: false),
                     Nik = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

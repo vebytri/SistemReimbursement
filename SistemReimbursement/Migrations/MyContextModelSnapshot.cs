@@ -110,9 +110,6 @@ namespace SistemReimbursement.Migrations
                     b.Property<DateTime>("FinanceApprovalDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("FinanceApprovalNik")
-                        .HasColumnType("int");
-
                     b.Property<int>("FinanceApprovalStatus")
                         .HasColumnType("int");
 
@@ -178,7 +175,7 @@ namespace SistemReimbursement.Migrations
                     b.Property<string>("Gender")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("JobPosition")
+                    b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
