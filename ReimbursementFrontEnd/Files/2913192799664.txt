@@ -1,0 +1,22 @@
+panggil container
+sudo podman run --name mysql-basic \
+> -e MYSQL_USER=user1 -e MYSQL_PASSWORD=mypa55 \
+> -e MYSQL_DATABASE=items -e MYSQL_ROOT_PASSWORD=r00tpa55 \
+>-d rhscl/mysql-57-rhel7:5.7.3.14
+
+---
+lihat selurugh container berjalan
+sudo podman ps -a
+
+--
+panggil berdasarkan
+sudo podman ps --format "{{.ID}} {{.Image}} {{.Names}}"
+
+-----
+masuk ke kontainer
+sudo podman exec -it mysql-basic /bin/bash
+
+
+---
+cek hostname
+sudo podman exec -it mysql-basic hostname

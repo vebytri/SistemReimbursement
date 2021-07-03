@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemReimbursement.Migrations
 {
-    public partial class revdb : Migration
+    public partial class LastUpdateRelation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
