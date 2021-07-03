@@ -40,8 +40,23 @@ namespace SistemReimbursement.Controllers
                 return BadRequest("Email telah di daftarkan");
             }
         }
+        [HttpPost]
+        [Route("forgotpassword")]
+        public ActionResult forgotpassword(LoginVM login)
+        {
 
-       // [AllowAnonymous]
+            var get = repo.forgotpassword(login);
+
+            if (get > 0)
+            {
+                return Ok("Send Email Reset Password Berhasil");
+            }
+            else
+            {
+                return BadRequest("Email Tidak Ada");
+            }
+        }
+        // [AllowAnonymous]
         [Route("Login")]
         [HttpPost]
         public ActionResult Login(LoginVM login)
