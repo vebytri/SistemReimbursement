@@ -31,7 +31,7 @@ namespace ReimbursementFrontEnd.Controllers
 
 
         [AllowAnonymous]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             //ViewBag.session = HttpContext.Session.GetString("JWToken");
             var token= HttpContext.Session.GetString("JWToken");
@@ -46,6 +46,8 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
             ViewBag.sessionName2 = tokenS.Claims.First(claim => claim.Type == "LastName").Value;
+            var id = int.Parse(tokenS.Claims.First(claim => claim.Type == "NIK").Value);
+            ViewBag.data = await repository.GetProfilbyId(id);
 
             return View();
         }
@@ -135,23 +137,6 @@ namespace ReimbursementFrontEnd.Controllers
         }
         [Authorize(Roles = "Manager")]
         public IActionResult Manager()
-        {
-            //ViewBag.session = HttpContext.Session.GetString("JWToken");
-            var token = HttpContext.Session.GetString("JWToken");
-            //string apiResponse = token.ToString();
-            //var token1 = JsonConvert.DeserializeObject(token);
-
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(token);
-            var tokenS = jsonToken as JwtSecurityToken;
-
-            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
-            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
-            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
-
-            return View();
-        }
-        public IActionResult trial()
         {
             //ViewBag.session = HttpContext.Session.GetString("JWToken");
             var token = HttpContext.Session.GetString("JWToken");
