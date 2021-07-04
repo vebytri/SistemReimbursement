@@ -188,6 +188,18 @@ namespace SistemReimbursement.Repository.Data
             return result;
         }
 
+        public int updatepassword(LoginVM login)
+        {
+
+            var result = 0;
+            var cekPerson = conn.Users.FirstOrDefault(p => p.Email == login.Email);
+            var pass = login.Password;
+            cekPerson.Account.Password = BC.HashPassword(pass);
+                result = conn.SaveChanges();
+            return result;
+        }
+
+
         //public int updateprofiles(User user)
         //{
         //    var result = 0;

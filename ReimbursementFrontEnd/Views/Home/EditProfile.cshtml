@@ -20,10 +20,10 @@
                 <!--left col-->
 
                 <div class="custom-file">
-                    <img src="/Files/Profile/@datanow.Image" class="avatar img-circle img-thumbnail" alt="avatar" id="imgprev" >
+                    <img src="/Files/Profile/@datanow.Image" class="avatar img-circle img-thumbnail" alt="avatar" id="imgprev">
                     <h6>Upload a different photo...</h6>
                     <input type="file" name="imagefile" id="imgprofile" placeholder="Upload Image" class="form-control" />
-                    <button type="button" class="btn btn-success" onclick="savechange()">Save Change</button>
+                    @*<button type="button" class="btn btn-success" onclick="savechange()">Save Change</button>*@
                 </div><br>
             </div><!--/col-3-->
             <div class="col-sm-9">
@@ -35,13 +35,13 @@
 
                             <div class="form-group col-sm-6">
                                 <label for="firstName"> First name </label>
-                                <input type="text" class="form-control" name="firstName" id="firstName" value="@datanow.FirstName" >
+                                <input type="text" class="form-control" name="firstName" id="firstName" value="@datanow.FirstName">
                                 <input type="text" class="form-control" name="nik" id="nik" value="@datanow.Nik" hidden>
                                 <input type="text" class="form-control" name="imgdef" id="imgdef" value="@datanow.Image" hidden>
                             </div>
                             <div class="form-group col-sm-6">
                                 <label for="lastName"> Last name </label>
-                                <input type="text" class="form-control" name="lastName" id="lastName" value="@datanow.LastName" >
+                                <input type="text" class="form-control" name="lastName" id="lastName" value="@datanow.LastName">
                             </div>
 
 
@@ -50,10 +50,10 @@
                             <div class="form-group col-sm-6">
                                 <div class="form-group row-sm-12">
                                     <label for="gender"> Gender </label><br>
-                                    
-                                
-                           
-                                   
+
+
+
+
                                     <select class="form-select btn btn-primary dropdown-toggle" aria-label="Default select example" id="gender">
                                         <option selected>@datanow.Gender</option>
                                         @if (@datanow.Gender == "Male")
@@ -70,13 +70,13 @@
                                 </div>
                             </div>
 
-                                <div class="form-group col-sm-6">
-                                    <label for="birthDate"> BirthDate </label>
-                                    
-                                    <input type="date" class="form-control" name="birthDate2" id="birthDate2" value="@tgl" >
-                                </div>
+                            <div class="form-group col-sm-6">
+                                <label for="birthDate"> BirthDate </label>
 
+                                <input type="date" class="form-control" name="birthDate2" id="birthDate2" value="@tgl">
                             </div>
+
+                        </div>
                         <div class="row">
                             <div class="form-group col-sm-6">
                                 <label for="email"> Email </label>
@@ -90,15 +90,15 @@
 
                         </div>
                         @*<div class="row">
-                            <div class="form-group col-sm-12">
-                                <label for="password"> Password </label>
-                                <input type="password" class="form-control" name="password" id="password" value="@datanow.Password">
-                            </div>
-                        </div>*@
+                <div class="form-group col-sm-12">
+                    <label for="password"> Password </label>
+                    <input type="password" class="form-control" name="password" id="password" value="@datanow.Password">
+                </div>
+            </div>*@
                         <div class="row">
                             <div class="form-group col-sm-12">
                                 <label for="address"> Address </label>
-                                <input class="form-control" name="address" id="address" value="@datanow.Address" >
+                                <input class="form-control" name="address" id="address" value="@datanow.Address">
                             </div>
                         </div>
                         <div class="row">
@@ -111,11 +111,14 @@
                         <hr>
 
                     </div><!--/tab-pane-->
-
+                    <div class="row">
+                        <div class="col-sm-9"></div>
+                        <button type="button" class="btn btn-success" onclick="savechange()">Save Change</button>
+                    </div>
 
                 </div><!--/tab-pane-->
             </div><!--/tab-content-->
-
+            
         </div><!--/col-9-->
     </form>
 </div><!--/row-->
