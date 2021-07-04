@@ -10,7 +10,7 @@
     ViewData["Title"] = "Home";
 
 
-
+    var datanow = ViewBag.data;
     Layout = null;
 }
 <!DOCTYPE html>
@@ -140,7 +140,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img src="~/Adminmart/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
+                                <img src="/Files/Profile/@datanow.Image" alt="user" class="rounded-circle"
                                      width="40">
                                 <span class="ml-2 d-none d-lg-inline-block">
                                     <span>Hello,</span> <span class="text-dark">@ViewBag.sessionName</span> <i data-feather="chevron-down"
