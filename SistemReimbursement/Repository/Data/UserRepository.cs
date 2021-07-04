@@ -145,8 +145,6 @@ namespace SistemReimbursement.Repository.Data
             var first = cekPerson.Account.User.FirstName;
             var nik = cekPerson.Account.User.Nik;
 
-
-
             var pass = "NEWPASSWORD";
 
             if (cekPerson != null)
@@ -187,6 +185,18 @@ namespace SistemReimbursement.Repository.Data
 
             return result;
         }
+
+        //public IEnumerable<User> getbyrole(string role)
+        //{
+        //    //var check = conn.Users.FirstOrDefault(e => e.Email == Login.Email);
+        //    //var cek = conn.AccountRoles.Single(e => e.RoleId == role);
+        //    //var check2nd = conn.AccountRoles.Single(e => e.RoleId == role);
+        //    //var roles = cek.RoleId;
+
+        //    return conn.AccountRoles.Where(x => x.Roles.RoleName == role);
+
+
+        //}
 
     }
 }

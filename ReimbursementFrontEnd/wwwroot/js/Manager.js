@@ -11,7 +11,7 @@
                 "render": function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
                 }
-
+                 
             },
             {
                 "data": null, "sortable": true,
@@ -95,86 +95,86 @@
 
 //--add new data---
 
-$(document).ready(function () {
+//$(document).ready(function () {
 
-    var i = 1;
+//    var i = 1;
 
-    $("#add").click(function () {
-        i++;
-        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
-        //console.log(show_value);
-    });
+//    $("#add").click(function () {
+//        i++;
+//        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
+//        //console.log(show_value);
+//    });
 
-    $(document).on('click', '.btn_remove', function () {
-        var button_id = $(this).attr("id");
-        $('#row' + button_id + '').remove();
-    });
+//    $(document).on('click', '.btn_remove', function () {
+//        var button_id = $(this).attr("id");
+//        $('#row' + button_id + '').remove();
+//    });
 
 
-    $('#submit').click(function () {
-        var nik = $("#nik2").val();
-        var requestDate = new Date().toLocaleString();
-        var status = "Process";
-        //console.log(i);
+//    $('#submit').click(function () {
+//        var nik = $("#nik2").val();
+//        var requestDate = new Date().toLocaleString();
+//        var status = "Process";
+//        //console.log(i);
 
-        var inputsreq = document.querySelectorAll("#requestAmount");
-        var inputsup = document.querySelectorAll("#upload");
-        var inputscat = document.querySelectorAll("#category");
+//        var inputsreq = document.querySelectorAll("#requestAmount");
+//        var inputsup = document.querySelectorAll("#upload");
+//        var inputscat = document.querySelectorAll("#category");
 
-        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-        obj.requestDate = requestDate;
-        obj.status = status;
-        obj.notes = $("#notes").val();
-        obj.nik = nik;
-        obj.requestAmount = [];
-        obj.fileAttachment = [];
-        obj.categoryId = [];
+//        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+//        obj.requestDate = requestDate;
+//        obj.status = status;
+//        obj.notes = $("#notes").val();
+//        obj.nik = nik;
+//        obj.requestAmount = [];
+//        obj.fileAttachment = [];
+//        obj.categoryId = [];
 
-        // for (j = 0; j < inputsreq.length; j++) {
-        //    console.log(inputsreq[j].value);
-        //    console.log(inputsup[j].value);
-        //    console.log(inputscat[j].value);
-        //}
-        for (var j = 0; j < i; j++) {
-            obj.requestAmount[j] = inputsreq[j].value;
-            obj.fileAttachment[j] = inputsup[j].value;
-            obj.categoryId[j] = inputscat[j].value;
-        }
+//        // for (j = 0; j < inputsreq.length; j++) {
+//        //    console.log(inputsreq[j].value);
+//        //    console.log(inputsup[j].value);
+//        //    console.log(inputscat[j].value);
+//        //}
+//        for (var j = 0; j < i; j++) {
+//            obj.requestAmount[j] = inputsreq[j].value;
+//            obj.fileAttachment[j] = inputsup[j].value;
+//            obj.categoryId[j] = inputscat[j].value;
+//        }
 
-        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-        $.ajax({
-            url: 'https://localhost:44383/api/accounts/request/' + i,
-            type: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            data: JSON.stringify(obj)
+//        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+//        $.ajax({
+//            url: 'https://localhost:44383/api/accounts/request/' + i,
+//            type: "POST",
+//            headers: {
+//                'Accept': 'application/json',
+//                'Content-Type': 'application/json'
+//            },
+//            data: JSON.stringify(obj)
 
-        }).done((result) => {
-            //console.log(result);
+//        }).done((result) => {
+//            //console.log(result);
 
-            $('#tableEmployee').DataTable().ajax.reload();
-            //buat alert pemberitahuan jika success
-            //alert("Data Sukses");
-            Swal.fire(
-                'Success !',
-                'Data Berhasil Di Tambahkan',
-                'success'
-            )
-        }).fail((error) => {
-            //alert pemberitahuan jika gagal
+//            $('#tableEmployee').DataTable().ajax.reload();
+//            //buat alert pemberitahuan jika success
+//            //alert("Data Sukses");
+//            Swal.fire(
+//                'Success !',
+//                'Data Berhasil Di Tambahkan',
+//                'success'
+//            )
+//        }).fail((error) => {
+//            //alert pemberitahuan jika gagal
 
-            Swal.fire(
-                'Failed !',
-                'Data Gagal di Tambahkan',
-                'error'
-            )
-            //alert("Data Gagal");
-            console.log(error);
-        });
-    });
-});
+//            Swal.fire(
+//                'Failed !',
+//                'Data Gagal di Tambahkan',
+//                'error'
+//            )
+//            //alert("Data Gagal");
+//            console.log(error);
+//        });
+//    });
+//});
 
 function acc(id) {
     $.ajax({
@@ -363,7 +363,6 @@ function Detail(id) {
             $("#financeStatus").val("Unknown!");
         }
 
-        
         if (result.financeApprovalDate == "0001-01-01T00:00:00")
         {
             $("#financeDate").val("Not Available");
@@ -378,7 +377,6 @@ function Detail(id) {
 
 
         //---tablemodal--
-        //console.log(id);
         $('#viewEmployee').DataTable({
 
             ajax: {
@@ -394,14 +392,23 @@ function Detail(id) {
                 },
 
                 {
-                    "data": 'fileAttachment'
-                },
-                {
+                    "data": 'fileAttachment',
                     "render": function (data, type, row) {
                         return `
-                      <input class="form-control rounded-pill" id="paidAmount" placeholder="${row['paidAmount']}" >
-                     
-                        `;
+                            ${data}
+                            <button type="button" class="btn btn-info rounded-pill" id="nameFile" name="loop[]nameFile" onclick="Download('${row['attachmentId']}')" ><i class="fas fa-download"></i></button>
+                             `;
+                    }
+                },
+                {
+                    "data": 'paidAmount',
+                    "render": function (data, type, row) {
+                        if (data == 0) {
+                            return ("Not Available");
+                        }
+                        else {
+                            return (data);
+                        }
                     }
                 }
                
@@ -415,74 +422,40 @@ function Detail(id) {
 
 }
 
-//function updatePaid(id) {
-//    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-//    $.ajax({
-//        url: 'https://localhost:44383/api/attachments/' + id,
-//        type: "GET",
-//        headers: {
-//            'Accept': 'application/json',
-//            'Content-Type': 'application/json'
-//        },
+function Download(id) {  
+    console.log(id);
+    $.ajax({
+        url: 'https://localhost:44383/api/Attachments/'+ id,
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
 
-//    }).done((result) => {
-//        //$("#paidAmount").val(result.paidAmount);
+    }).done((result) => {
+        var name = result.fileAttachment;
+        console.log(name);
+            $.ajax({
+                url: 'https://localhost:44383/api/attachments/download/' + name,
+                type: "GET",
+                headers: {
+                    'Accept': 'application/octet-stream',
+                    'Content-Type': 'application/octet-stream'
+                },
+        }).done((result) => {
+            window.location.href = "https://localhost:44383/api/Attachments/download/"+name;
+        
 
-//        var paid=  $("#paidAmount").val();
-//        var attachmentId = result.attachmentId;
-//        var reqAmount = result.requestAmount;;
-//        var category = result.categoryId;
-//        var attachment = result.fileAttachment;
-//        var reimb = result.reimbursementId;
+        }).fail((error) => {
+        })
+    
 
-//        var obj = new Object();
+    }).fail((error) => {
+    })
 
-//        obj.attachmentId = attachmentId;
-//        obj.fileAttachment = attachment;
-//        obj.categoryId = category;
-//        obj.requestAmount = reqAmount;
-//        obj.paidAmount = paid;
-//        obj.reimbursementId = reimb;
-
-//        $.ajax({
-//            url: 'https://localhost:44383/api/attachments/',
-//            type: "PUT",
-//            data: JSON.stringify(obj),
-//            headers: {
-//                'Accept': 'application/json',
-//                'Content-Type': 'application/json'
-//            },
-
-//        }).done((result) => {
-//            console.log(result);
-
-//            Swal.fire(
-//                'Success !',
-//                'Data Berhasil Di Tambahkan',
-//                'success'
-//            )
-          
-
-//        }).fail((error) => {
+}
 
 
-//        })
-
-//    }).fail((error) => {
-
-
-//    })
-
-//}
-
-
-
-
-
-
-
-//--view pdf--
-// Loaded via <script> tag, create shortcut to access PDF.js exports.
 var pdfjsLib = window['pdfjs-dist/build/pdf'];
 // The workerSrc property shall be specified.
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';

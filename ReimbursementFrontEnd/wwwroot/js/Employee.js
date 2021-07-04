@@ -103,7 +103,7 @@ $(document).ready(function () {
     var i = 1;
 
     $("#add").click(function () {
-        i++;    
+        i++;     
         $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  <option value = "1" > Medical</option ><option value = "2" > Transportation</option ></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
 
     });
@@ -144,7 +144,7 @@ $(document).ready(function () {
 
         // for (j = 0; j < inputsreq.length; j++) {
         //    console.log(inputsreq[j].value);
-        //    console.log(inputsup[j].value);
+        //    console.log(inputsup[j].value); 
         //    console.log(inputscat[j].value);
         //}
         for (var j = 0; j < i; j++) {
@@ -219,7 +219,6 @@ $(document).ready(function () {
       
     });
 });
-
 
 function Detail(id) {
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
@@ -304,7 +303,13 @@ function Detail(id) {
                     },
 
                     {
-                        "data": 'fileAttachment'
+                        "data": 'fileAttachment',
+                        "render": function (data, type, row) {
+                            return `
+                            ${data}
+                            <button type="button" class="btn btn-info rounded-pill" id="nameFile" name="loop[]nameFile" onclick="Download('${row['attachmentId']}')" ><i class="fas fa-download"></i></button>
+                             `;
+                        }
 
                     },
                     {
@@ -323,6 +328,38 @@ function Detail(id) {
     }).fail((error) => {
 
 
+    })
+
+}
+function Download(id) {
+    console.log(id);
+    $.ajax({
+        url: 'https://localhost:44383/api/Attachments/' + id,
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+    }).done((result) => {
+        var name = result.fileAttachment;
+        console.log(name);
+        $.ajax({
+            url: 'https://localhost:44383/api/attachments/download/' + name,
+            type: "GET",
+            headers: {
+                'Accept': 'application/octet-stream',
+                'Content-Type': 'application/octet-stream'
+            },
+        }).done((result) => {
+            window.location.href = "https://localhost:44383/api/Attachments/download/" + name;
+
+
+        }).fail((error) => {
+        })
+
+
+    }).fail((error) => {
     })
 
 }

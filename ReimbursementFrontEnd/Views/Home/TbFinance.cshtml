@@ -4,7 +4,7 @@
     ViewData["Name"] = @ViewBag.sessionName;
 
     Layout = "~/Views/Shared/Admin/_Layout.cshtml";
-} 
+}
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-7 align-self-center">
@@ -12,7 +12,7 @@
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb m-0 p-0">
-                        <li class="breadcrumb-item">
+                        <li class="breadcrumb-item"> 
                             <a href="javascript:void(0)">Dashboard</a>
                         </li>
                         <li class="breadcrumb-item active">
@@ -35,7 +35,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
-                        <h4 class="card-title font-weight-mediu">Table Request</h4>
+                        <h4 class="card-title font-weight-mediu">Table Finance</h4>
                         <div class="ml-auto">
                             <div class="dropdown sub-dropdown">
                                 <button class="btn btn-link text-muted dropdown-toggle" type="button"
@@ -59,22 +59,16 @@
                         <table id="tableEmployee" class="table no-wrap v-middle mb-0">
                             <thead>
                                 <tr class="border-0">
-                                    <th class="border-0 font-14 font-weight-medium">
-                                        No
-                                    </th>
-                                    <th class="border-0 font-14 font-weight-medium  ">
-                                        Nama
-                                    </th>
-                                    <th class="border-0 font-14 font-weight-medium  ">
-                                        Id
-                                    </th>
+                                    <th class="border-0 font-14 font-weight-medium"> No </th>
+                                    <th class="border-0 font-14 font-weight-medium  ">Name</th>
+                                    <th class="border-0 font-14 font-weight-medium"> Id </th>
                                     <th class="border-0 font-14 font-weight-medium ">Status</th>
                                     <th class="border-0 font-14 font-weight-medium ">Manager Status</th>
                                     <th class="border-0 font-14 font-weight-medium ">Finance Status</th>
                                     <th class="border-0 font-14 font-weight-medium text-center">Action</th>
                                 </tr>
                             </thead>
-                            <tbody class="table">
+                            <tbody id="bodyEmployee">
                             </tbody>
                         </table>
                     </div>
@@ -97,7 +91,6 @@
                 </button>
             </div>
 
-
             <div class="modal-body m-1">
                 <div class="form-row m-2">
 
@@ -105,6 +98,8 @@
                         <label>Request Date</label>
                         <input class="form-control rounded-pill" id="reqDate">
                         <input class="form-control rounded-pill" hidden id="reqId">
+                        <input class="form-control rounded-pill" hidden id="nik">
+
 
                         <div class="form-row m-2 text-center">
                             <label>  Status Manager</label>
@@ -140,36 +135,34 @@
 
                 </div>
             </div>
+           
 
-
-
+        <form enctype="multipart/form-data" method="post">
             @*--table view---*@
             <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
             <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
 
+            <table id="viewEmployee" class="table no-wrap v-middle mb-0">
+                <thead>
+                    <tr class="border-0">
+                        <th class="border-0 font-14 font-weight-medium text-center ">Id </th>
+                        <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
+                        <th class="border-0 font-14 font-weight-medium text-center">Category</th>
+                        <th class="border-0 font-14 font-weight-medium text-center ">File</th>
+                        <th class="border-0 font-14 font-weight-medium text-center ">Paid Amount</th>
+                     
+                        @*<th class="border-0 font-14 font-weight-medium text-center ">Action</th>*@
 
-            <div class="table-responsive">
-                <table id="viewEmployee" class="table table-primary table-responsive-sm  no-wrap v-middle mb-0 text-center">
-                    <thead classs="table-light">
-                        <tr class="border-0">
-                            <th class="border-0 font-14 font-weight-medium ">Request Amount</th>
-                            <th class="border-0 font-14 font-weight-medium ">Category</th>
-                            <th class="border-0 font-14 font-weight-medium  ">File</th>
-                            <th class="border-0 font-14 font-weight-medium  ">Paid Amount</th>
-                            @*<th class="border-0 font-14 font-weight-medium text-center ">Action</th>*@
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                    </tbody>
-
-                </table>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
-
-                </div>
-            </div>
+                    </tr>
+                </thead>
+                <tbody id="bodyEmployee">
+                </tbody>
+            </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
+                        <button type="submit" id="submit" name="submit" class="btn btn-success rounded-pill">Submit</button>
+                    </div>
+        </form>
 
         </div>
     </div>
@@ -201,7 +194,9 @@
                         <tr>
 
                             @*<td>1</td>*@
-                            <td><input type="text" id="requestAmount" name="loop[]req" value="123" placeholder="Request Amount" class="form-control rounded-pill " /></td>
+                            <td><input type="text" id="requestAmount" name="loop[]req"  placeholder="Request Amount" class="form-control rounded-pill " />
+                                
+                            </td>
                             <td>
                                 <select class="form-control rounded-pill" id="category" name="loop[]type">
                                     <option value="1">Medical</option>
@@ -234,6 +229,6 @@
 
 
 @section scripts{
-    <script src="~/js/Manager.js" asp-append-version="true"></script>
+    <script src="~/js/Admin.js" asp-append-version="true"></script>
 
 }
