@@ -27,6 +27,7 @@ function register() {
 
     obj.ManagerNik = mnik;
     obj.Email = email;
+    obj.Image = "default.png";
     obj.BirthDate = date;
     obj.Gender = gender;
     obj.Address = address;
