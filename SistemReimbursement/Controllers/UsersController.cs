@@ -55,8 +55,24 @@ namespace SistemReimbursement.Controllers
                 return BadRequest("Email Tidak Ada");
             }
         }
+        [HttpPost]
+        [Route("updatepassword")]
+        public ActionResult updatepassword(LoginVM login)
+        {
+
+            var get = repo.updatepassword(login);
+
+            if (get > 0)
+            {
+                return Ok("Update Password Berhasil");
+            }
+            else
+            {
+                return BadRequest("Gagal Update Password");
+            }
+        }
         // [AllowAnonymous]
-    
+
         [HttpPost("Login")]
         public ActionResult Login(LoginVM login)
         {

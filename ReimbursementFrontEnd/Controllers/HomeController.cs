@@ -303,6 +303,25 @@ namespace ReimbursementFrontEnd.Controllers
 
             return View();
         }
+        public async Task<IActionResult> UpdatePassword()
+        {
+            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+            var token = HttpContext.Session.GetString("JWToken");
+            //string apiResponse = token.ToString();
+            //var token1 = JsonConvert.DeserializeObject(token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
+            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
+            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            var id = int.Parse(tokenS.Claims.First(claim => claim.Type == "NIK").Value);
+            ViewBag.data = await repository.GetProfilbyId(id);
+
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();
