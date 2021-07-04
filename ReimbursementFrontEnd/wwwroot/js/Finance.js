@@ -6,12 +6,12 @@
 
             dataSrc: ''
         },
-        columns: [ 
-            { 
+        columns: [
+            {
                 "data": null, "sortable": true,
                 "render": function (data, type, row, meta) {
                     return meta.row + meta.settings._iDisplayStart + 1;
-                } 
+                }
 
             },
             {
@@ -25,11 +25,11 @@
                     return (first + " " + last);
                 }
             },
-            {    
+            {
                 "data": 'reimbursementId'
 
             },
-           
+
 
             {
                 "data": 'status'
@@ -85,7 +85,7 @@
                             <button type="button" class="btn btn-danger rounded-pill" onclick="rej('${row['reimbursementId']}')"><i class="fas fa-times"></i></button>
                             `;
                 }
-                    //< button type="button" class= "btn btn-success rounded-pill" onclick="acc('${row['reimbursementId']}')" > <i class="fas fa-check"></i></button>
+                //< button type="button" class= "btn btn-success rounded-pill" onclick="acc('${row['reimbursementId']}')" > <i class="fas fa-check"></i></button>
 
             }
 
@@ -174,7 +174,7 @@ function Detail(id) {
                 {
                     "data": 'attachmentId'
                 },
-                 {
+                {
                     "data": 'requestAmount'
                 },
                 {
@@ -183,7 +183,7 @@ function Detail(id) {
                         return data.category.categoryName;
                     }
                 },
-               
+
 
                 {
                     "data": 'fileAttachment',
@@ -202,9 +202,9 @@ function Detail(id) {
                      
                         `;
                     }
-                }   
+                }
             ]
-            
+
 
         });
 
@@ -224,27 +224,27 @@ function Download(nameFile) {
 $('#submit').click(function (e) {
     e.preventDefault();
     var id = $("#reqId").val();
-    var  rd =$("#reqDate").val();
+    var rd = $("#reqDate").val();
     var notes = $("#viewnotes").val();
     var ms = $("#managerStatus").val();
-    var md=  $("#managerDate").val();
+    var md = $("#managerDate").val();
     var nik = $("#nik").val();
     var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-  //  obj.reimbursementId = id;   
-  //  obj.requestDate = new Date().toLocaleString();
+    //  obj.reimbursementId = id;   
+    //  obj.requestDate = new Date().toLocaleString();
     obj.status = "aprovedbyfinance";
-   // obj.notes = notes;
-   // obj.managerApprovalStatus = 1;
-//    obj.managerApprovalDate = new Date().toLocaleString();
-  //  obj.financeApprovalStatus = 1;
+    // obj.notes = notes;
+    // obj.managerApprovalStatus = 1;
+    //    obj.managerApprovalDate = new Date().toLocaleString();
+    //  obj.financeApprovalStatus = 1;
     obj.financeApprovalDate = new Date().toLocaleString();
-  //  obj.nik = nik;
-  //  obj.financeApprovalNik = 1;
- //   console.log(obj)
+    //  obj.nik = nik;
+    //  obj.financeApprovalNik = 1;
+    //   console.log(obj)
     console.log("success");
 
     $.ajax({
-        url: 'https://localhost:44383/api/reimbursements/updatefinance/' + id + '/1/' + obj.status ,
+        url: 'https://localhost:44383/api/reimbursements/updatefinance/' + id + '/1/' + obj.status,
         type: "PUT",
         data: JSON.stringify(obj),
         headers: {
@@ -269,7 +269,7 @@ $('#submit').click(function (e) {
     })
 
     // $('#viewEmployee').DataTable({
-   
+
     var obj2 = new Object();
     obj2.attachmentId = [];
     //obj2.requestAmount = [];
@@ -287,8 +287,8 @@ $('#submit').click(function (e) {
 
     //    }
     //}
-   var inputsrid = $('#viewEmployee').DataTable().columns().data()[0];
-  //  console.log(inputsrid);
+    var inputsrid = $('#viewEmployee').DataTable().columns().data()[0];
+    //  console.log(inputsrid);
     //var inputsreq = document.querySelectorAll("#requestAmount");
     //var inputsrca = document.querySelectorAll("#category");
     //var inputsrup = document.querySelectorAll("#upload");
@@ -300,33 +300,33 @@ $('#submit').click(function (e) {
         obj2.paidAmount[j] = inputsrpd[j].value;
         $.ajax({
             url: 'https://localhost:44383/api/attachments/updatepaid/' + obj2.attachmentId[j] + '/' + obj2.paidAmount[j],
-        type: "PUT",
-        data: JSON.stringify(obj),
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            type: "PUT",
+            data: JSON.stringify(obj),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
             },
-          
+
         }).done((result) => {
             //Swal.fire({ title: 'Success', 'text': ('Your request successfully created'), 'type': 'success' })
             //Swal.hideLoading();
             $('#viewModal').modal('hide');
-        //console.log(result);
-        $('#tableEmployee').DataTable().ajax.reload();
-            $('#viewModal').DataTable().fnClearTable();
+            //console.log(result);
+            $('#tableEmployee').DataTable().ajax.reload();
+            //$('#viewModal').DataTable().fnClearTable();
 
 
 
-    }).fail((error) => {
-        Swal.hideLoading();
-        Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
-        console.log(data);
+        }).fail((error) => {
+            Swal.hideLoading();
+            Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+            console.log(data);
 
-    })
+        })
     }
 
 
-      
+
     //$.ajax({
     //    url: 'https://localhost:44383/api/reimbursements',
     //    type: "PUT",
@@ -340,7 +340,7 @@ $('#submit').click(function (e) {
     //    console.log(result);
     //    $('#tableEmployee').DataTable().ajax.reload();
     //    //$('#viewEmployee').dataTable().fnClearTable();
-       
+
 
     //}).fail((error) => {
 
@@ -349,7 +349,7 @@ $('#submit').click(function (e) {
 
 });
 
-function updatePaid(id,paid1) {
+function updatePaid(id, paid1) {
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     var id2 = id;
     $.ajax({
@@ -378,7 +378,7 @@ function updatePaid(id,paid1) {
         obj.fileAttachment = attachment;
         obj.categoryId = category;
         obj.requestAmount = reqAmount;
-        obj.paidAmount =paid ;
+        obj.paidAmount = paid;
 
         //obj.paidAmount = paid;
         obj.reimbursementId = reimb;
@@ -394,7 +394,7 @@ function updatePaid(id,paid1) {
             },
         }).done((result) => {
             console.log(result);
-            $('#viewEmployee').dataTable().fnClearTable();
+            //$('#viewEmployee').dataTable().fnClearTable();
 
         }).fail((error) => {
 
