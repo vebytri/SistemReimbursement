@@ -10,7 +10,7 @@
     ViewData["Title"] = "Home";
 
 
-    var datanow = ViewBag.data;
+    //var datanow = ViewBag.data;
     Layout = null;
 }
 <!DOCTYPE html>
@@ -140,8 +140,8 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img src="/Files/Profile/@datanow.Image" alt="user" class="rounded-circle"
-                                     width="40">
+                              @*  <img src="/Files/Profile/@datanow.Image" alt="user" class="rounded-circle"*@
+                                    @* width="40">*@
                                 <span class="ml-2 d-none d-lg-inline-block">
                                     <span>Hello,</span> <span class="text-dark">@ViewBag.sessionName</span> <i data-feather="chevron-down"
                                                                                                                class="svg-icon"></i>
@@ -154,14 +154,14 @@
                                     My Profile
                                 </a>
 
-                                <div class="dropdown-divider"></div>
+                                
                                 @*<a class="dropdown-item" href="javascript:void(0)">
                                     <i data-feather="settings"
                                        class="svg-icon mr-2 ml-1"></i>
                                     Account Setting
                                 </a>*@
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="javascript:void(0)">
+                                <a class="dropdown-item" href="/login/logout">
                                     <i data-feather="power"
                                        class="svg-icon mr-2 ml-1"></i>
                                     Logout
@@ -234,14 +234,15 @@
 
 
 
-                        @if (ViewBag.sessionRole == "Admin" || ViewBag.sessionRole == "Finance")
+                        @if (ViewBag.sessionRole == "Admin")
                         {
                             <li class="sidebar-item">
                                 <a class="sidebar-link sidebar-link" href="/home/TbEmployee"
                                    aria-expanded="false">
-                                    <i data-feather="user" class="feather-icon"></i><span class="hide-menu">Table Employee</span>
+                                    <i data-feather="list" class="feather-icon"></i><span class="hide-menu">Table Employee</span>
                                 </a>
                             </li>
+
                             @*<li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)"
                    aria-expanded="false">
@@ -278,43 +279,50 @@
                         @if (ViewBag.sessionRole == "Finance" || ViewBag.sessionRole == "Manager" || ViewBag.sessionRole == "Admin")
                         {
                             <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                                <a class="sidebar-link sidebar-link" href="/home/historyall"
                                    aria-expanded="false">
-                                    <i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Forms History </span>
+                                    <i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Form History</span>
                                 </a>
-
-                                <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                                    <li class="sidebar-item">
-                                        <a href="/home/historyall" class="sidebar-link">
-                                            <span class="hide-menu">
-                                                Form All
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="/home/historyapp" class="sidebar-link">
-                                            <span class="hide-menu">
-                                                Form Approved
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a href="/home/historyrej" class="sidebar-link">
-                                            <span class="hide-menu">
-                                                Form Rejected
-                                            </span>
-                                        </a>
-                                    </li>
-                                </ul>
                             </li>
+                           
+                            @*<li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                   aria-expanded="false">
+                    <i data-feather="file-text" class="feather-icon"></i><span class="hide-menu">Forms History </span>
+                </a>
+
+                <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                    <li class="sidebar-item">
+                        <a href="/home/historyall" class="sidebar-link">
+                            <span class="hide-menu">
+                                Form All
+                            </span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/home/historyapp" class="sidebar-link">
+                            <span class="hide-menu">
+                                Form Approved
+                            </span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item">
+                        <a href="/home/historyrej" class="sidebar-link">
+                            <span class="hide-menu">
+                                Form Rejected
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </li>*@
                         }
 
-                        <li class="sidebar-item">
+                        @*<li class="sidebar-item">
                             <a class="sidebar-link sidebar-link" href="/login/logout"
                                aria-expanded="false">
                                 <i data-feather="log-out" class="feather-icon"></i><span class="hide-menu">Logout</span>
                             </a>
-                        </li>
+                        </li>*@
 
 
                     </ul>

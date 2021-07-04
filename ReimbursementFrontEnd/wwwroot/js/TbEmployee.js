@@ -44,26 +44,28 @@
                 }
             },
             {
-                "sortable": true,
-                "render": function (data, type, row) {
+                "data": 'managerNik'
+
+                //"sortable": true,
+                //"render": function (data, type, row) {
 
                    
-                        var mnik = row.nik;
-                        console.log(mnik);
-                        var first = row.firstName;
-                        var last = row.lastName;
+                //        var mnik = row.nik;
+                //        console.log(mnik);
+                //        var first = row.firstName;
+                //        var last = row.lastName;
 
-                        var mname = first + " " + last;
-                        console.log(mname);
+                //        var mname = first + " " + last;
+                //        console.log(mname);
 
-                    if (row.managerNik) {
+                //    if (row.managerNik) {
 
-                    }
-                    return `
-                        <td> <select class="form-control rounded-pill" id="mnik">  <option value = "${mnik}"> ${mname}</option ></select ></td>
-                       `;
+                //    }
+                //    return `
+                //        <td> <select class="form-control rounded-pill" id="mnik">  <option value = "${mnik}"> ${mname}</option ></select ></td>
+                //       `;
 
-                }
+                //}
             },
           
           
@@ -71,7 +73,7 @@
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                            <button type="button" class="btn btn-success rounded-pill" onclick="updatemnik('${row['nik']}')" ><i class="fas fa-check"></i></button>
+                            <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal" onclick="Detail('${row['nik']}')" ><i class="fas fa-eye"></i></button>
 
                             `;
                 }
@@ -82,11 +84,36 @@
     });
 
 });
-
-
-function updatemnik(nik) {
+function Detail(id) {
+    //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
     $.ajax({
-        url: 'https://localhost:44383/api/users/' + nik,
+        url: 'https://localhost:44383/api/users/' + id,
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+    }).done((result) => {
+        $("#nik").val(result.nik);
+        $("#birthdate").val(result.birthDate.split("T")[0]);
+       var first=result.firstName;
+       var last= result.lastName;
+        $("#fullname").val(first +' '+ last);
+    }).fail((error) => {
+
+
+    })
+
+}
+
+
+
+function updatemnik() {
+   var nik2= $("#nik").val();
+
+    $.ajax({
+        url: 'https://localhost:44383/api/users/' + nik2,
         type: "GET",
         headers: {
             'Accept': 'application/json',
@@ -96,30 +123,19 @@ function updatemnik(nik) {
     }).done((result) => {
 
         var nik1 = result.nik;
-        var firstName = result.firstName;
-        var lastName = result.lastName;
-        var image = result.image;
-        var managerNik = $("#mnik").val();
-        var email = result.email;
-        var birthDate = result.birthDate;
-        var gender = result.gender;
-        var address = result.address;
+        var managerNik = $("#managernik").val();
+
+      
 
         var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
 
-        obj.nik = nik1;
-        obj.firstName = firstName;
-        obj.lastName = firstName;
-        obj.image = image;
-        obj.managerNik = managerNik;
-        obj.email = email;
-        obj.birthDate = birthDate;
-        obj.gender = gender;
-        obj.address = address;
+        obj.Nik = nik1;
+        obj.ManagerNik = managerNik;
+      
 
         $.ajax({
-            url: 'https://localhost:44383/api/users/' + nik,
-            type: "PUT",
+            url: 'https://localhost:44383/api/users/updatemnik/',
+            type: "POST",
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -132,6 +148,8 @@ function updatemnik(nik) {
         }).done((result) => {
             Swal.fire({ title: 'Success', 'text': ('Change successfully'), 'type': 'success' })
             Swal.hideLoading();
+            $('#viewModal').modal('hide');
+
 
             $('#tableEmployee').DataTable().ajax.reload();
 

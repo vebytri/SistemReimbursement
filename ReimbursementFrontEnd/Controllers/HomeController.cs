@@ -31,7 +31,7 @@ namespace ReimbursementFrontEnd.Controllers
 
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             //ViewBag.session = HttpContext.Session.GetString("JWToken");
             var token= HttpContext.Session.GetString("JWToken");
@@ -46,8 +46,7 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
             ViewBag.sessionName2 = tokenS.Claims.First(claim => claim.Type == "LastName").Value;
-            var id = int.Parse(tokenS.Claims.First(claim => claim.Type == "NIK").Value);
-            ViewBag.data = await repository.GetProfilbyId(id);
+            
 
             return View();
         }
@@ -60,13 +59,10 @@ namespace ReimbursementFrontEnd.Controllers
             return Json(result);
         }
         [AllowAnonymous]
-        public IActionResult TbEmployee()
+        public async Task<IActionResult> TbEmployee()
         {
-            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+          
             var token = HttpContext.Session.GetString("JWToken");
-            //string apiResponse = token.ToString();
-            //var token1 = JsonConvert.DeserializeObject(token);
-
             var handler = new JwtSecurityTokenHandler();
             var jsonToken = handler.ReadToken(token);
             var tokenS = jsonToken as JwtSecurityToken;
@@ -74,6 +70,8 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+
+            ViewBag.data = await repository.GetAllProfile();
 
             return View();
         }
@@ -98,25 +96,25 @@ namespace ReimbursementFrontEnd.Controllers
 
             return View();
         }
-        [AllowAnonymous]
-        //[Authorize(Roles = "Finance")]
-        public IActionResult Admin()
-        {
-            //ViewBag.session = HttpContext.Session.GetString("JWToken");
-            var token = HttpContext.Session.GetString("JWToken");
-            //string apiResponse = token.ToString();
-            //var token1 = JsonConvert.DeserializeObject(token);
+        //[AllowAnonymous]
+        ////[Authorize(Roles = "Finance")]
+        //public IActionResult Admin()
+        //{
+        //    //ViewBag.session = HttpContext.Session.GetString("JWToken");
+        //    var token = HttpContext.Session.GetString("JWToken");
+        //    //string apiResponse = token.ToString();
+        //    //var token1 = JsonConvert.DeserializeObject(token);
 
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(token);
-            var tokenS = jsonToken as JwtSecurityToken;
+        //    var handler = new JwtSecurityTokenHandler();
+        //    var jsonToken = handler.ReadToken(token);
+        //    var tokenS = jsonToken as JwtSecurityToken;
 
-            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
-            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
-            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+        //    ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
+        //    ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
+        //    ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
 
-            return View();
-        }
+        //    return View();
+        //}
         [Authorize(Roles = "Finance")]
         public IActionResult Finance()
         {

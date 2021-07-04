@@ -3,7 +3,7 @@
     ViewData["NIK"] = @ViewBag.sessionNik;
 
     ViewData["ManagerNik"] = @ViewBag.sessionManagerNik;
-
+    var datauser = ViewBag.data;
 
     Layout = "~/Views/Shared/Admin/_Layout.cshtml";
 }
@@ -97,97 +97,117 @@
     <div class="modal-dialog modal-dialog-centered modal-lg rounded-pill" role="document">
         <div class="modal-content rounded">
             <div class="modal-header">
-                <h5 class="modal-title" id="titleModal">View Reimbursements</h5>
+                <h5 class="modal-title" id="titleModal">View Table Employee</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
+        <form method="post">
             <div class="modal-body m-1">
-                <div class="form-row m-2" >
+                <div class="form-row m-2">
+                    <div class="form-group col-md-3">
+                        <label>NIK</label>
+                        <input class="form-control rounded-pill" readonly id="nik">
+                    </div>
 
                     <div class="form-group col-md-3">
-                        <label>Request Date</label>
-                        <input class="form-control rounded-pill" id="reqDate">
-                        <input class="form-control rounded-pill" hidden id="reqId">
-
-                        <div class="form-row m-2 text-center">
-                            <label>  Status Manager</label>
-                            <input class="form-control rounded-pill" id="managerStatus">
-                        </div>
-
-                        <div class="form-row m-2 text-center">
-                            <label> Status Finance</label>
-                            <input class="form-control rounded-pill" id="financeStatus">
-                        </div>
-
-                     </div> 
-
-                        <div class="form-group col-md-3">
-                            <label>Status</label>
-                            <input class="form-control rounded-pill" id="status">
-                            <div class="form-row m-2  text-center">
-                                <label> Date Manager</label>
-                                <input class="form-control rounded-pill" id="managerDate">
-                            </div>
-
-                            <div class="form-row m-2 text-center">
-                                <label> Date Finance</label>
-                                <input class="form-control rounded-pill" id="financeDate">
-                            </div>
-
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label>Notes</label>
-                            <textarea class="form-control" id="viewnotes" rows="8"></textarea>
-                        </div>
-
+                        <label> Name</label>
+                        <input class="form-control rounded-pill" readonly id="fullname">
                     </div>
-             </div>
 
+                    <div class="form-group col-md-3">
+                        <label> Roles</label>
+                        <select class="form-control rounded-pill" id="roles">
+                            <option value="1">Employee</option>
+                            <option value="2">Manager</option>
+                            <option value="3">Finance</option>
+                            <option value="4">Admin</option>
 
-                @*--table view---*@
-                <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
-                <input type="text" class="form-control" hidden id="first" value="@ViewBag.sessionNameFirst">
-                <input type="text" class="form-control" hidden id="last" value="@ViewBag.sessionNameLast">
-                <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
+                        </select>
+                    </div>
 
-                <table id="viewEmployee" class="table no-wrap v-middle mb-0">
-                    <thead>
-                        <tr class="border-0">
-                            <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
-                            <th class="border-0 font-14 font-weight-medium text-center">Category</th>
-                            <th class="border-0 font-14 font-weight-medium text-center ">File</th>
-                            <th class="border-0 font-14 font-weight-medium text-center ">Paid Amount</th>
-                        </tr>
-                    </thead>
-                    <tbody id="bodyEmployee">
-                    </tbody>
-
-                </table>
-                <!--<table class="table no-wrap v-middle mb-0" id="viewEmployee">
-    <tr class="border-0">-->
-                @*<th class="border-0 font-14 font-weight-medium text-center ">No</th>*@
-
-
-                <!--</tr>
-        <tr>
-            <td><input type="text" id="requestAmount" class="form-control rounded-pill " /></td>
-            <td><input type="text" id="category" class="form-control rounded-pill " /></td>
-            <td><input type="text" id="file" class="form-control rounded-pill " /></td>
-            <td><input type="text" id="paidAmount" class="form-control rounded-pill " /></td>
-        </tr>
-        <tbody>
-        </tbody>
-    </table>-->
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
-
+                    <div class="form-group col-md-3">
+                        <label>Manager</label>
+                        <input class="form-control rounded-pill" autocomplete="off" id="managernik">
+                    </div>
                 </div>
 
+                    <!--<div class="form-group col-md-3">
+                        <label>NIK</label>
+                        <input class="form-control rounded-pill" id="nik">-->
+                        @*<input class="form-control rounded-pill" hidden id="reqId">*@
+
+                        <!--<div class="form-row m-2 text-center">
+                            <label> First Name</label>
+                            <input class="form-control rounded-pill" id="first">
+                        </div>
+
+                        <div class="form-row m-2 text-center">
+                            <label> Birthdate</label>
+                            <input class="form-control rounded-pill" id="birthdate">
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <label>Email</label>
+                        <input class="form-control rounded-pill" id="email">
+                        <div class="form-row m-2  text-center">
+                            <label>  Last Name</label>
+                            <input class="form-control rounded-pill" id="last">
+                        </div>
+
+                        <div class="form-row m-2 text-center">
+                            <label>Manager</label>
+                            <input class="form-control rounded-pill" id="managernik">
+
+                        </div>
+
+                    </div>-->
+
+                    @*<div class="form-group col-md-6">
+                        <label>Adress</label>
+                        <textarea class="form-control" id="address" rows="8"></textarea>
+                    </div>*@
             </div>
+            </form>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
+                <button type="button" id="submit" name="submit" class="btn btn-success rounded-pill" onclick="updatemnik()">Submit</button>
+
+            </div>
+
+        </div>
+        </div>
+
+
+        @*--table view---*@
+        <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
+        <input type="text" class="form-control" hidden id="first" value="@ViewBag.sessionNameFirst">
+        <input type="text" class="form-control" hidden id="last" value="@ViewBag.sessionNameLast">
+        <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
+
+        @*<table id="viewEmployee" class="table no-wrap v-middle mb-0">
+            <thead>
+                <tr class="border-0">
+                    <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
+                    <th class="border-0 font-14 font-weight-medium text-center">Category</th>
+                    <th class="border-0 font-14 font-weight-medium text-center ">File</th>
+                    <th class="border-0 font-14 font-weight-medium text-center ">Paid Amount</th>
+                </tr>
+            </thead>
+            <tbody id="bodyEmployee">
+            </tbody>
+
+        </table>*@
+
+
+        @*<div class="modal-footer">
+            <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
+
+        </div>*@
+
     </div>
 </div>
 

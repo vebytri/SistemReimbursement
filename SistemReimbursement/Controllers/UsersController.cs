@@ -71,6 +71,23 @@ namespace SistemReimbursement.Controllers
                 return BadRequest("Gagal Update Password");
             }
         }
+        [HttpPost]
+
+        [Route("updatemnik")]
+        public ActionResult updatemnik(RegisterVM register)
+        {
+
+            var get = repo.updatemnik(register);
+
+            if (get > 0)
+            {
+                return Ok("Update Mnik Berhasil");
+            }
+            else
+            {
+                return BadRequest("Gagal Update Mnik");
+            }
+        }
         // [AllowAnonymous]
 
         [HttpPost("Login")]

@@ -199,7 +199,14 @@ namespace SistemReimbursement.Repository.Data
             result = conn.SaveChanges();
             return result;
         }
-
+        public int updatemnik(RegisterVM register)
+        {
+            var result = 0;
+            var cekPerson = conn.Users.FirstOrDefault(p => p.Nik == register.Nik);
+            cekPerson.ManagerNik = register.ManagerNik;
+            result = conn.SaveChanges();
+            return result;
+        }
 
 
         //public int updateprofiles(User user)
