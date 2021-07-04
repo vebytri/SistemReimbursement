@@ -11,9 +11,15 @@ function savechange() {
     obj.Email = $("#email").val();
     obj.Address = $("#address").val();
     obj.Image = $("#imgdef").val();
-    
+
     var file = document.getElementById("imgprofile");
-    console.log(obj.Image);
+    console.log(obj.BirthDate);
+    //convert date
+    var dArr = obj.BirthDate.split("-");  // ex input "2010-01-18"
+    var temp = dArr[2] + "/" + dArr[1] + "/" + dArr[0];
+    obj.BirthDate = new Date(obj.BirthDate);
+    console.log(obj.BirthDate);
+
     if (file.files.length>0) {
         var imgdata = file.files[0];
 
@@ -65,7 +71,7 @@ function savechange() {
     }).done((result) => {
         Swal.hideLoading();
         Swal.fire({ 'title': 'Success', 'text': 'Update Profile Success', 'type': 'success' }).then (function () {
-            window.location.reload();
+            window.location.href=('ViewProfile');
         })
         
     }).fail((error) => {
