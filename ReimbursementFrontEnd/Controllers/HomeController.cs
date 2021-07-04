@@ -180,7 +180,7 @@ namespace ReimbursementFrontEnd.Controllers
         [HttpPost]
         public async Task<IActionResult> testupload(IFormFile file)
         {
-            var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\Files\\");
+            var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Files\\");
 
             var filePath = Path.Combine(basePath, file.FileName);
             var length = file.Length;
@@ -192,7 +192,7 @@ namespace ReimbursementFrontEnd.Controllers
         }
         public async Task<IActionResult> uploadimgprofile(IFormFile file)
         {
-            var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Files\\Profile");
+            var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Files\\Profile\\");
 
             var filePath = Path.Combine(basePath, file.FileName);
             var length = file.Length;
