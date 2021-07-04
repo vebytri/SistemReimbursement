@@ -57,7 +57,24 @@ namespace ReimbursementFrontEnd.Controllers
             var result = await repository.GetAllProfile();
             return Json(result);
         }
-    
+        [AllowAnonymous]
+        public IActionResult TbEmployee()
+        {
+            //ViewBag.session = HttpContext.Session.GetString("JWToken");
+            var token = HttpContext.Session.GetString("JWToken");
+            //string apiResponse = token.ToString();
+            //var token1 = JsonConvert.DeserializeObject(token);
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
+            ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
+            ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+
+            return View();
+        }
         [Authorize(Roles = "Employee")]
         public IActionResult Employee()
         {
