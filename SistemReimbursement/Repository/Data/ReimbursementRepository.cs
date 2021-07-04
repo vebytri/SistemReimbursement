@@ -76,6 +76,10 @@ namespace SistemReimbursement.Repository.Data
             var cekPerson = conn.Reimbursement.FirstOrDefault(p => p.ReimbursementId == id);
             var email = cekPerson.Account.User.Email;
             var first = cekPerson.Account.User.FirstName;
+
+
+
+
             cekPerson.Status = statusstring;
             cekPerson.ManagerApprovalDate = DateTime.Now;
             cekPerson.ManagerApprovalStatus = status;

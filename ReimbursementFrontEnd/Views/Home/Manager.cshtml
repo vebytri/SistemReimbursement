@@ -4,7 +4,7 @@
     ViewData["Name"] = @ViewBag.sessionName;
 
     Layout = "~/Views/Shared/Admin/_Layout.cshtml";
-} 
+}
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-7 align-self-center">
@@ -148,27 +148,45 @@
             <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
 
 
-            <div class="table-responsive">
-                <table id="viewEmployee" class="table table-primary table-responsive-sm  no-wrap v-middle mb-0 text-center">
-                    <thead classs="table-light">
-                        <tr class="border-0">
-                            <th class="border-0 font-14 font-weight-medium ">Request Amount</th>
-                            <th class="border-0 font-14 font-weight-medium ">Category</th>
-                            <th class="border-0 font-14 font-weight-medium  ">File</th>
-                            <th class="border-0 font-14 font-weight-medium  ">Paid Amount</th>
-                            @*<th class="border-0 font-14 font-weight-medium text-center ">Action</th>*@
-                        </tr>
 
-                    </thead>
-                    <tbody>
-                    </tbody>
+            <table id="viewEmployee" class="table table-responsive no-wrap v-middle mb-0">
+                <thead>
+                    <tr class="border-0">
+                        <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
+                        <th class="border-0 font-14 font-weight-medium text-center">Category</th>
+                        <th class="border-0 font-14 font-weight-medium text-center ">File</th>
+                        <th class="border-0 font-14 font-weight-medium text-center ">Paid Amount</th>
+                        @*<th class="border-0 font-14 font-weight-medium text-center ">Action</th>*@
+                    </tr>
 
-                </table>
+                </thead>
+                <tbody>
+                </tbody>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
+            </table>
 
-                </div>
+
+     
+
+            <!--<table class="table no-wrap v-middle mb-0" id="viewEmployee">
+    <tr class="border-0">-->
+            @*<th class="border-0 font-14 font-weight-medium text-center ">No</th>*@
+
+
+            <!--</tr>
+        <tr>
+            <td><input type="text" id="requestAmount" class="form-control rounded-pill " /></td>
+            <td><input type="text" id="category" class="form-control rounded-pill " /></td>
+            <td><input type="text" id="file" class="form-control rounded-pill " /></td>
+            <td><input type="text" id="paidAmount" class="form-control rounded-pill " /></td>
+        </tr>
+        <tbody>
+        </tbody>
+    </table>-->
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
+
             </div>
 
         </div>
