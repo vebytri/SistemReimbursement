@@ -304,7 +304,13 @@ function Detail(id) {
                     },
 
                     {
-                        "data": 'fileAttachment'
+                        "data": 'fileAttachment',
+                        "render": function (data, type, row) {
+                            return `
+                            ${data}
+                            <button type="button" class="btn btn-info rounded-pill" id="nameFile" name="loop[]nameFile" onclick="Download('${row['attachmentId']}')" ><i class="fas fa-download"></i></button>
+                             `;
+                        }
 
                     },
                     {
@@ -326,6 +332,42 @@ function Detail(id) {
     })
 
 }
+
+
+function Download(id) {
+    console.log(id);
+    $.ajax({
+        url: 'https://localhost:44383/api/Attachments/' + id,
+        type: "GET",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+         
+    }).done((result) => {
+        var name = result.fileAttachment;
+        console.log(name);
+        $.ajax({
+            url: 'https://localhost:44383/api/attachments/download/' + name,
+            type: "GET",
+            headers: {
+                'Accept': 'application/octet-stream',
+                'Content-Type': 'application/octet-stream'
+            },
+        }).done((result) => {
+            window.location.href = "https://localhost:44383/api/Attachments/download/" + name;
+
+
+        }).fail((error) => {
+        })
+
+
+    }).fail((error) => {
+    })
+
+}
+
+
 
 function del(id) {
     $.ajax({
@@ -384,6 +426,7 @@ function del(id) {
 
 
 }
+
 
 
 //function del(stringUrl) {
