@@ -5,4 +5,4 @@
 function updatepassword() {
     window.location = "/Home/UpdatePassword";
     console.log("a");
-}
+} 
