@@ -46,3 +46,11 @@
    
 
 }
+$(document).ready(function () {
+    $('#newpassword, #newpasswordverify').on('keyup', function () {
+        if ($('#newpassword').val() == $('#newpasswordverify').val()) {
+            $('#message').html('Password Matching').css('color', 'green');
+        } else
+            $('#message').html('Not Matching').css('color', 'red');
+    });
+});
