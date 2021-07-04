@@ -6,6 +6,7 @@ using SistemReimbursement.Models;
 using SistemReimbursement.Repository.Data;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,6 +21,37 @@ namespace SistemReimbursement.Controllers
         public AttachmentsController(AttachmentRepository attachment) : base(attachment)
         {
             this.repo = attachment;
+        }
+
+        [HttpGet("download/{name}")]
+        public async Task<IActionResult> Download(string name)
+        {
+            var path = @$"C:\Users\WIN 10 TRIAL\Desktop\Bootcamp Metrodata\APP\SistemReimbursement\ReimbursementFrontEnd\Files\{name}";
+            var memory = new MemoryStream();
+            using (var stream = new FileStream(path, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+            memory.Position = 0;
+            var ext = Path.GetExtension(path).ToLowerInvariant();
+            return File(memory, GetMimeTypes()[ext], Path.GetFileName(path));
+
+        }
+
+        private Dictionary<string, string> GetMimeTypes()
+        {
+
+            return new Dictionary<string, string>
+            {
+                { ".txt","text/plain"},
+                { ".pdf","application/pdf"},
+                { ".doc","application/vnd.ms-word"},
+                { ".docx","application/vnd.ms-word"},
+                { ".png","iamage/png"},
+                { ".jpg","iamage/jpg"},
+                { ".jpeg","iamage/jpeg"},
+
+            };
         }
         [HttpGet("getDetail/{reimbursementId}")]
         public ActionResult getDetailReimbursement(int reimbursementId)
