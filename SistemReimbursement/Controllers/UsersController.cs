@@ -97,6 +97,30 @@ namespace SistemReimbursement.Controllers
             }
 
         }
+        [HttpPost("cekpassword")]
+        public ActionResult cekpassword(LoginVM login)
+        {
+            var ceklogin = repo.Login(login);
+            if (ceklogin == 404)
+            {
+                return BadRequest("Email Tidak Ditemukan!");
+            }
+            else if (ceklogin == 401)
+            {
+                return BadRequest("Password Salah");
+            }
+            else if (ceklogin == 1)
+            {
+                //return Ok($"Login Berhasil \n Token : {repo.GenerateToken(login)}");
+                return Ok("Password match");
+                //return Ok( "Login Sukses");
+            }
+            else
+            {
+                return BadRequest("Login Gagal");
+            }
+
+        }
 
         [HttpPost("updateuser")]
         public ActionResult updateuser(RegisterVM user)
