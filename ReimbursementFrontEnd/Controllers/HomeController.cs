@@ -14,7 +14,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
-
+using SistemReimbursement.ViewModels;
+using System.Net.Http;
 
 namespace ReimbursementFrontEnd.Controllers
 {
@@ -27,6 +28,7 @@ namespace ReimbursementFrontEnd.Controllers
         public HomeController(UserRepository repository) : base(repository)
         {
             this.repository = repository;
+      
         }
 
 
@@ -58,7 +60,27 @@ namespace ReimbursementFrontEnd.Controllers
             var result = await repository.GetAllProfile();
             return Json(result);
         }
-        [AllowAnonymous]
+
+       
+        public async Task<JsonResult> GetAllroles()
+        {
+            string Baseurl = "https://localhost:44383/";
+            List<RoleVM> EmpInfo = new List<RoleVM>();
+            using (var client = new HttpClient())
+            {
+                //Passing service base url
+                client.BaseAddress = new Uri(Baseurl);
+
+                using (var response = await client.GetAsync("api/roles"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    EmpInfo = JsonConvert.DeserializeObject<List<RoleVM>>(apiResponse);
+                }
+                //returning the employee list to view
+                return Json(EmpInfo);
+            }
+        }
+            [AllowAnonymous]
         public async Task<IActionResult> TbEmployee()
         {
           
@@ -70,9 +92,25 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.sessionNik = tokenS.Claims.First(claim => claim.Type == "NIK").Value;
             ViewBag.sessionRole = tokenS.Claims.First(claim => claim.Type == "role").Value;
             ViewBag.sessionName = tokenS.Claims.First(claim => claim.Type == "FirstName").Value;
+            
+            string Baseurl = "https://localhost:44383/";
+            List<RoleVM> EmpInfo = new List<RoleVM>();
+            using (var client = new HttpClient())
+            {
+                //Passing service base url
+                client.BaseAddress = new Uri(Baseurl);
 
+                using (var response = await client.GetAsync("api/roles"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    EmpInfo = JsonConvert.DeserializeObject<List<RoleVM>>(apiResponse);
+                }
+            }
             ViewBag.data = await repository.GetAllProfile();
 
+            ViewBag.allrole = EmpInfo;
+            List<RegisterVM> dataperson = ViewBag.data;
+            List<RoleVM> datarole = ViewBag.allrole;
             return View();
         }
         [Authorize(Roles = "Employee")]
