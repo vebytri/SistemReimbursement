@@ -6,6 +6,7 @@
     var datausers = ViewBag.data;
 
     var datarole = ViewBag.allrole;
+    var datanow = ViewBag.usernow;
     Layout = "~/Views/Shared/Admin/_Layout.cshtml";
     }
     <div class="page-breadcrumb">
@@ -120,12 +121,21 @@
                             <div class="form-group col-md-3">
                                 <label> Roles</label>
                                 <select class="form-control rounded-pill" id="roles">
-                                    <option selected>                                </option>
-                                        @foreach (var role in datarole)
+
+                                    @foreach (var role in datarole)
+                                    {
+                                        if (role.RoleName == ViewData["Role"])
+                                        {
+                                            var ri = @role.RoleId;
+                                            var rn = @role.RoleName;
+                                <option selected value="@role.RoleId">@role.RoleName</option>
+                                        }
+                                        else
                                         {
                                             <option value="@role.RoleId">@role.RoleName</option>
                                         }
-                                    </select>
+                                    }
+                                </select>
                                 @*<select class="form-control rounded-pill" id="roles">
                                     <option value="1">Employee</option>
                                     <option value="2">Manager</option>
@@ -138,11 +148,20 @@
                             <div class="form-group col-md-3">
                                 <label>Manager</label>
                                 <select class="form-control rounded-pill" autocomplete="off" id="managernik">
-                                    <option selected>                                </option>
+
                                     @foreach (var person in datausers)
                                     {
-                                        <option value="@person.Nik">@person.FirstName</option>
+                                        if (person.ManagerNik == datanow.ManagerNik)
+                                        {
+                                        <option selected value="@person.Nik">@person.FirstName</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="@person.Nik">@person.FirstName</option>
+                                        }
                                     }
+
                                 </select>
                             </div>
                         </div>
