@@ -24,4 +24,83 @@
             </div>
         </div>
     </div>
+   
+    <div class="row">
+        @if (ViewBag.sessionRole == "Employee")
+        {
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <input type="text" id="nik3"hidden value="@ViewData["NIK"]" />
+                        <h4 class="card-title">All Request Reimbursements</h4>
+                        <div id="employee" class="mt-2 position-relative" style="height:294px;"></div>
+                        <ul class="list-inline text-center mt-4 mb-2">
+                            <li class="list-inline-item text-muted font-italic">Reimbursements Status</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.sessionRole == "Manager" || ViewBag.sessionRole == "Admin" || ViewBag.sessionRole == "Admin")
+        {
+            <div class="col-lg-4 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Gender</h4>
+                        <div id="ct-chart" class="mt-2" style="height:283px; width:100%;"></div>
+                        <ul class="list-style-none mb-0">
+                            <li>
+                                <i class="fas fa-circle text-primary font-10 mr-2"></i>
+                                <span class="text-muted">Female</span>
+                                <span id="Female" class="text-dark float-right font-weight-medium"></span>
+                            </li>
+                            <li class="mt-3">
+                                <i class="fas fa-circle text-danger font-10 mr-2"></i>
+                                <span class="text-muted">Male</span>
+                                <span id="Male" class="text-dark float-right font-weight-medium"></span>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (ViewBag.sessionRole == "Manager" || ViewBag.sessionRole == "Admin")
+        {
+            <div class="col-lg-4 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Manager</h4>
+                        <div id="manager" class="mt-2 position-relative" style="height:294px;"></div>
+                        <ul class="list-inline text-center mt-4 mb-2">
+                            <li class="list-inline-item text-muted font-italic">Reimbursements Status</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (ViewBag.sessionRole == "Finance" || ViewBag.sessionRole == "Admin")
+        {
+            <div class="col-lg-4 col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Finance</h4>
+                        <div id="finance" class="mt-2 position-relative" style="height:294px;"></div>
+                        <ul class="list-inline text-center mt-4 mb-2">
+                            <li class="list-inline-item text-muted font-italic">Reimbursements Status</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    
 </div>
+
+
+@section scripts{
+    <script src="~/js/index2.js" asp-append-version="true"></script>
+
+}
