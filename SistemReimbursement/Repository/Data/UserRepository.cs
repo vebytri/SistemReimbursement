@@ -83,7 +83,6 @@ namespace SistemReimbursement.Repository.Data
                     client.Authenticate("hai.infodigital@gmail.com", "#Naufal1998");
                     client.Send(message);
                     client.Disconnect(true);
-
                 }
             }
 
