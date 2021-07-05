@@ -100,7 +100,7 @@ $(document).ready(function () {
 
     $("#add").click(function () {
         i++;    
-        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  <option value = "1" > Medical</option ><option value = "2" > Transportation</option ></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
+        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" required id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  <option value = "1" > Medical</option ><option value = "2" > Transportation</option ></select ></td > <td><input type="file" required id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
 
     });
 

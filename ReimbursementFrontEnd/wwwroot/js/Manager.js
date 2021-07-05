@@ -274,10 +274,11 @@ function rej(id) {
         obj.financeApprovalStatus = 2;
         obj.financeApprovalDate = result.financeApprovalDate;
         obj.nik = result.nik;
+
         //console.log(obj);
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
-            url: 'https://localhost:44383/api/reimbursements/updatemanager/' + id + '/2/' + obj.status,
+            url: 'https://localhost:44383/api/reimbursements/updatemanager2/' + id + '/2/' + obj.status,
 
             type: "PUT",
             data: JSON.stringify(obj),
@@ -405,7 +406,7 @@ function Detail(id) {
                 {
                     "render": function (data, type, row) {
                         return `
-                      <input class="form-control rounded-pill" id="paidAmount" placeholder="${row['paidAmount']}" >
+                      <input class="form-control rounded-pill" readonly id="paidAmount" placeholder="${row['paidAmount']}" >
                      
                         `;
                     }
