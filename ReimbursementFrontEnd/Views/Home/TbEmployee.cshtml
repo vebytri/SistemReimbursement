@@ -121,14 +121,13 @@
                             <div class="form-group col-md-3">
                                 <label> Roles</label>
                                 <select class="form-control rounded-pill" id="roles">
-
+                                    <option selected value="" disabled></option>
                                     @foreach (var role in datarole)
                                     {
                                         if (role.RoleName == ViewData["Role"])
                                         {
-                                            var ri = @role.RoleId;
-                                            var rn = @role.RoleName;
-                                <option selected value="@role.RoleId">@role.RoleName</option>
+ 
+                                            <option value="@role.RoleId">@role.RoleName</option>
                                         }
                                         else
                                         {
@@ -148,12 +147,12 @@
                             <div class="form-group col-md-3">
                                 <label>Manager</label>
                                 <select class="form-control rounded-pill" autocomplete="off" id="managernik">
-
+                                    <option selected value="" disabled></option>
                                     @foreach (var person in datausers)
                                     {
                                         if (person.ManagerNik == datanow.ManagerNik)
                                         {
-                                        <option selected value="@person.Nik">@person.FirstName</option>
+                                            <option value="@person.Nik">@person.FirstName</option>
 
                                         }
                                         else
