@@ -111,6 +111,10 @@ namespace ReimbursementFrontEnd.Controllers
             ViewBag.allrole = EmpInfo;
             List<RegisterVM> dataperson = ViewBag.data;
             List<RoleVM> datarole = ViewBag.allrole;
+
+            //
+            var id = int.Parse(tokenS.Claims.First(claim => claim.Type == "NIK").Value);
+            ViewBag.usernow = await repository.GetProfilbyId(id);
             return View();
         }
         [Authorize(Roles = "Employee")]
