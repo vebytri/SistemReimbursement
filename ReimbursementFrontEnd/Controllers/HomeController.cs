@@ -80,7 +80,7 @@ namespace ReimbursementFrontEnd.Controllers
                 return Json(EmpInfo);
             }
         }
-            [AllowAnonymous]
+        [AllowAnonymous]
         public async Task<IActionResult> TbEmployee()
         {
           
@@ -244,8 +244,10 @@ namespace ReimbursementFrontEnd.Controllers
             }
             return Ok(filePath);
         }
-        [Authorize(Roles = "Finance")]
         //[AllowAnonymous]
+        //[AllowAnonymous]
+        //[Authorize(Roles = "Finance")]
+        [AllowAnonymous]
 
         public IActionResult HistoryAll()
         {
