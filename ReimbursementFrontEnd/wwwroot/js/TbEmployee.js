@@ -153,7 +153,7 @@ function updatemnik() {
                 type: "POST",
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json' 
                 },
                 data: JSON.stringify(obj2),
                 success: function (result) {
