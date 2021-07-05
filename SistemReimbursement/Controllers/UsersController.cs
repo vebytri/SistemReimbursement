@@ -157,5 +157,22 @@ namespace SistemReimbursement.Controllers
             }
 
         }
+        [HttpPost("updaterole/{nik}/{RoleId}")]
+        public ActionResult updaterole(int nik, int RoleId)
+        {
+            var update = repo.updaterole(nik,RoleId);
+            if (update == 0)
+            {
+                return Ok("Tidak ada perubahan");
+            }
+            if (update == 1)
+            {
+                return Ok(update);
+            }
+            else
+            {
+                return BadRequest("gagalupdate");
+            }
+        }
     }
 }

@@ -207,6 +207,14 @@ namespace SistemReimbursement.Repository.Data
             result = conn.SaveChanges();
             return result;
         }
+        public int updaterole(int nik ,int RoleId)
+        {
+            var result = 0;
+            var cekPerson = conn.AccountRoles.FirstOrDefault(x => x.Nik == nik);
+            cekPerson.RoleId = RoleId;
+            result = conn.SaveChanges();
+            return result;
+        }
 
 
         //public int updateprofiles(User user)
