@@ -13,14 +13,14 @@ using System.Threading.Tasks;
 namespace ReimbursementFrontEnd.Repository.Data
 {
   
-    public class UserRepository : GeneralRepository<User, int>
+    public class RoleRepository : GeneralRepository<Role, int>
     {
         private readonly Address address;
         private readonly HttpClient httpClient;
         private readonly string request;
         private readonly IHttpContextAccessor _contextAccessor;
 
-        public UserRepository(Address address, string request = "users/") : base(address, request)
+        public RoleRepository(Address address, string request = "roles/") : base(address, request)
         {
             this.address = address;
             this.request = request;
@@ -31,30 +31,18 @@ namespace ReimbursementFrontEnd.Repository.Data
             };
             //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", _contextAccessor.HttpContext.Session.GetString("JWToken"));
         }
-      
-
-        public async Task<List<RegisterVM>> GetAllProfile()
+     
+        public async Task<List<RoleVM>> GetAllRole()
         {
-            List<RegisterVM> entities = new List<RegisterVM>();
+            List<RoleVM> entities = new List<RoleVM>();
             using (var response = await httpClient.GetAsync(request))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                entities = JsonConvert.DeserializeObject<List<RegisterVM>>(apiResponse);
+                entities = JsonConvert.DeserializeObject<List<RoleVM>>(apiResponse);
             }
             return entities;
         }
-        public async Task<RegisterVM> GetProfilbyId(int nik)
-        {
-            RegisterVM entities = new RegisterVM();
-
-            using (var response = await httpClient.GetAsync(request + nik))
-            {
-                string apiResponse = await response.Content.ReadAsStringAsync();
-                entities = JsonConvert.DeserializeObject<RegisterVM>(apiResponse);
-            }
-            return entities;
-        }
-
+     
 
     }
 }
