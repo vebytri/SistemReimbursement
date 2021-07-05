@@ -332,3 +332,9 @@ ASALocalRun/
 
 # Local History for Visual Studio
 .localhistory/
+SistemReimbursement/Migrations/MyContextModelSnapshot.cs
+SistemReimbursement/Migrations/20210705133823_FIX.Designer.cs
+SistemReimbursement/Migrations/20210705133823_FIX.cs
+SistemReimbursement/Migrations/20210703083425_revfebi.Designer.cs
+SistemReimbursement/Migrations/20210703083425_revfebi.cs
+SistemReimbursement/Repository/Data/UserRepository.cs
