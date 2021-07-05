@@ -214,21 +214,21 @@
                         <tr>
 
                             @*<td>1</td>*@
-                            <td><input type="text" id="requestAmount" name="loop[]req"  placeholder="Request Amount" class="form-control rounded-pill " /></td>
+                            <td><input type="text" required id="requestAmount" name="loop[]req"  placeholder="Request Amount" class="form-control rounded-pill " /></td>
                             <td>
-                                <select class="form-control rounded-pill" id="category" name="loop[]type">
+                                <select class="form-control  rounded-pill" id="category" name="loop[]type">
                                     <option value="1">Medical</option>
                                     <option value="2">Transportation</option>
                                 </select>
                                 @* <input type="text" name="category[]" placeholder="Choose Category" class="form-control rounded-pill category_email" />*@
                             </td>
-                            <td><input type="file" name="loop[]file" id="upload" placeholder="Upload File" class="form-control-file" /></td>
+                            <td><input type="file" required name="loop[]file" id="upload" placeholder="Upload File" class="form-control-file" /></td>
                             <td><button type="button" id="add" class="btn btn-success rounded-pill">Add More</button></td>
                         </tr>
                     </table>
                     <div class="form-group col-md-12">
                         <label>Notes</label>
-                        <textarea class="form-control border-2 rounded" id="notes" rows="3" placeholder="Text Here.."></textarea>
+                        <textarea required class="form-control border-2  rounded" id="notes" rows="3" placeholder="Text Here.."></textarea>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>

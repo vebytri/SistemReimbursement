@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     let nik2 = $("#nik2").val();
-    $('#tableEmployee').DataTable({
+    $('#tableEmployee').DataTable({ 
         ajax: {
             url: 'https://localhost:44383/api/Reimbursements/getallbystatus/aprovedbymanager',
 
@@ -259,7 +259,9 @@ $('#submit').click(function (e) {
         Swal.hideLoading();
         $('#viewModal').modal('hide');
         //console.log(result);
+        $('#viewEmployee').DataTable().destroy();
         $('#tableEmployee').DataTable().ajax.reload();
+
 
     }).fail((error) => {
         Swal.hideLoading();

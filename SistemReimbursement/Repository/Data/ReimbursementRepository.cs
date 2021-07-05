@@ -69,17 +69,46 @@ namespace SistemReimbursement.Repository.Data
             }
             return result;
         }
-
-        public int updatemanager(int id, int status, string statusstring)
+        public int updatemanager2(int id, int status, string statusstring)
         {
             var result = 0;
             var cekPerson = conn.Reimbursement.FirstOrDefault(p => p.ReimbursementId == id);
             var email = cekPerson.Account.User.Email;
             var first = cekPerson.Account.User.FirstName;
 
+            cekPerson.FinanceApprovalStatus = 2;
+            cekPerson.Status = statusstring;
+            cekPerson.ManagerApprovalDate = DateTime.Now;
+            cekPerson.ManagerApprovalStatus = status;
+            result = conn.SaveChanges();
 
 
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
+            message.To.Add(new MailboxAddress($"{first}", $"{email}"));
+            message.Subject = "Update Request Reimburstment From Manager";
+            message.Body = new TextPart("plain")
+            {
+                Text = $"Dear, {first}" +
+                $"Your Request Reimbursement was updated by Manager"
+            };
 
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate("hai.infodigital@gmail.com", "#Naufal1998");
+                client.Send(message);
+                client.Disconnect(true);
+
+            }
+            return result;
+        }
+        public int updatemanager(int id, int status, string statusstring)
+        {
+            var result = 0;
+            var cekPerson = conn.Reimbursement.FirstOrDefault(p => p.ReimbursementId == id);
+            var email = cekPerson.Account.User.Email;
+            var first = cekPerson.Account.User.FirstName;
             cekPerson.Status = statusstring;
             cekPerson.ManagerApprovalDate = DateTime.Now;
             cekPerson.ManagerApprovalStatus = status;

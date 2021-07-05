@@ -47,7 +47,7 @@
 
                     }
                     else if (row.managerApprovalStatus == 2) {
-                        return ("Declined");
+                        return ("Rejected");
 
                     }
                     else {
