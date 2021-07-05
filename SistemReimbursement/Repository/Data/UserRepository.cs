@@ -200,7 +200,7 @@ namespace SistemReimbursement.Repository.Data
         }
         public int updatemnik(RegisterVM register)
         {
-            var result = 0;
+            var result = 2;
             var cekPerson = conn.Users.FirstOrDefault(p => p.Nik == register.Nik);
             cekPerson.ManagerNik = register.ManagerNik;
             result = conn.SaveChanges();
@@ -208,7 +208,7 @@ namespace SistemReimbursement.Repository.Data
         }
         public int updaterole(int nik ,int RoleId)
         {
-            var result = 0;
+            var result = 2;
             var cekPerson = conn.AccountRoles.FirstOrDefault(x => x.Nik == nik);
             cekPerson.RoleId = RoleId;
             result = conn.SaveChanges();

@@ -124,8 +124,9 @@ function updatemnik() {
 
         var nik1 = result.nik;
         var managerNik = $("#managernik").val();
-
-      
+        console.log($("#roles").val())
+        console.log($("#managernik").val())
+        console.log(result.nik)
 
         var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
 
@@ -135,21 +136,39 @@ function updatemnik() {
         obj2.Nik = obj.Nik;
         obj2.RoleId = $("#roles").val();
 
-        $.ajax({
-            url: 'https://localhost:44383/api/users/updatemnik/',
-            type: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            data: JSON.stringify(obj),
+        if ($("#roles").val() == null && $("#managernik").val() != null) {
+            console.log("role kosong")
+                $.ajax({
+                    url: 'https://localhost:44383/api/users/updatemnik/',
+                    type: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify(obj),
 
-            beforeSend: function () {
-                Swal.showLoading()
-            },
-        }).done((result) => {
+                    beforeSend: function () {
+                        Swal.showLoading()
+                    },
+                }).done((result) => {
+
+                    Swal.fire({ title: 'Success', 'text': ('You changed user Manager!!'), 'type': 'success' })
+                    console.log(result);
+                    Swal.hideLoading();
+                    $('#viewModal').modal('hide');
+                    $('#tableEmployee').DataTable().ajax.reload();
+
+                }).fail((error) => {
+                    Swal.hideLoading();
+                    Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+                    console.log(data);
+
+                })
+        }
+        if ($("#managernik").val() == null && $("#roles").val() != null) {
+        console.log("managernik kosong")
             $.ajax({
-                url: 'https://localhost:44383/api/users/updaterole/'+obj2.Nik+'/'+obj2.RoleId,
+                url: 'https://localhost:44383/api/users/updaterole/' + obj2.Nik + '/' + obj2.RoleId,
                 type: "POST",
                 headers: {
                     'Accept': 'application/json',
@@ -170,14 +189,52 @@ function updatemnik() {
                     $('#tableEmployee').DataTable().ajax.reload();
                 }
             });
-            
+        }
+        if ($("#managernik").val() != null && $("#roles").val() != null) {
+            $.ajax({
+                url: 'https://localhost:44383/api/users/updatemnik/',
+                type: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(obj),
 
-        }).fail((error) => {
-            Swal.hideLoading();
-            Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
-            console.log(data);
+                beforeSend: function () {
+                    Swal.showLoading()
+                },
+            }).done((result) => {
+                $.ajax({
+                    url: 'https://localhost:44383/api/users/updaterole/' + obj2.Nik + '/' + obj2.RoleId,
+                    type: "POST",
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify(obj2),
+                    success: function (result) {
+                        Swal.fire({ title: 'Success', 'text': ('You changed user data!!'), 'type': 'success' })
+                        console.log(result);
+                        Swal.hideLoading();
+                        $('#viewModal').modal('hide');
+                        $('#tableEmployee').DataTable().ajax.reload();
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        Swal.hideLoading();
+                        Swal.fire({ title: 'Error', 'text': 'Error Encountered when updating data', 'type': 'error' });
+                        $('#viewModal').modal('hide');
+                        $('#tableEmployee').DataTable().ajax.reload();
+                    }
+                });
 
-        })
+
+            }).fail((error) => {
+                Swal.hideLoading();
+                Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+                console.log(data);
+
+            })
+        }
 
 }).fail((error) => {
    

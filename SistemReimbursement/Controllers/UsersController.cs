@@ -79,9 +79,13 @@ namespace SistemReimbursement.Controllers
 
             var get = repo.updatemnik(register);
 
-            if (get > 0)
+            if (get == 1)
             {
                 return Ok("Update Mnik Berhasil");
+            }
+            else if(get == 0)
+            {
+                return Ok("Mnik tidak berubah");
             }
             else
             {
