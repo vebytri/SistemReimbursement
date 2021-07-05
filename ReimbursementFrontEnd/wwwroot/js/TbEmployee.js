@@ -131,7 +131,9 @@ function updatemnik() {
 
         obj.Nik = nik1;
         obj.ManagerNik = managerNik;
-      
+        var obj2 = new Object();
+        obj2.Nik = obj.Nik;
+        obj2.RoleId = $("#roles").val();
 
         $.ajax({
             url: 'https://localhost:44383/api/users/updatemnik/',
@@ -146,12 +148,29 @@ function updatemnik() {
                 Swal.showLoading()
             },
         }).done((result) => {
-            Swal.fire({ title: 'Success', 'text': ('Change successfully'), 'type': 'success' })
-            Swal.hideLoading();
-            $('#viewModal').modal('hide');
-
-
-            $('#tableEmployee').DataTable().ajax.reload();
+            $.ajax({
+                url: 'https://localhost:44383/api/users/updaterole/'+obj2.Nik+'/'+obj2.RoleId,
+                type: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify(obj2),
+                success: function (result) {
+                    Swal.fire({ title: 'Success', 'text': ('You changed user data!!'), 'type': 'success' })
+                    console.log(result);
+                    Swal.hideLoading();
+                    $('#viewModal').modal('hide');
+                    $('#tableEmployee').DataTable().ajax.reload();
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    Swal.hideLoading();
+                    Swal.fire({ title: 'Error', 'text': 'Error Encountered when updating data', 'type': 'error' });
+                    $('#viewModal').modal('hide');
+                    $('#tableEmployee').DataTable().ajax.reload();
+                }
+            });
+            
 
         }).fail((error) => {
             Swal.hideLoading();
