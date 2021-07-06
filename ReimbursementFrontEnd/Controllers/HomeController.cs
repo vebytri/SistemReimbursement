@@ -198,7 +198,7 @@ namespace ReimbursementFrontEnd.Controllers
         public async Task<IActionResult> upload(List<IFormFile> files)
         {
             long size = files.Sum(f => f.Length);
-            var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\Files\\");
+            var basePath = Path.Combine(Directory.GetCurrentDirectory() + "\\wwwroot\\Files\\");
             var filePaths = new List<string>();
             foreach (var formFile in files)
             {
