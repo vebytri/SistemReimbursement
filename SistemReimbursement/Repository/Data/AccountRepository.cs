@@ -62,7 +62,7 @@ namespace SistemReimbursement.Repository.Data
                 }
 
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
+                message.From.Add(new MailboxAddress("admin@reimbursement", "diancoeg1234@gmail.com"));
                 message.To.Add(new MailboxAddress($"{first}", $"{email}"));
                 message.Subject = "Request Reimbursement ";
                 message.Body = new TextPart("plain")
@@ -74,7 +74,7 @@ namespace SistemReimbursement.Repository.Data
                 using (var client = new SmtpClient())
                 {
                     client.Connect("smtp.gmail.com", 587, false);
-                    client.Authenticate("hai.infodigital@gmail.com", "#Naufal1998");
+                    client.Authenticate("diancoeg1234@gmail.com", "diancoeg112");
                     client.Send(message);
                     client.Disconnect(true);
 

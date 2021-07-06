@@ -128,7 +128,7 @@ namespace SistemReimbursement.Repository.Data
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("hdiancoeg1234@gmail.com", "diancoeg112");
+                client.Authenticate("diancoeg1234@gmail.com", "diancoeg112");
                 client.Send(message);
                 client.Disconnect(true);
 
