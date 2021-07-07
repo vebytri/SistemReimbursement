@@ -51,8 +51,8 @@
 
 
                         @*<button type="button" data-toggle="modal" data-target="#insertModal" class="btn btn-success rounded-pill">
-                            <i class="fas fa-plus-circle"></i>
-                        </button>*@
+                                <i class="fas fa-plus-circle"></i>
+                            </button>*@
                     </div>
 
                     <div class="table-responsive mt-2">
@@ -86,70 +86,71 @@
 
 
 @*--detail--*@
+    <div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg rounded-pill" role="document">
+            <div class="modal-content rounded">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleModal">View Reimbursements</h5>
 
-<div class="modal fade" id="viewModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg rounded-pill" role="document">
-        <div class="modal-content rounded">
-            <div class="modal-header">
-                <h5 class="modal-title" id="titleModal">View Reimbursements</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-
-            <div class="modal-body m-1">
-                <div class="form-row m-2">
-
-                    <div class="form-group col-md-3">
-                        <label>Request Date</label>
-                        <input class="form-control rounded-pill" id="reqDate">
-                        <input class="form-control rounded-pill" hidden id="reqId">
-
-                        <div class="form-row m-2 text-center">
-                            <label>  Status Manager</label>
-                            <input class="form-control rounded-pill" id="managerStatus">
-                        </div>
-
-                        <div class="form-row m-2 text-center">
-                            <label> Status Finance</label>
-                            <input class="form-control rounded-pill" id="financeStatus">
-                        </div>
-
-                    </div>
-
-                    <div class="form-group col-md-3">
-                        <label>Status</label>
-                        <input class="form-control rounded-pill" id="status">
-                        <div class="form-row m-2  text-center">
-                            <label> Date Manager</label>
-                            <input class="form-control rounded-pill" id="managerDate">
-                        </div>
-
-                        <div class="form-row m-2 text-center">
-                            <label> Date Finance</label>
-                            <input class="form-control rounded-pill" id="financeDate">
-                        </div>
-
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label>Notes</label>
-                        <textarea class="form-control" id="viewnotes" rows="8"></textarea>
-                    </div>
-
+               
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
-            </div>
+
+
+                <div class="modal-body m-1">
+                    <div class="form-row m-2">
+
+                        <div class="form-group col-md-3">
+                            <label>Request Date</label>
+                            <input class="form-control rounded-pill" id="reqDate">
+                            <input class="form-control rounded-pill" hidden id="reqId">
+
+                            <div class="form-row m-2 text-center">
+                                <label>  Status Manager</label>
+                                <input class="form-control rounded-pill" id="managerStatus">
+                            </div>
+
+                            <div class="form-row m-2 text-center">
+                                <label> Status Finance</label>
+                                <input class="form-control rounded-pill" id="financeStatus">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group col-md-3">
+                            <label>Status</label>
+                            <input class="form-control rounded-pill" id="status">
+                            <div class="form-row m-2  text-center">
+                                <label> Date Manager</label>
+                                <input class="form-control rounded-pill" id="managerDate">
+                            </div>
+
+                            <div class="form-row m-2 text-center">
+                                <label> Date Finance</label>
+                                <input class="form-control rounded-pill" id="financeDate">
+                            </div>
+
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Notes</label>
+                            <textarea class="form-control" id="viewnotes" rows="8"></textarea>
+                        </div>
+
+                    </div>
+                </div>
 
 
 
-            @*--table view---*@
-            <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
-            <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
+                @*--table view---*@
+                <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
+                <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
 
 
-            <div class="table-responsive mt-2">
-                <table id="viewEmployee" class="table no-wrap v-middle mb-0">
+                <div class="table-responsive mt-2">
+                    <table id="viewEmployee" class="table no-wrap v-middle mb-0">
                         <thead class="table-primary">
                             <tr class="border-0">
                                 <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
@@ -160,99 +161,98 @@
                             </tr>
 
                         </thead>
-                    <tbody>
-                    </tbody>
+                        <tbody>
+                        </tbody>
 
-                </table>
-
-
-
-
-                <!--<table class="table no-wrap v-middle mb-0" id="viewEmployee">
-            <tr class="border-0">-->
-                @*<th class="border-0 font-14 font-weight-medium text-center ">No</th>*@
-
-
-                <!--</tr>
-                <tr>
-                    <td><input type="text" id="requestAmount" class="form-control rounded-pill " /></td>
-                    <td><input type="text" id="category" class="form-control rounded-pill " /></td>
-                    <td><input type="text" id="file" class="form-control rounded-pill " /></td>
-                    <td><input type="text" id="paidAmount" class="form-control rounded-pill " /></td>
-                </tr>
-                <tbody>
-                </tbody>
-            </table>-->
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-@*--insert --*@
-<div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg rounded-pill" role="document">
-        <div class="modal-content rounded">
-            <div class="modal-header">
-                <h5 class="modal-title" id="titleModal">Request Reimbursements</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <form enctype="multipart/form-data" method="post">
-                    <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
-
-                    <table class="table no-wrap v-middle mb-0" id="dynamic_field">
-                        <tr class="border-0">
-                            @*<th class="border-0 font-14 font-weight-medium text-center ">No</th>*@
-                            <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
-                            <th class="border-0 font-14 font-weight-medium text-center">Category</th>
-                            <th class="border-0 font-14 font-weight-medium text-center ">Upload File</th>
-                        </tr>
-                        <tr>
-
-                            @*<td>1</td>*@
-                            <td><input type="text" id="requestAmount" name="loop[]req" value="123" placeholder="Request Amount" class="form-control rounded-pill " /></td>
-                            <td>
-                                <select class="form-control rounded-pill" id="category" name="loop[]type">
-                                    <option value="1">Medical</option>
-                                    <option value="2">Transportation</option>
-                                </select>
-                                @* <input type="text" name="category[]" placeholder="Choose Category" class="form-control rounded-pill category_email" />*@
-                            </td>
-                            <td><input type="file" name="loop[]file" id="upload" placeholder="Upload File" class="form-control-file" /></td>
-                            <td><button type="button" id="add" class="btn btn-success rounded-pill">Add More</button></td>
-                        </tr>
                     </table>
-                    <div class="form-group col-md-12">
-                        <label>Notes</label>
-                        <textarea class="form-control border-2 rounded" id="notes" rows="3" placeholder="Text Here.."></textarea>
-                    </div>
+
+
+
+
+                    <!--<table class="table no-wrap v-middle mb-0" id="viewEmployee">
+                    <tr class="border-0">-->
+                    @*<th class="border-0 font-14 font-weight-medium text-center ">No</th>*@
+
+
+                    <!--</tr>
+                        <tr>
+                            <td><input type="text" id="requestAmount" class="form-control rounded-pill " /></td>
+                            <td><input type="text" id="category" class="form-control rounded-pill " /></td>
+                            <td><input type="text" id="file" class="form-control rounded-pill " /></td>
+                            <td><input type="text" id="paidAmount" class="form-control rounded-pill " /></td>
+                        </tr>
+                        <tbody>
+                        </tbody>
+                    </table>-->
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
-                        <button type="submit" id="submit" name="submit" class="btn btn-primary rounded-pill">Submit</button>
 
                     </div>
-                </form>
+
+                </div>
             </div>
-
-
         </div>
     </div>
-</div>
+
+    @*--insert --*@
+    <div class="modal fade" id="insertModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg rounded-pill" role="document">
+            <div class="modal-content rounded">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="titleModal">Request Reimbursements</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form enctype="multipart/form-data" method="post">
+                        <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
+
+                        <table class="table no-wrap v-middle mb-0" id="dynamic_field">
+                            <tr class="border-0">
+                                @*<th class="border-0 font-14 font-weight-medium text-center ">No</th>*@
+                                <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
+                                <th class="border-0 font-14 font-weight-medium text-center">Category</th>
+                                <th class="border-0 font-14 font-weight-medium text-center ">Upload File</th>
+                            </tr>
+                            <tr>
+
+                                @*<td>1</td>*@
+                                <td><input type="text" id="requestAmount" name="loop[]req" value="123" placeholder="Request Amount" class="form-control rounded-pill " /></td>
+                                <td>
+                                    <select class="form-control rounded-pill" id="category" name="loop[]type">
+                                        <option value="1">Medical</option>
+                                        <option value="2">Transportation</option>
+                                    </select>
+                                    @* <input type="text" name="category[]" placeholder="Choose Category" class="form-control rounded-pill category_email" />*@
+                                </td>
+                                <td><input type="file" name="loop[]file" id="upload" placeholder="Upload File" class="form-control-file" /></td>
+                                <td><button type="button" id="add" class="btn btn-success rounded-pill">Add More</button></td>
+                            </tr>
+                        </table>
+                        <div class="form-group col-md-12">
+                            <label>Notes</label>
+                            <textarea class="form-control border-2 rounded" id="notes" rows="3" placeholder="Text Here.."></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
+                            <button type="submit" id="submit" name="submit" class="btn btn-primary rounded-pill">Submit</button>
+
+                        </div>
+                    </form>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
 
 
 
 
-@section scripts{
-    <script src="~/js/Manager.js" asp-append-version="true"></script>
+    @section scripts{
+        <script src="~/js/Manager.js" asp-append-version="true"></script>
 
-}
+    }

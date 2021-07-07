@@ -148,18 +148,31 @@
                                 </span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i data-feather="smile"
+                                       class="svg-icon mr-2 ml-1"></i>
+                                    Role : @ViewBag.sessionRole
+
+                                </a>
+                                <a class="dropdown-item" href="javascript:void(0)">
+                                    <i data-feather="hash"
+                                       class="svg-icon mr-2 ml-1"></i>
+                                    Role : @ViewBag.sessionNik
+
+                                </a>
+                                <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/home/viewprofile/">
                                     <i data-feather="user"
                                        class="svg-icon mr-2 ml-1"></i>
                                     My Profile
                                 </a>
 
-                                
+
                                 @*<a class="dropdown-item" href="javascript:void(0)">
-                                    <i data-feather="settings"
-                                       class="svg-icon mr-2 ml-1"></i>
-                                    Account Setting
-                                </a>*@
+            <i data-feather="settings"
+               class="svg-icon mr-2 ml-1"></i>
+            Account Setting
+        </a>*@
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/login/logout">
                                     <i data-feather="power"
