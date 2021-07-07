@@ -68,13 +68,24 @@ namespace SistemReimbursement.Repository.Data
                 result = conn.SaveChanges();
 
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
+                message.From.Add(new MailboxAddress("Sy-Ment", "hai.infodigital@gmail.com"));
                 message.To.Add(new MailboxAddress($"{register.FirstName}", $"{register.Email}"));
-                message.Subject = "Sucsess Registration Account";
+                message.Subject = "Success Registration Account";
+                var br = "<br>";
+                var str = "<strong>";
+                var str2 = "</strong>";
                 message.Body = new TextPart("plain")
                 {
-                    Text = $"Dear, {register.FirstName}" +
-                    $" Your Account Successfully Created."
+                    Text = $"Thank you for your time. {br}" +
+                    $"Your Account Sy-Ment Successfully Created {br} {br}{br}" +
+
+                    $"if you have any questions,please contact us :{br}" +
+                    $"Email:{str}admin@SyMent.com{str2}, {br}" +
+                    $"We will be more than happy to assist you.{br}{br} {br}" +
+                    $"Best regards,{br}" +
+                    $"{str}Sy-Ment Team.{str2}{br}"
+
+
                 };
 
                 using (var client = new SmtpClient())
@@ -155,15 +166,27 @@ namespace SistemReimbursement.Repository.Data
                 var str2 = "</strong>";
                 //var link = "<a href='" + "https://localhost:44382/login/newpassword/"+$"{email}"+ "'>Reset Password</a>";
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
+                message.From.Add(new MailboxAddress("Sy-Ment", "hai.infodigital@gmail.com"));
                 message.To.Add(new MailboxAddress($"{first}", $"{email}"));
                 message.Subject = "Forgot Password Account";
+        
                 message.Body = new TextPart("plain")
                 {
-                    Text = $"Dear, {first}" +
-                    $"  It's Your New Password : {br}" +
-                    $" {str}{pass}{str2}" 
-                  
+
+                    Text = $"Dear, {str}{first}{str2} {br}{br}" +
+                    $"Thank you for your time. {br}" +
+                    $"Your password has been reset,{br}" +
+                    $"It's Your New Password : {br} {br}" +
+                    $"{str}{pass}{str2} {br} {br}{br}" +
+
+
+                    $"if you have any questions,please contact us :{br}" +
+                    $"Email:{str}admin@SyMent.com{str2}, {br}" +
+                    $"We will be more than happy to assist you.{br}{br} {br}" +
+                    $"Best regards,{br}" +
+                    $"{str}Sy-Ment Team.{str2}{br}"
+
+
                 };
 
                 using (var client = new SmtpClient())

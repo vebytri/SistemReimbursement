@@ -5,7 +5,7 @@
             url: 'https://localhost:44383/api/Reimbursements/getallbystatus/aprovedbymanager',
 
             dataSrc: ''
-        },
+        }, 
         columns: [
             {
                 "data": null, "sortable": true,
@@ -80,9 +80,9 @@
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                            <button type="button" class="btn btn-success rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-check"></i></button>
+                            <button type="button" title="View Detail" class="btn btn-success rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-check"></i></button>
 
-                            <button type="button" class="btn btn-danger rounded-pill" onclick="rej('${row['reimbursementId']}')"><i class="fas fa-times"></i></button>
+                            <button type="button" title="Rejected" class="btn btn-danger rounded-pill" onclick="rej('${row['reimbursementId']}')"><i class="fas fa-times"></i></button>
                             `;
                 }
                 //< button type="button" class= "btn btn-success rounded-pill" onclick="acc('${row['reimbursementId']}')" > <i class="fas fa-check"></i></button>
@@ -190,7 +190,7 @@ function Detail(id) {
                     "render": function (data, type, row) {
                         return `
                             ${data}
-                            <button type="button" class="btn btn-info rounded-pill"  name="loop[]nameFile" onclick="Download('${row['fileAttachment']}')" ><i class="fas fa-download"></i></button>
+                            <button type="button" class="btn btn-info rounded-pill" title="Download" name="loop[]nameFile" onclick="Download('${row['fileAttachment']}')" ><i class="fas fa-download"></i></button>
                              `;
                     }
 
@@ -557,7 +557,7 @@ function rej(id) {
         //console.log(obj);
         //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
         $.ajax({
-            url: 'https://localhost:44383/api/reimbursements/updatefinance/' + id + '/2/' + obj.status,
+            url: 'https://localhost:44383/api/reimbursements/updatefinance2/' + id + '/2/' + obj.status,
 
             type: "PUT",
             data: JSON.stringify(obj),

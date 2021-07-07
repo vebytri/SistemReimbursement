@@ -60,16 +60,47 @@ namespace SistemReimbursement.Repository.Data
                     conn.Add(attachment);
                     result = conn.SaveChanges();
                 }
-
+               
                 var message = new MimeMessage();
-                message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
+                message.From.Add(new MailboxAddress("Sy-Ment", "hai.infodigital@gmail.com"));
                 message.To.Add(new MailboxAddress($"{first}", $"{email}"));
                 message.Subject = "Request Reimbursement ";
+
+                var br = "<br>";
+                var str = "<strong>";
+                var str2 = "</strong>";
                 message.Body = new TextPart("plain")
                 {
-                    Text = $"Dear, {first}" +
-                    $" Request Reimbursement Successfully."
+
+                    Text = $"Dear, {str}{first}{str2} {br}{br}" +
+                    $"Thank you for your time. {br}" +
+                    $"Your request reimbursement has been {str}process{str2} to manager,{br}" +
+                    $"we will send your email if status from manager was updated.{br} {br}{br}"+
+                    $"if you have any questions,please contact us :{br}" +
+                    $"Email:{str}admin@SyMent.com{str2}, {br}" +
+                    $"We will be more than happy to assist you.{br}{br} {br}"+
+                    $"Best regards,{br}" +
+                    $"{str}Sy-Ment Team.{str2}{br}"
+
+
                 };
+
+
+     
+
+
+               
+
+
+               
+                
+              
+
+
+
+                
+
+              
 
                 using (var client = new SmtpClient())
                 {

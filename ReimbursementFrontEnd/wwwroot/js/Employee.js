@@ -79,7 +79,7 @@
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                            <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-eye"></i></button>
+                            <button type="button" title="View Detail" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-eye"></i></button>
 
                             `;
                 }
@@ -307,7 +307,7 @@ function Detail(id) {
                         "render": function (data, type, row) {
                             return `
                             ${data}
-                            <button type="button" class="btn btn-info rounded-pill" onclick="Download('${row['fileAttachment']}')" ><i class="fas fa-download"></i></button>
+                            <button type="button" class="btn btn-info rounded-pill" title="Download" onclick="Download('${row['fileAttachment']}')" ><i class="fas fa-download"></i></button>
                              `;
                         }
 
