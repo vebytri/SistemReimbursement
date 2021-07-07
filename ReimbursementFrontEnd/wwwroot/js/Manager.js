@@ -391,7 +391,10 @@ function Detail(id) {
                     "data": 'requestAmount'
                 },
                 {
-                    "data": 'categoryId'
+                    "data": null, "sortable": true,
+                    "render": function (data, type, row) {
+                        return data.category.categoryName;
+                    }
                 },
 
                 {

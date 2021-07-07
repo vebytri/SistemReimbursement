@@ -295,7 +295,10 @@ function Detail(id) {
                     },
 
                     {
-                        "data": 'categoryId'
+                        "data": null, "sortable": true,
+                        "render": function (data, type, row) {
+                            return data.category.categoryName;
+                        }
 
                     },
 
