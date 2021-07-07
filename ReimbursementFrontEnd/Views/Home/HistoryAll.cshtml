@@ -6,7 +6,7 @@
 
 
     Layout = "~/Views/Shared/Admin/_Layout.cshtml";
-}
+} 
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-7 align-self-center">
@@ -96,13 +96,13 @@
         <div class="modal-content rounded">
             <div class="modal-header">
                 <h5 class="modal-title" id="titleModal">View Reimbursements</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <div class="modal-body m-1">
-                <div class="form-row m-2" >
+                <div class="form-row m-2">
 
                     <div class="form-group col-md-3">
                         <label>Request Date</label>
@@ -119,40 +119,41 @@
                             <input class="form-control rounded-pill" id="financeStatus">
                         </div>
 
-                     </div> 
+                    </div>
 
-                        <div class="form-group col-md-3">
-                            <label>Status</label>
-                            <input class="form-control rounded-pill" id="status">
-                            <div class="form-row m-2  text-center">
-                                <label> Date Manager</label>
-                                <input class="form-control rounded-pill" id="managerDate">
-                            </div>
-
-                            <div class="form-row m-2 text-center">
-                                <label> Date Finance</label>
-                                <input class="form-control rounded-pill" id="financeDate">
-                            </div>
-
+                    <div class="form-group col-md-3">
+                        <label>Status</label>
+                        <input class="form-control rounded-pill" id="status">
+                        <div class="form-row m-2  text-center">
+                            <label> Date Manager</label>
+                            <input class="form-control rounded-pill" id="managerDate">
                         </div>
 
-                        <div class="form-group col-md-6">
-                            <label>Notes</label>
-                            <textarea class="form-control" id="viewnotes" rows="8"></textarea>
+                        <div class="form-row m-2 text-center">
+                            <label> Date Finance</label>
+                            <input class="form-control rounded-pill" id="financeDate">
                         </div>
 
                     </div>
-             </div>
+
+                    <div class="form-group col-md-6">
+                        <label>Notes</label>
+                        <textarea class="form-control" id="viewnotes" rows="8"></textarea>
+                    </div>
+
+                </div>
+            </div>
 
 
-                @*--table view---*@
-                <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
-                <input type="text" class="form-control" hidden id="first" value="@ViewBag.sessionNameFirst">
-                <input type="text" class="form-control" hidden id="last" value="@ViewBag.sessionNameLast">
-                <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
-
+            @*--table view---*@
+            <input type="text" class="form-control" hidden id="nik2" value="@ViewData["NIK"]">
+            <input type="text" class="form-control" hidden id="first" value="@ViewBag.sessionNameFirst">
+            <input type="text" class="form-control" hidden id="last" value="@ViewBag.sessionNameLast">
+            <input type="text" class="form-control" hidden id="mnik" value="@ViewData["ManagerNik"]">
+            <div class="table-responsive mt-2">
                 <table id="viewEmployee" class="table no-wrap v-middle mb-0">
-                    <thead>
+                    <thead class="table-primary">
+
                         <tr class="border-0">
                             <th class="border-0 font-14 font-weight-medium text-center ">Request Amount</th>
                             <th class="border-0 font-14 font-weight-medium text-center">Category</th>
@@ -165,28 +166,29 @@
 
                 </table>
                 <!--<table class="table no-wrap v-middle mb-0" id="viewEmployee">
-    <tr class="border-0">-->
+        <tr class="border-0">-->
                 @*<th class="border-0 font-14 font-weight-medium text-center ">No</th>*@
 
 
                 <!--</tr>
-        <tr>
-            <td><input type="text" id="requestAmount" class="form-control rounded-pill " /></td>
-            <td><input type="text" id="category" class="form-control rounded-pill " /></td>
-            <td><input type="text" id="file" class="form-control rounded-pill " /></td>
-            <td><input type="text" id="paidAmount" class="form-control rounded-pill " /></td>
-        </tr>
-        <tbody>
-        </tbody>
-    </table>-->
+            <tr>
+                <td><input type="text" id="requestAmount" class="form-control rounded-pill " /></td>
+                <td><input type="text" id="category" class="form-control rounded-pill " /></td>
+                <td><input type="text" id="file" class="form-control rounded-pill " /></td>
+                <td><input type="text" id="paidAmount" class="form-control rounded-pill " /></td>
+            </tr>
+            <tbody>
+            </tbody>
+        </table>-->
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary rounded-pill" title="Close" data-dismiss="modal">Close</button>
 
                 </div>
-
             </div>
-    </div>
+
+        </div>
+        </div>
 </div>
 
 
@@ -196,7 +198,7 @@
         <div class="modal-content rounded">
             <div class="modal-header">
                 <h5 class="modal-title" id="titleModal">Request Reimbursements</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -232,8 +234,8 @@
                         <textarea class="form-control border-2 rounded" id="notes" rows="3" placeholder="Text Here.."></textarea>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
-                        <button type="submit" id="submit" name="submit" class="btn btn-primary rounded-pill">Submit</button>
+                        <button type="button" class="btn btn-secondary rounded-pill" title="Close" data-dismiss="modal">Close</button>
+                        <button type="submit" id="submit" name="submit" title="Submit" class="btn btn-primary rounded-pill">Submit</button>
 
                     </div>
                 </form>

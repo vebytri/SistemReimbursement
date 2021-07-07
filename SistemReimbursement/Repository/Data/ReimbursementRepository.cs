@@ -50,13 +50,71 @@ namespace SistemReimbursement.Repository.Data
             result = conn.SaveChanges();
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
+            message.From.Add(new MailboxAddress("Sy-Ment", "hai.infodigital@gmail.com"));
             message.To.Add(new MailboxAddress($"{first}", $"{email}"));
             message.Subject = "Update Request Reimburstment From Finance";
+            var br = "<br>";
+            var str = "<strong>";
+            var str2 = "</strong>";
             message.Body = new TextPart("plain")
             {
-                Text = $"Dear, {first}" +
-                $"Your Request Reimbursement was updated by Finance."
+
+                Text = $"Dear, {str}{first}{str2} {br}{br}" +
+                $"Thank you for your time. {br}" +
+                $"Your request reimbursement status is {str}APPROVED BY FINANCE{str2},{br}" +
+                $"Your money will be transfer to your account bank in 2x24 Hours.{br} {br}{br}" +
+                $"if you have any questions,please contact us :{br}" +
+                $"Email:{str}admin@SyMent.com{str2}, {br}" +
+                $"We will be more than happy to assist you.{br}{br} {br}" +
+                $"Best regards,{br}" +
+                $"{str}Sy-Ment Team.{str2}{br}"
+
+
+            };
+
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.Authenticate("hai.infodigital@gmail.com", "#Naufal1998");
+                client.Send(message);
+                client.Disconnect(true);
+
+            }
+            return result;
+        }
+        public int updatefinance2(int id, int status, string statusstring)
+        {
+            var result = 0;
+            var cekPerson = conn.Reimbursement.FirstOrDefault(p => p.ReimbursementId == id);
+            var email = cekPerson.Account.User.Email;
+            var first = cekPerson.Account.User.FirstName;
+
+            cekPerson.Status = statusstring;
+            cekPerson.FinanceApprovalDate = DateTime.Now;
+            cekPerson.FinanceApprovalStatus = status;
+            result = conn.SaveChanges();
+
+            var message = new MimeMessage();
+            message.From.Add(new MailboxAddress("Sy-Ment", "hai.infodigital@gmail.com"));
+            message.To.Add(new MailboxAddress($"{first}", $"{email}"));
+            message.Subject = "Update Request Reimburstment From Finance";
+            var br = "<br>";
+            var str = "<strong>";
+            var str2 = "</strong>";
+            message.Body = new TextPart("plain")
+            {
+                //$"Your money Not  be transfer to your account bank in 2x24 Hours.{br} {br}{br}" +
+
+                Text = $"Dear, {str}{first}{str2} {br}{br}" +
+                $"Thank you for your time. {br}" +
+                $"Your request reimbursement status is {str}REJECTED BY FINANCE{str2},{br}{br}{br}" +
+                $"if you have any questions,please contact us :{br}" +
+                $"Email:{str}admin@SyMent.com{str2}, {br}" +
+                $"We will be more than happy to assist you.{br}{br} {br}" +
+                $"Best regards,{br}" +
+                $"{str}Sy-Ment Team.{str2}{br}"
+
+
             };
 
             using (var client = new SmtpClient())
@@ -84,13 +142,26 @@ namespace SistemReimbursement.Repository.Data
 
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
+            message.From.Add(new MailboxAddress("Sy-Ment", "hai.infodigital@gmail.com"));
             message.To.Add(new MailboxAddress($"{first}", $"{email}"));
             message.Subject = "Update Request Reimburstment From Manager";
+            var br = "<br>";
+            var str = "<strong>";
+            var str2 = "</strong>";
             message.Body = new TextPart("plain")
             {
-                Text = $"Dear, {first}" +
-                $"Your Request Reimbursement was updated by Manager"
+                //$"Your money Not  be transfer to your account bank in 2x24 Hours.{br} {br}{br}" +
+
+                Text = $"Dear, {str}{first}{str2} {br}{br}" +
+                $"Thank you for your time. {br}" +
+                $"Your request reimbursement status is {str}REJECTED BY MANAGER{str2},{br}{br}{br}" +
+                $"if you have any questions,please contact us :{br}" +
+                $"Email:{str}admin@SyMent.com{str2}, {br}" +
+                $"We will be more than happy to assist you.{br}{br} {br}" +
+                $"Best regards,{br}" +
+                $"{str}Sy-Ment Team.{str2}{br}"
+
+
             };
 
             using (var client = new SmtpClient())
@@ -119,10 +190,23 @@ namespace SistemReimbursement.Repository.Data
             message.From.Add(new MailboxAddress("admin@reimbursement", "hai.infodigital@gmail.com"));
             message.To.Add(new MailboxAddress($"{first}", $"{email}"));
             message.Subject = "Update Request Reimburstment From Manager";
+            var br = "<br>";
+            var str = "<strong>";
+            var str2 = "</strong>";
             message.Body = new TextPart("plain")
             {
-                Text = $"Dear, {first}" +
-                $"Your Request Reimbursement was updated by Manager"
+
+                Text = $"Dear, {str}{first}{str2} {br}{br}" +
+                $"Thank you for your time. {br}" +
+                $"Your request reimbursement status is {str}APPROVED BY MANAGER{str2},{br}" +
+                $"Wait until 2x24 Hours your status will update by Finance.{br} {br}{br}" +
+                $"if you have any questions,please contact us :{br}" +
+                $"Email:{str}admin@SyMent.com{str2}, {br}" +
+                $"We will be more than happy to assist you.{br}{br} {br}" +
+                $"Best regards,{br}" +
+                $"{str}Sy-Ment Team.{str2}{br}"
+
+
             };
 
             using (var client = new SmtpClient())

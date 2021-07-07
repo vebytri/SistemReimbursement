@@ -93,7 +93,7 @@
                     <h5 class="modal-title" id="titleModal">View Reimbursements</h5>
 
                
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" title="Close" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -141,7 +141,7 @@
 
                     </div>
                 </div>
-
+                 
 
 
                 @*--table view---*@
@@ -185,10 +185,15 @@
                         </tbody>
                     </table>-->
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>
+                <div class="modal-footer">
+                    <button type="submit" id="rej" name="rej" title="Rejected" class="btn btn-danger rounded-pill"><i class="fas fa-times"></i></button>
+                    <button type="submit" id="acc" name="acc" title="Approved" class="btn btn-success rounded-pill"><i class="fas fa-check"></i></button>
 
-                    </div>
+                    @*<button type="button" class="btn btn-success rounded-pill" onclick="acc('${row['reimbursementId']}')"><i class="fas fa-check"></i></button>
+                    <button type="button" class="btn btn-danger rounded-pill" onclick="rej('${row['reimbursementId']}')"><i class="fas fa-times"></i></button>*@
+                    @*<button type="button" class="btn btn-secondary rounded-pill" data-dismiss="modal">Close</button>*@
+
+                </div>
 
                 </div>
             </div>

@@ -107,16 +107,16 @@
         // income
         // ============================================================== 
         var data = {
-            labels: ['Approved', 'Rejected', 'Process'],
+            labels: ['Approved', 'Process', 'Rejected'],
             series: [
-                [approved, rejected, process]
-            ]
-        };
-
+                [approved, process, rejected]]
+         
+        } ;
         var options = {
             axisX: {
                 showGrid: false
             },
+
             seriesBarDistance: 1,
             chartPadding: {
                 top: 15,
@@ -184,14 +184,62 @@
 
         // income
         // ============================================================== 
+        //var data = {
+        //    labels: ['Approved', 'Rejected', 'Process'],
+        //    series: [
+        //        [approved1, rejected1, process1]
+        //    ]
+        //};
+
+        //var options = {
+        //    axisX: {
+        //        showGrid: false
+        //    },
+        //    seriesBarDistance: 1,
+        //    chartPadding: {
+        //        top: 15,
+        //        right: 15,
+        //        bottom: 5,
+        //        left: 0
+        //    },
+        //    plugins: [
+        //        Chartist.plugins.tooltip()
+        //    ],
+        //    width: '100%'
+        //};
+
+        //var responsiveOptions = [
+        //    ['screen and (max-width: 640px)', {
+        //        seriesBarDistance: 5,
+        //        axisX: {
+        //            labelInterpolationFnc: function (value) {
+        //                return value[0];
+        //            }
+        //        }
+        //    }]
+        //];
+        //new Chartist.Bar('#finance', data, options, responsiveOptions);
+
         var data = {
-            labels: ['Approved', 'Rejected', 'Process'],
-            series: [
-                [approved1, rejected1, process1]
-            ]
+            labels: ['D1', 'D2', 'D3'],
+            series: [{
+                className: 'first-series',
+                data: [
+                    { meta: 'one', value: 5 },
+                    { meta: 'two', value: 2 },
+                    { meta: 'three', value: 4 }
+                ]
+            }, {
+                className: 'first-series',
+                data: [
+                    { meta: 'one', value: 1 },
+                    { meta: 'two', value: 1 },
+                    { meta: 'three', value: 1 }
+                ]
+            }]
         };
 
-        var options = {
+          var options = {
             axisX: {
                 showGrid: false
             },
@@ -218,8 +266,8 @@
                 }
             }]
         ];
-        new Chartist.Bar('#finance', data, options, responsiveOptions);
 
+        new Chartist.Bar('#finance', data);
 
     }).fail((error) => {
 
@@ -242,8 +290,7 @@
         },
 
     }).done((result) => {
-        //console.log(result);
-        //console.log(result[0].managerApprovalStatus);
+       
         for (var i = 0; i < result.length; i++) {
 
             if (result[i].financeApprovalStatus == 0) {
@@ -302,5 +349,6 @@
 
 
     })
+    
  });
 

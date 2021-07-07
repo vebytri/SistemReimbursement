@@ -73,7 +73,7 @@
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                            <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal" onclick="Detail('${row['nik']}')" ><i class="fas fa-eye"></i></button>
+                            <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal" title="View Detail" onclick="Detail('${row['nik']}')" ><i class="fas fa-eye"></i></button>
 
                             `;
                 }

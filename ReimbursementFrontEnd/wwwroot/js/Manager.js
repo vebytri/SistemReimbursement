@@ -5,7 +5,7 @@
             url: 'https://localhost:44383/api/Reimbursements/getallbystatusandnik/Process/' + nik2,
             dataSrc: ''
         },
-        columns: [
+        columns: [ 
             {
                 "data": null, "sortable": true,
                 "render": function (data, type, row, meta) {
@@ -79,10 +79,8 @@
                 "data": null,
                 "render": function (data, type, row) {
                     return `
-                            <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-eye"></i></button>
+                            <button type="button" class="btn btn-info rounded-pill" data-toggle="modal" data-target="#viewModal" title="View Detail"  onclick="Detail('${row['reimbursementId']}')" ><i class="fas fa-eye"></i></button>
 
-                            <button type="button" class="btn btn-success rounded-pill" onclick="acc('${row['reimbursementId']}')"><i class="fas fa-check"></i></button>
-                            <button type="button" class="btn btn-danger rounded-pill" onclick="rej('${row['reimbursementId']}')"><i class="fas fa-times"></i></button>
                             `;
                 }
 
@@ -93,6 +91,9 @@
 
 });
 
+                            //<button type="button" class="btn btn-success rounded-pill" onclick="acc('${row['reimbursementId']}')"><i class="fas fa-check"></i></button>
+                            //<button type="button" class="btn btn-danger rounded-pill" onclick="rej('${row['reimbursementId']}')"><i class="fas fa-times"></i></button>
+
 //--add new data---
 
 $(document).ready(function () {
@@ -101,7 +102,7 @@ $(document).ready(function () {
 
     $("#add").click(function () {
         i++;
-        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
+        $('#dynamic_field').append('<tr id="row' + i + '"> <td><input type="text" id="requestAmount" name=""loop[]req" placeholder="Request Amount" class="form-control rounded-pill" /> </td ><td> <select class="form-control rounded-pill" id="category" name="loop[]type">  < option value = "1" > Medical</option > <option value="2">Transportation</option></select ></td > <td><input type="file" id="upload" name="loop[]file" placeholder="Upload File" title="Download" class="form-control-file " /></td> <td><button type="button" name="remove" id="' + i + '" class="btn btn-danger rounded-pill btn_remove">X</button></td></tr > ');
         //console.log(show_value);
     });
 
@@ -176,134 +177,120 @@ $(document).ready(function () {
     });
 });
 
-function acc(id) {
-    $.ajax({
-        url: 'https://localhost:44383/api/reimbursements/' + id,
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+//function acc(id) {
+ //$('#acc').click(function (e) {
+ //       e.preventDefault();
+ //   $.ajax({
+ //       url: 'https://localhost:44383/api/reimbursements/' + id,
+ //       type: "GET",
+ //       headers: {
+ //           'Accept': 'application/json',
+ //           'Content-Type': 'application/json'
+ //       },
+ //   }).done((result) => {
+
+ //       var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+ //       obj.reimbursementId = id;
+ //       obj.requestDate = result.requestDate;
+ //       obj.status = "aprovedbymanager";
+ //       obj.notes = result.notes;
+
+      
+ //       obj.managerApprovalDate = new Date().toLocaleString();
+ //       obj.financeApprovalStatus = result.financeApprovalStatus;
+ //       obj.financeApprovalDate = result.financeApprovalDate;
+ //       obj.nik = result.nik;
        
+ //       $.ajax({
+ //           url: 'https://localhost:44383/api/reimbursements/updatemanager/' + id + '/1/' + obj.status,
 
-    }).done((result) => {
+ //           type: "PUT",
+ //           data: JSON.stringify(obj),
+ //           headers: {
+ //               'Accept': 'application/json',
+ //               'Content-Type': 'application/json'
+ //           },
+ //           beforeSend: function () {
+ //               Swal.showLoading()
+ //           },
+ //       }).done((result) => {
 
-        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-        obj.reimbursementId = id;
-        obj.requestDate = result.requestDate;
-        obj.status = "aprovedbymanager";
-        obj.notes = result.notes;
+ //           Swal.fire({ title: 'Success', 'text': ('Updated successfully'), 'type': 'success' })
+ //           Swal.hideLoading();
 
-        //obj.managerApprovalStatus = 1;
-        obj.managerApprovalDate = new Date().toLocaleString();
-        obj.financeApprovalStatus = result.financeApprovalStatus;
-        obj.financeApprovalDate = result.financeApprovalDate;
-        obj.nik = result.nik;
-        //console.log(obj);
-        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-        $.ajax({
-            url: 'https://localhost:44383/api/reimbursements/updatemanager/' + id + '/1/' + obj.status,
-
-            type: "PUT",
-            data: JSON.stringify(obj),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            beforeSend: function () {
-                Swal.showLoading()
-            },
-        }).done((result) => {
-
-            Swal.fire({ title: 'Success', 'text': ('Updated successfully'), 'type': 'success' })
-            Swal.hideLoading();
-
-            //$('#viewModal').modal('hide');
-            $('#tableEmployee').DataTable().ajax.reload();
+ //           //$('#viewModal').modal('hide');
+ //           $('#tableEmployee').DataTable().ajax.reload();
           
-            //console.log(result);
-            //$('#tableEmployee').DataTable().ajax.reload();
+         
+ //       }).fail((error) => {
 
-            //Swal.fire(
-            //    'Success !',
-            //    'Success Updated',
-            //    'success'
-            //)
+ //           Swal.hideLoading();
+ //           Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+ //           //console.log(data);
+ //       })
 
-        }).fail((error) => {
-
-            Swal.hideLoading();
-            Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
-            //console.log(data);
-        })
-
-    }).fail((error) => {
+ //   }).fail((error) => {
 
 
-    })
-
-    //$("#reqDate").val(result.requestDate.split("T")[0]);
-    //$("#status").val(result.status);
-    //$("#managerStatus").val(result.managerApprovalStatus);
-    //$("#managerDate").val(result.managerApprovalDate.split("T")[0]);
-    //$("#financeStatus").val(result.financeApprovalStatus);
-    //$("#financeDate").val(result.financeApprovalDate.split("T")[0]);
-    //$("#notes").val(result.notes);
+ //   })
+ //});
 
 
-}
-function rej(id) {
-    $.ajax({
-        url: 'https://localhost:44383/api/reimbursements/' + id,
-        type: "GET",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+//function rej(id) {
+ //$('#rej').click(function (e) {
 
-    }).done((result) => {
+ //   $.ajax({
+ //       url: 'https://localhost:44383/api/reimbursements/' + id,
+ //       type: "GET",
+ //       headers: {
+ //           'Accept': 'application/json',
+ //           'Content-Type': 'application/json'
+ //       },
 
-        var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
-        obj.reimbursementId = id;
-        obj.requestDate = result.requestDate;
-        obj.status = "rejectedbymanager";
-        obj.notes = result.notes;
+ //   }).done((result) => {
 
-        //obj.managerApprovalStatus = 2;
-        obj.managerApprovalDate = new Date().toLocaleString();
-        obj.financeApprovalStatus = 2;
-        obj.financeApprovalDate = result.financeApprovalDate;
-        obj.nik = result.nik;
+ //       var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+ //       obj.reimbursementId = id;
+ //       obj.requestDate = result.requestDate;
+ //       obj.status = "rejectedbymanager";
+ //       obj.notes = result.notes;
 
-        //console.log(obj);
-        //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
-        $.ajax({
-            url: 'https://localhost:44383/api/reimbursements/updatemanager2/' + id + '/2/' + obj.status,
+ //       //obj.managerApprovalStatus = 2;
+ //       obj.managerApprovalDate = new Date().toLocaleString();
+ //       obj.financeApprovalStatus = 2;
+ //       obj.financeApprovalDate = result.financeApprovalDate;
+ //       obj.nik = result.nik;
 
-            type: "PUT",
-            data: JSON.stringify(obj),
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            beforeSend: function () {
-                Swal.showLoading()
-            },
-        }).done((result) => {
-            Swal.fire({ title: 'Success', 'text': ('Updated successfully'), 'type': 'success' })
-            Swal.hideLoading();
-            //console.log(result);
-            $('#tableEmployee').DataTable().ajax.reload();
+ //       //console.log(obj);
+ //       //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+ //       $.ajax({
+ //           url: 'https://localhost:44383/api/reimbursements/updatemanager2/' + id + '/2/' + obj.status,
 
-        }).fail((error) => {
-            Swal.hideLoading();
-            Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
-            //console.log(data);
-        })
-    }).fail((error) => {
-    })
+ //           type: "PUT",
+ //           data: JSON.stringify(obj),
+ //           headers: {
+ //               'Accept': 'application/json',
+ //               'Content-Type': 'application/json'
+ //           },
+ //           beforeSend: function () {
+ //               Swal.showLoading()
+ //           },
+ //       }).done((result) => {
+ //           Swal.fire({ title: 'Success', 'text': ('Updated successfully'), 'type': 'success' })
+ //           Swal.hideLoading();
+ //           //console.log(result);
+ //           $('#tableEmployee').DataTable().ajax.reload();
 
-}
+ //       }).fail((error) => {
+ //           Swal.hideLoading();
+ //           Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+ //           //console.log(data);
+ //       })
+ //   }).fail((error) => {
+ //   })
+
+ //});
+
 
 function Detail(id) {
     //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
@@ -335,18 +322,14 @@ function Detail(id) {
         {
             $("#managerStatus").val("Unknown!");
         }
-       
-
+      
         if (result.managerApprovalDate == "0001-01-01T00:00:00")
         {
             $("#managerDate").val("Not Available");
         }
-
         else {
             $("#managerDate").val(result.managerApprovalDate.split("T")[0]);
         }
-
-
         if (result.financeApprovalStatus == 0)
         {
             $("#financeStatus").val("Process");
@@ -363,13 +346,10 @@ function Detail(id) {
         {
             $("#financeStatus").val("Unknown!");
         }
-
-        
         if (result.financeApprovalDate == "0001-01-01T00:00:00")
         {
             $("#financeDate").val("Not Available");
         }
-
         else
         {
            $("#financeDate").val(result.financeApprovalDate.split("T")[0]);
@@ -377,6 +357,121 @@ function Detail(id) {
 
         $("#viewnotes").val(result.notes);
 
+
+        $('#acc').click(function (e) {
+            var id2 = result.reimbursementId;
+            e.preventDefault();
+            $.ajax({
+                url: 'https://localhost:44383/api/reimbursements/' + id2,
+                type: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            }).done((result) => {
+
+                var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+                obj.reimbursementId = id;
+                obj.requestDate = result.requestDate;
+                obj.status = "aprovedbymanager";
+                obj.notes = result.notes;
+
+
+                obj.managerApprovalDate = new Date().toLocaleString();
+                obj.financeApprovalStatus = result.financeApprovalStatus;
+                obj.financeApprovalDate = result.financeApprovalDate;
+                obj.nik = result.nik;
+
+                $.ajax({
+                    url: 'https://localhost:44383/api/reimbursements/updatemanager/' + id + '/1/' + obj.status,
+
+                    type: "PUT",
+                    data: JSON.stringify(obj),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    beforeSend: function () {
+                        Swal.showLoading()
+                    },
+                }).done((result) => {
+
+                    Swal.fire({ title: 'Success', 'text': ('Updated successfully'), 'type': 'success' })
+                    Swal.hideLoading();
+                    $('#viewModal').modal('hide');
+
+                    //$('#viewModal').modal('hide');
+                    $('#tableEmployee').DataTable().ajax.reload();
+
+
+                }).fail((error) => {
+
+                    Swal.hideLoading();
+                    Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+                    //console.log(data);
+                })
+
+            }).fail((error) => {
+
+
+            })
+        });
+
+        $('#rej').click(function (e) {
+
+            $.ajax({
+                url: 'https://localhost:44383/api/reimbursements/' + id,
+                type: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+
+            }).done((result) => {
+
+                var obj = new Object(); //sesuaikan sendiri nama objectnya dan beserta isinya
+                obj.reimbursementId = id;
+                obj.requestDate = result.requestDate;
+                obj.status = "rejectedbymanager";
+                obj.notes = result.notes;
+
+                //obj.managerApprovalStatus = 2;
+                obj.managerApprovalDate = new Date().toLocaleString();
+                obj.financeApprovalStatus = 2;
+                obj.financeApprovalDate = result.financeApprovalDate;
+                obj.nik = result.nik;
+
+                //console.log(obj);
+                //isi dari object kalian buat sesuai dengan bentuk object yang akan di post
+                $.ajax({
+                    url: 'https://localhost:44383/api/reimbursements/updatemanager2/' + id + '/2/' + obj.status,
+
+                    type: "PUT",
+                    data: JSON.stringify(obj),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    beforeSend: function () {
+                        Swal.showLoading()
+                    },
+                }).done((result) => {
+                    Swal.fire({ title: 'Success', 'text': ('Updated successfully'), 'type': 'success' })
+                    Swal.hideLoading();
+                    $('#viewModal').modal('hide');
+
+                    //console.log(result);
+                    $('#tableEmployee').DataTable().ajax.reload();
+
+                }).fail((error) => {
+                    Swal.hideLoading();
+                    Swal.fire({ title: 'Error', 'text': 'Something went wrong', 'type': 'error' });
+                    //console.log(data);
+                })
+            }).fail((error) => {
+            })
+
+        });
 
         //---tablemodal--
         //console.log(id);
@@ -402,7 +497,7 @@ function Detail(id) {
                     "render": function (data, type, row) {
                         return `
                             ${data}
-                            <button type="button" class="btn btn-info rounded-pill" id="nameFile" name="loop[]nameFile" onclick="Download('${row['fileAttachment']}')" ><i class="fas fa-download"></i></button>
+                            <button type="button" class="btn btn-info rounded-pill" title="Download" id="nameFile" name="loop[]nameFile" onclick="Download('${row['fileAttachment']}')" ><i class="fas fa-download"></i></button>
                              `;
                     }
                 },
@@ -419,6 +514,10 @@ function Detail(id) {
         });
 
         $('#viewEmployee').DataTable().destroy();
+
+
+
+
         
     }).fail((error) => {
   })
