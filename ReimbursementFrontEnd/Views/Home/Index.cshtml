@@ -27,9 +27,11 @@
             <div class="col-lg-12 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <input type="text" id="nik3"hidden value="@ViewData["NIK"]" />
+                        <input type="text" id="nik3" hidden value="@ViewData["NIK"]" />
                         <h4 class="card-title">All Request Reimbursements</h4>
-                        <div id="employee" class="mt-2 position-relative" style="height:294px;"></div>
+                        <div id="canvasWrapper" style="position: relative; height: 294px">
+                            <canvas id="EmployeeChart" class="mt-2 position-relative" style="height:294px"></canvas>
+                        </div>
                         <ul class="list-inline text-center mt-4 mb-2">
                             <li class="list-inline-item text-muted font-italic">Reimbursements Status</li>
                         </ul>
@@ -43,8 +45,10 @@
             <div class="col-lg-4 col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Gender</h4>
-                        <div id="ct-chart" class="mt-2" style="height:283px; width:100%;"></div>
+                        <h4 class="card-title">Gender</h4><div id="canvasWrapper" style="position: relative; height: 294px">
+                         <canvas id="GenderChart"  height="294"></canvas>
+                        </div>
+                        
                         <ul class="list-style-none mb-0">
                             <li>
                                 <i class="fas fa-circle text-primary font-10 mr-2"></i>
@@ -69,7 +73,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Manager</h4>
-                        <div id="manager" class="mt-2 position-relative" style="height:294px;"></div>
+                        <div id="canvasWrapper" style="position: relative; height: 294px">
+                            <canvas id="ManagerChart" class="mt-2 position-relative" style="height:294px"></canvas>
+                        </div>
                         <ul class="list-inline text-center mt-4 mb-2">
                             <li class="list-inline-item text-muted font-italic">Reimbursements Status</li>
                         </ul>
@@ -81,9 +87,12 @@
         {
             <div class="col-lg-4 col-md-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" height="294px">
                         <h4 class="card-title">Finance</h4>
-                        <div id="finance" class="mt-2 position-relative" style="height:294px;"></div>
+                        <div id="canvasWrapper" style="position: relative; height: 294px">
+                            <canvas id="FinanceChart" class="mt-2 position-relative" style="height:294px"></canvas>
+                        </div>
+                       
                         <ul class="list-inline text-center mt-4 mb-2">
                             <li class="list-inline-item text-muted font-italic">Reimbursements Status</li>
                         </ul>
