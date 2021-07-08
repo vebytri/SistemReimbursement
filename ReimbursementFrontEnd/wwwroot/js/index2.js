@@ -26,42 +26,74 @@
                 femalee++;
             }
         }
-        $('#Female').html(femalee);
-        $('#Male').html(malee);   
-        var chart1 = c3.generate({
-            bindto: '#ct-chart',
+
+        var ctxg = document.getElementById("GenderChart");
+        var myChart = new Chart(ctxg, {
+            type: 'doughnut',
             data: {
-                columns: [
-                    ['Male', malee],
-                    ['Female', femalee]
-                ],
-
-                type: 'donut',
-                tooltip: {
-                    show: true
-                }
+                labels: ['MALE', 'FEMALE'],
+                datasets: [{
+                   
+                    data: [malee,femalee],
+                    backgroundColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)'
+                       
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }]
             },
-            donut: {
-                label: {
-                    show: false
+            options: {
+                legend: {
+                    display: false
                 },
-                title: 'Gender',
-                width: 18
-            },
+                responsive: true,
+                maintainAspectRatio: false,
+                aspectRatio: 1,
+                cutoutPercentage:80
 
-            legend: {
-                hide: true
-            },
-            color: {
-                pattern: [
-                    '#ff4f70',
-                    '#5f76e8'
-                    
-                ]
             }
         });
+        //$('#Female').html(femalee);
+        //$('#Male').html(malee);   
+        //var chart1 = c3.generate({
+        //    bindto: '#ct-chart',
+        //    data: {
+        //        columns: [
+        //            ['Male', malee],
+        //            ['Female', femalee]
+        //        ],
 
-        d3.select('#ct-chart .c3-chart-arcs-title').style('font-family', 'Rubik');
+        //        type: 'donut',
+        //        tooltip: {
+        //            show: true
+        //        }
+        //    },
+        //    donut: {
+        //        label: {
+        //            show: false
+        //        },
+        //        title: 'Gender',
+        //        width: 18
+        //    },
+
+        //    legend: {
+        //        hide: true
+        //    },
+        //    color: {
+        //        pattern: [
+        //            '#ff4f70',
+        //            '#5f76e8'
+                    
+        //        ]
+        //    }
+        //});
+
+        //d3.select('#ct-chart .c3-chart-arcs-title').style('font-family', 'Rubik');
 
     }).fail((error) => {
 
@@ -106,41 +138,57 @@
         
         // income
         // ============================================================== 
-        var data = {
-            labels: ['Approved', 'Process', 'Rejected'],
-            series: [
-                [approved, process, rejected]]
-         
-        } ;
-        var options = {
-            axisX: {
-                showGrid: false
-            },
+        var ctxm = document.getElementById("ManagerChart").getContext('2d');
 
-            seriesBarDistance: 1,
-            chartPadding: {
-                top: 15,
-                right: 15,
-                bottom: 5,
-                left: 0
-            },
-            plugins: [
-                Chartist.plugins.tooltip()
-            ],
-            width: '100%'
-        };
+        var ManagerChart = new Chart(ctxm, {
+            type: 'bar',
+            data: {
+                labels: ["Process", "Rejected", "Approved"],
+                datasets: [{
 
-        var responsiveOptions = [
-            ['screen and (max-width: 640px)', {
-                seriesBarDistance: 5,
-                axisX: {
-                    labelInterpolationFnc: function (value) {
-                        return value[0];
-                    }
+                    data: [process, rejected, approved],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(75, 192, 192, 1)',
+
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(75, 192, 192, 1)',
+
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+
+                            stepSize: 1
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        barPercentage: 0.4
+                    }]
                 }
-            }]
-        ];
-        new Chartist.Bar('#manager', data, options, responsiveOptions);
+            }
+        });
+
 
 
     }).fail((error) => {
@@ -180,94 +228,60 @@
 
             }
         }
-
-
-        // income
-        // ============================================================== 
-        //var data = {
-        //    labels: ['Approved', 'Rejected', 'Process'],
-        //    series: [
-        //        [approved1, rejected1, process1]
-        //    ]
-        //};
-
-        //var options = {
-        //    axisX: {
-        //        showGrid: false
-        //    },
-        //    seriesBarDistance: 1,
-        //    chartPadding: {
-        //        top: 15,
-        //        right: 15,
-        //        bottom: 5,
-        //        left: 0
-        //    },
-        //    plugins: [
-        //        Chartist.plugins.tooltip()
-        //    ],
-        //    width: '100%'
-        //};
-
-        //var responsiveOptions = [
-        //    ['screen and (max-width: 640px)', {
-        //        seriesBarDistance: 5,
-        //        axisX: {
-        //            labelInterpolationFnc: function (value) {
-        //                return value[0];
-        //            }
-        //        }
-        //    }]
-        //];
-        //new Chartist.Bar('#finance', data, options, responsiveOptions);
-
-        var data = {
-            labels: ['D1', 'D2', 'D3'],
-            series: [{
-                className: 'first-series',
-                data: [
-                    { meta: 'one', value: 5 },
-                    { meta: 'two', value: 2 },
-                    { meta: 'three', value: 4 }
-                ]
-            }, {
-                className: 'first-series',
-                data: [
-                    { meta: 'one', value: 1 },
-                    { meta: 'two', value: 1 },
-                    { meta: 'three', value: 1 }
-                ]
-            }]
-        };
-
-          var options = {
-            axisX: {
-                showGrid: false
+        var ctx = document.getElementById("FinanceChart").getContext('2d');
+  
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Process", "Rejected",  "Approved"],
+                datasets: [{
+                 
+                    data: [process1, rejected1, approved1],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(75, 192, 192, 1)',
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(75, 192, 192, 1)',
+                       
+                    ],
+                    borderWidth: 1
+                }]
             },
-            seriesBarDistance: 1,
-            chartPadding: {
-                top: 15,
-                right: 15,
-                bottom: 5,
-                left: 0
-            },
-            plugins: [
-                Chartist.plugins.tooltip()
-            ],
-            width: '100%'
-        };
-
-        var responsiveOptions = [
-            ['screen and (max-width: 640px)', {
-                seriesBarDistance: 5,
-                axisX: {
-                    labelInterpolationFnc: function (value) {
-                        return value[0];
-                    }
+            options: {
+                    legend: {
+                        display: false
+                },
+                 responsive: true,
+                    maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        
+                            stepSize:1
+                        },
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false
+                        },
+                        barPercentage: 0.4
+                    }]
                 }
-            }]
-        ];
+            }
+        });
 
-        new Chartist.Bar('#finance', data);
+
+       
+
+
 
     }).fail((error) => {
 
@@ -310,39 +324,64 @@
         }
         // income
         // ============================================================== 
-        var data = {
-            labels: ['Approved', 'Rejected', 'Process'],
-            series: [
-                [approved2, rejected2, process2]
-            ]
-        };
-        var options = {
-            axisX: {
-                showGrid: false
-            },
-            seriesBarDistance: 10,
-            reverseData: true,
-            horizontalBars: true,
-            axisY: {
-                offset: 70
-            },
-            plugins: [
-                Chartist.plugins.tooltip()
-            ],
-            width: '100%'
-        };
+        var ctxe = document.getElementById("EmployeeChart").getContext('2d');
 
-        var responsiveOptions = [
-            ['screen and (max-width: 640px)', {
-                seriesBarDistance: 5,
-                axisX: {
-                    labelInterpolationFnc: function (value) {
-                        return value[0];
-                    }
+        var ManagerChart = new Chart(ctxe, {
+            type: 'horizontalBar',
+            data: {
+                labels: ["Process", "Rejected", "Approved"],
+                datasets: [{
+
+                    data: [process2, rejected2, approved2],
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(75, 192, 192, 1)',
+
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255,99,132,1)',
+                        'rgba(75, 192, 192, 1)',
+
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+
+                legend: {
+                    display: false
+                },
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+
+                            stepSize: 1
+                        },
+                        barPercentage: 0.4,
+                        gridLines: {
+                            display: false
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+
+                            stepSize: 1
+                        },
+                        gridLines: {
+                            display: false
+                        },
+                       
+                    }]
                 }
-            }]
-        ];
-        new Chartist.Bar('#employee', data, options, responsiveOptions);
+            }
+        });
+
 
 
     }).fail((error) => {
