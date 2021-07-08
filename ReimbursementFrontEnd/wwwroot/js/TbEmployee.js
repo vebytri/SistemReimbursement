@@ -44,28 +44,19 @@
                 }
             },
             {
-                "data": 'managerNik'
+                
+                "data": 'managerNik', "sortable": true,
+                "render": function (data, type, row) {
+                    if (data == 0) {
+                        return ("not available");
+                    }
+                    else {
+                        return data;
+                    }
+                }
 
-                //"sortable": true,
-                //"render": function (data, type, row) {
-
-                   
-                //        var mnik = row.nik;
-                //        console.log(mnik);
-                //        var first = row.firstName;
-                //        var last = row.lastName;
-
-                //        var mname = first + " " + last;
-                //        console.log(mname);
-
-                //    if (row.managerNik) {
-
-                //    }
-                //    return `
-                //        <td> <select class="form-control rounded-pill" id="mnik">  <option value = "${mnik}"> ${mname}</option ></select ></td>
-                //       `;
-
-                //}
+                
+            
             },
           
           

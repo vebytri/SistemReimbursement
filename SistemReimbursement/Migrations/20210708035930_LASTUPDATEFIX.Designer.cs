@@ -10,8 +10,8 @@ using SistemReimbursement.Context;
 namespace SistemReimbursement.Migrations
 {
     [DbContext(typeof(MyContext))]
-    [Migration("20210705133823_FIX")]
-    partial class FIX
+    [Migration("20210708035930_LASTUPDATEFIX")]
+    partial class LASTUPDATEFIX
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

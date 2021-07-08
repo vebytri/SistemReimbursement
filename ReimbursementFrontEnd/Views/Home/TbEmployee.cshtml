@@ -77,7 +77,7 @@
 
                                         <th class="border-0 font-14 font-weight-medium ">Email</th>
                                         <th class="border-0 font-14 font-weight-medium ">Birthdate</th>
-                                        <th class="border-0 font-14 font-weight-medium ">Manager</th>
+                                        <th class="border-0 font-14 font-weight-medium ">Manager Nik</th>
 
                                         <th class="border-0 font-14 font-weight-medium text-center">Action</th>
                                     </tr>
@@ -152,12 +152,12 @@
                                     {
                                         if (person.ManagerNik == datanow.ManagerNik)
                                         {
-                                        <option  value="@person.Nik">@person.FirstName</option>
+                                        <option  value="@person.Nik">@person.FirstName @person.LastName</option>
 
                                         }
                                         else
                                         {
-                                            <option value="@person.Nik">@person.FirstName</option>
+                                <option value="@person.Nik">@person.FirstName @person.LastName</option>
                                         }
                                     }
 
